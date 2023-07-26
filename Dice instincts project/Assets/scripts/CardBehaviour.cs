@@ -7,7 +7,7 @@ public class CardBehaviour : MonoBehaviour
     private int cost;
     private string type;
     private string cardName;
-    
+    public HandZone handZode;
     public CardBehaviour(int cost, string type, string cardName)
     {
         this.cost = cost;
@@ -43,6 +43,11 @@ public class CardBehaviour : MonoBehaviour
     }
     #endregion 
 
+    public void OnClick()
+    {
+        handZode.AddCardToHand(this);
+        Debug.Log("Card Clicked!");
+    }
     // Start is called before the first frame update
     void Start()
     {
