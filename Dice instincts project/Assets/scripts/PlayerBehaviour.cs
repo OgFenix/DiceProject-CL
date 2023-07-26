@@ -22,8 +22,8 @@ public class PlayerBehaviour : CharacterBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            deck.Add(new CardBehaviour(1, "Attack", "strike"));
-            deck.Add(new CardBehaviour(1, "Spell", "block"));
+
+
         }
         //add specific class cards
 
