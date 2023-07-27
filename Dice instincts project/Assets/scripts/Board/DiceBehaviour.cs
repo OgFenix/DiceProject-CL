@@ -13,6 +13,9 @@ public class DiceBehaviour : MonoBehaviour
     int[] DiceFaces = { 1, 2, 3, 4, 5, 6 };
     bool isRolling = false;
     int currentface;
+    [SerializeField]
+    BoardManager BoardManager;
+    public bool IsRollAllowed = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +28,22 @@ public class DiceBehaviour : MonoBehaviour
     {
         if (isRolling)
         {
-            currentface = DiceFaces[Random.Range(1, 6)];
+            currentface = DiceFaces[Random.Range(0, 6)];
             FaceText.text = $"{currentface}";
+            //Debug.Log("Current Face Is: " + currentface);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (IsRollAllowed && Input.GetMouseButtonDown(0))
         {
             Vector3 MousePos = MousePositionCalc.GetMousePositionInWorld();
             // Check if the dice is clicked
 
             if (DiceCollider.OverlapPoint(new Vector2(MousePos.x, MousePos.y)))
             {
+                if (isRolling)
+                {
+                    IsRollAllowed = false;
+                    BoardManager.initializePossibleEndingSqures(currentface);
+                }
                 // Toggle the dice rolling state
                 isRolling = !isRolling;
             }
