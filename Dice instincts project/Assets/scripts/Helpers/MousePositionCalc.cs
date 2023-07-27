@@ -10,7 +10,7 @@ static public class MousePositionCalc
         float distanceFromCamera = -Camera.main.transform.position.z;
         Vector3 mousePositionWorld = Camera.main.ScreenToWorldPoint(new Vector3(
             mousePositionScreen.x, mousePositionScreen.y, distanceFromCamera));
-        Debug.Log("Mouse Position in World Space (2D): " + mousePositionWorld);
+        //Debug.Log("Mouse Position in World Space (2D): " + mousePositionWorld);
         return mousePositionWorld;
     }
 

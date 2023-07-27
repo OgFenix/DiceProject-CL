@@ -14,12 +14,12 @@ public class DiceBehaviour : MonoBehaviour
     bool isRolling = false;
     int currentface;
     [SerializeField]
-    BoardManager BoardManager;
+    PlayerMovement PlayerMovementManager;
     public bool IsRollAllowed = true;
     // Start is called before the first frame update
     void Start()
     {
-        currentface = DiceFaces[Random.Range(1, 6)];
+        currentface = DiceFaces[Random.Range(0, 6)];
         FaceText.text = $"{currentface}";
     }
 
@@ -42,7 +42,7 @@ public class DiceBehaviour : MonoBehaviour
                 if (isRolling)
                 {
                     IsRollAllowed = false;
-                    BoardManager.initializePossibleEndingSqures(currentface);
+                    PlayerMovementManager.initializePossibleEndingSqures(currentface);
                 }
                 // Toggle the dice rolling state
                 isRolling = !isRolling;
