@@ -4,6 +4,18 @@ using UnityEngine;
 
 static public class MousePositionCalc
 {
+    public static Vector3 GetMousePositionInWorldBasedOnOldCameraPosition(Vector3 OldCamPos)
+    {
+        Vector3 mousePositionScreen = Input.mousePosition;
+        Vector3 NewCamPos = Camera.main.transform.position;
+        Camera.main.transform.position = OldCamPos;
+        float distanceFromCamera = -Camera.main.transform.position.z;
+        Vector3 mousePositionWorld = Camera.main.ScreenToWorldPoint(new Vector3(
+            mousePositionScreen.x, mousePositionScreen.y, distanceFromCamera));
+        Camera.main.transform.position = NewCamPos;
+        //Debug.Log("Mouse Position in World Space (2D): " + mousePositionWorld);
+        return mousePositionWorld;
+    }
     public static Vector3 GetMousePositionInWorld()
     {
         Vector3 mousePositionScreen = Input.mousePosition;

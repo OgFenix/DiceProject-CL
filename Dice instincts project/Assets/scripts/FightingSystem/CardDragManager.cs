@@ -51,7 +51,7 @@ public class CardDragManager : MonoBehaviour
 
     private void DragManager()
     {
-        m_PointerEventData.position = Input.mousePosition;
+        //m_PointerEventData.position = Input.mousePosition;
         if (Input.GetMouseButtonDown(0)) {
             OnBeginDrag(); //checking to pickup card
             return;
@@ -60,7 +60,7 @@ public class CardDragManager : MonoBehaviour
             Drag(); //dragging card
             return;
         }
-        if (Input.GetKeyUp(0))
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             OnEndDrag(); //finish Dragging
         }

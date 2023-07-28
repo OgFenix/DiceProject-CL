@@ -58,7 +58,9 @@ public class EnemyMovement : MonoBehaviour
         EnemyCellPos = MoveableDirections[AvailableMoves[Random.Range(0,AvailableMoves.Count)]] + EnemyCellPos;
         gameObject.transform.position = tilemap.GetCellCenterWorld(EnemyCellPos);
         if (Player.cellPlayerPosition == EnemyCellPos)
-            boardManager.EnterCombat(this);
+        {
+            boardManager.EnterCombat(this,true);
+        }
     }
 
     private List<int> GetAvailableMovementsInds()

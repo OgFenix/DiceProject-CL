@@ -612,6 +612,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -693,6 +694,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fcd53a6956295409f35407469bd7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInBoardState: 1
+  eventSystem: {fileID: 942444550}
 --- !u!1 &570399732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da35d6ebc1b5080499e70405b45582a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Dice: {fileID: 913910931}
   CombatButton: {fileID: 1021307913}
   enemies:
   - {fileID: 1553145680}
