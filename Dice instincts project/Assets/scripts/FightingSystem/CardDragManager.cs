@@ -55,7 +55,7 @@ public class CardDragManager : MonoBehaviour
 
     private void DragManager()
     {
-        //m_PointerEventData.position = Input.mousePosition;
+        m_PointerEventData.position = Input.mousePosition;
         if (Input.GetMouseButtonDown(0)) {
             OnBeginDrag(); //checking to pickup card
             return;
