@@ -9,11 +9,14 @@ using UnityEngine.UIElements;
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
+    DiceBehaviour Dice;
+    [SerializeField]
     GameObject CombatButton;
     public bool IsInCombat { get; private set; } = false;
     [SerializeField]
     private List<EnemyMovement> enemies = new List<EnemyMovement>();
     GameObject EnemyInCombat = null;
+    bool didEnemyStartCurrFight = false;
 
     private void Start()
     {
@@ -36,8 +39,11 @@ public class BoardManager : MonoBehaviour
             }
         return false;
     }
-    public void EnterCombat(EnemyMovement enemy)
+    public void EnterCombat(EnemyMovement enemy,bool IsFromEnemy = false)
     {
+        if (IsFromEnemy == true)
+            Dice.IsRollAllowed = false;
+        didEnemyStartCurrFight = IsFromEnemy;
         EnemyInCombat = enemy.gameObject;
         IsInCombat = true;
         CombatButton.SetActive(true);
@@ -55,6 +61,8 @@ public class BoardManager : MonoBehaviour
                 enemies.Remove(EnemyInCombat.GetComponent<EnemyMovement>());
                 GameObject.Destroy(EnemyInCombat);
             }
+            if (didEnemyStartCurrFight == true)
+                Dice.IsRollAllowed = true;
             CombatButton.SetActive(false);
             IsInCombat = false;
     }    
