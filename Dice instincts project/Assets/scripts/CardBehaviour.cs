@@ -9,6 +9,7 @@ public class CardBehaviour : MonoBehaviour
 
     public int handIndex;
 
+<<<<<<< Updated upstream:Dice instincts project/Assets/scripts/CardBehaviour.cs
     private GameManager gm;
     private void OnMouseDown()
     {
@@ -19,12 +20,22 @@ public class CardBehaviour : MonoBehaviour
             gm.availableCardSlots[handIndex] = true;
             MoveToDiscardPile();
         }
+=======
+
+    public void activateCard()
+    {
+
+>>>>>>> Stashed changes:Dice instincts project/Assets/scripts/FightingSystem/CardBehaviour.cs
     }
+
+
     void MoveToDiscardPile()
     {
         gm.discardPile.Add(this);
         gameObject.SetActive(false);
     }
+
+    
 
     // Start is called before the first frame update
     void Start()
