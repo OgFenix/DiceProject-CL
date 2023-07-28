@@ -148,11 +148,11 @@ GameObject:
   - component: {fileID: 2814511307820451830}
   m_Layer: 5
   m_Name: AttackCard
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &466818145060966383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -225,7 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b7cb7fd8c1161479fdb1dc9f9b85ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handZode: {fileID: 0}
+  CanvasRaycast: {fileID: 0}
+  eventSystem: {fileID: 0}
+  hasBeenPlayed: 0
+  handIndex: 0
 --- !u!1 &5839381078304804316
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     Tilemap tilemap;
     [SerializeField]
     GameObject PossibleEndingSquresPrefab;
-    Vector3Int cellPlayerPosition;
+    public Vector3Int cellPlayerPosition { get; private set; }
     List<Vector3Int> MoveableDirections = new List<Vector3Int>()
     {
         new Vector3Int(1, 0),new Vector3Int(0, 1),new Vector3Int(0, -1),new Vector3Int(-1, 0)

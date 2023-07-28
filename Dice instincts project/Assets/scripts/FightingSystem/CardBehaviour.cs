@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardBehaviour : MonoBehaviour
 {
+    [SerializeField]
+    GraphicRaycaster CanvasRaycast;
+    [SerializeField]
+    EventSystem eventSystem;
     public bool hasBeenPlayed;
-
     public int handIndex;
 
     private GameManager gm;
@@ -35,6 +41,6 @@ public class CardBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

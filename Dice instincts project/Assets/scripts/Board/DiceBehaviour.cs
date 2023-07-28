@@ -32,21 +32,19 @@ public class DiceBehaviour : MonoBehaviour
             FaceText.text = $"{currentface}";
             //Debug.Log("Current Face Is: " + currentface);
         }
-        if (IsRollAllowed && Input.GetMouseButtonDown(0))
-        {
-            Vector3 MousePos = MousePositionCalc.GetMousePositionInWorld();
-            // Check if the dice is clicked
+    }
 
-            if (DiceCollider.OverlapPoint(new Vector2(MousePos.x, MousePos.y)))
+    public void startRolling()
+    {
+        if (IsRollAllowed)
+        {
+            if (isRolling)
             {
-                if (isRolling)
-                {
-                    IsRollAllowed = false;
-                    PlayerMovementManager.initializePossibleEndingSqures(currentface);
-                }
-                // Toggle the dice rolling state
-                isRolling = !isRolling;
+                IsRollAllowed = false;
+                PlayerMovementManager.initializePossibleEndingSqures(currentface);
             }
-        } 
+            // Toggle the dice rolling state
+            isRolling = !isRolling;
+        }
     }
 }

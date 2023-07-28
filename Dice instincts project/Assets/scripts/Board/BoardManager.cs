@@ -9,12 +9,16 @@ using UnityEngine.UIElements;
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject CombatButtonPrefab;
-    GameObject CombatButton = null;
+    GameObject CombatButton;
     public bool IsInCombat { get; private set; } = false;
     [SerializeField]
     private List<EnemyMovement> enemies = new List<EnemyMovement>();
     GameObject EnemyInCombat = null;
+
+    private void Start()
+    {
+        CombatButton.SetActive(false);
+    }
     public void TurnIsOver()
     {
         foreach(EnemyMovement enemy in enemies)
@@ -27,39 +31,31 @@ public class BoardManager : MonoBehaviour
         foreach (EnemyMovement enemy in enemies)
             if(pos == enemy.EnemyCellPos)
             {
-                EnemyInCombat = enemy.gameObject;
-                EnterCombat();
+                EnterCombat(enemy);
                 return true;
             }
         return false;
     }
-    private void EnterCombat()
+    public void EnterCombat(EnemyMovement enemy)
     {
+        EnemyInCombat = enemy.gameObject;
         IsInCombat = true;
-        CombatButton = GameObject.Instantiate(CombatButtonPrefab);
+        CombatButton.SetActive(true);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            IsCombatButtonPressed();
-        }
+
     }
 
-    private void IsCombatButtonPressed()
+    public void CombatButtonPressed()
     {
-        Vector3 MousePos = MousePositionCalc.GetMousePositionInWorld();
-        if(CombatButton != null && CombatButton.GetComponent<BoxCollider2D>().OverlapPoint(new Vector2(MousePos.x, MousePos.y)))
-        {
             if (EnemyInCombat != null)
             {
                 enemies.Remove(EnemyInCombat.GetComponent<EnemyMovement>());
                 GameObject.Destroy(EnemyInCombat);
             }
-            GameObject.Destroy(CombatButton);
-            CombatButton = null;
+            CombatButton.SetActive(false);
             IsInCombat = false;
-        }
     }    
 }

@@ -5,8 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField]
+    BoardManager boardManager;
     Tilemap tilemap;
+    PlayerMovement Player;
     List<Vector3Int> MoveableDirections = new List<Vector3Int>()
     {
         new Vector3Int(1, 0),new Vector3Int(0, 1),new Vector3Int(0, -1),new Vector3Int(-1, 0)
@@ -16,6 +17,8 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+        Player = GameObject.Find("PlayerInBoard").GetComponent<PlayerMovement>();
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         PrevMoveInd = -1;
         EnemyCellPos = tilemap.WorldToCell(gameObject.transform.position);
@@ -54,6 +57,8 @@ public class EnemyMovement : MonoBehaviour
         //Debug.Log($"The Rand: {Random.Range(0, AvailableMoves.Count)}");
         EnemyCellPos = MoveableDirections[AvailableMoves[Random.Range(0,AvailableMoves.Count)]] + EnemyCellPos;
         gameObject.transform.position = tilemap.GetCellCenterWorld(EnemyCellPos);
+        if (Player.cellPlayerPosition == EnemyCellPos)
+            boardManager.EnterCombat(this);
     }
 
     private List<int> GetAvailableMovementsInds()
