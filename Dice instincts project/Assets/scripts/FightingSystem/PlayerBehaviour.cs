@@ -1,43 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerBehaviour : CharacterBehaviour
 {
 
+    [SerializeField]
+    private TextMeshProUGUI playerCurMana;
+    [SerializeField]
+    private TextMeshProUGUI playerMaxMana;
+    
 
-    private List<CardBehaviour> deck = new List<CardBehaviour>();
-    private List<RelicBehaviour> relicList = new List<RelicBehaviour>();
-    private DiceBehaviour dice;
-    private string playerClass;
+    private int curMana;
+    private int maxMana;
+    
 
-    public PlayerBehaviour(int health, string characterName, List<CardBehaviour> deck ,List<RelicBehaviour> relicList, DiceBehaviour dice, string playerClass) : base(health, characterName)
+
+    public void UpdateCurMana(int cardCost)
     {
-        this.deck = deck;
-        this.relicList = relicList;
-        this.dice = dice;
-        this.playerClass = playerClass;
+        curMana -= cardCost;
     }
-    public void createDeck(string playerClass)
+
+    public void UpdateMaxMana(int additionalMaxMana)
     {
-        for (int i = 0; i < 5; i++)
-        {
-
-
-        }
-        //add specific class cards
-
+        maxMana += additionalMaxMana;
     }
+
+   
+
     // Start is called before the first frame update
     void Start()
     {
-        PlayerBehaviour player = this;
-        createDeck(player.playerClass);
+        maxMana = 3;
+        curMana = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerCurMana.text = curMana.ToString();
+        playerMaxMana.text = maxMana.ToString();
         
     }
 }

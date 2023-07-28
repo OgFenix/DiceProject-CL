@@ -1,50 +1,40 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
 
 public class CharacterBehaviour : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI characterHealth;
+    [SerializeField]
+    List<Tuple<string, int, int>> enemyIDs = new List<Tuple<string, int, int>>();
+
     private int health;
-    private string characterName;
-    public CharacterBehaviour(int health, string characterName)
-    {
-        this.health = health;
-        this.characterName = characterName;
-    }
 
-    //get and set functions
-    #region
-    public string getName()
+    public void UpdateHealth(int damage)
     {
-        return characterName;
+        health -= damage;
     }
-    public int getHealth()
+    public void startingHealth(int startingHealth)
     {
-        return health;
+        health = startingHealth;
     }
-    public void setName(string characterName)
-    {
-        this.characterName = characterName;
-    }
-    public void setHealth(int health)
-    {
-        this .health = health;
-    }
-    #endregion
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.tag == "Enemy")
+            startingHealth(enemyIDs[0].Item2);
+        //starting health of every hero is 50
+        else
+            startingHealth(50);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        characterHealth.text = health.ToString();
     }
 }

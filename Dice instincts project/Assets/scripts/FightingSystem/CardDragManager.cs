@@ -31,9 +31,13 @@ public class CardDragManager : MonoBehaviour
         {
             if (result.gameObject.tag == "Card")
             {
-                CardToDrag = result.gameObject;
+                if (result.gameObject.transform.parent.tag == "Card")
+                    CardToDrag = result.gameObject.transform.parent.gameObject;
+                else
+                    CardToDrag = result.gameObject;
                 CardToDrag.transform.position = m_PointerEventData.position;
                 break;
+                
             }
         }
     }
@@ -60,7 +64,7 @@ public class CardDragManager : MonoBehaviour
             Drag(); //dragging card
             return;
         }
-        if (Input.GetKeyUp(0))
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             OnEndDrag(); //finish Dragging
         }

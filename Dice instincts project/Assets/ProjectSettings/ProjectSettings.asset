@@ -4,7 +4,11 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 27
+<<<<<<< Updated upstream
   productGUID: b7d21cf6533557743906ed86feed2781
+=======
+  productGUID: c9c48576330036848b5ee4cfb19dc967
+>>>>>>> Stashed changes
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
