@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Card
+public class Card : FrameworkOfObject
 {
-    public int id;
+    public override int id { get; protected set; }
     public string cardName;
     public int manaCost;
     public string cardDisc;
     public Sprite cardImage;
     public Classes cardForClass;
+    //EffectSelect1 - Effect - EffectSelect2 - Amount 
     public List<Tuple<EffectSelector, int>> effects;
 
     public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, List<Tuple<EffectSelector, int>> effects)

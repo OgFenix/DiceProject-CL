@@ -89,11 +89,11 @@ public class BoardManager : MonoBehaviour
     private void SteppedOnChestTile()
     {
         List<int> possibleIDs = new List<int>();
-        for(int i = 0; i < cardsDictionary.cardList.Count; i++)
+        for(int i = 0; i < cardsDictionary.ListOfObject.Count; i++)
             possibleIDs.Add(i);
         for (int i = 0; i < NumberOfItemsToChooseFromChest; i++)
         {
-            int newCardInDiscoverId = cardsDictionary.GetRandomCardID(possibleIDs);
+            int newCardInDiscoverId = cardsDictionary.GetRandomID(possibleIDs);
             possibleIDs.Remove(newCardInDiscoverId);
             NewCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
             NewCard.CreateCard(newCardInDiscoverId);

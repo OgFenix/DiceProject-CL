@@ -93,7 +93,7 @@ public class CardBehaviour : MonoBehaviour
     {
         GetChildrenComponents();
         cardsDictionary = GameObject.Find("GameDirector").GetComponent<CardsDictionary>();
-        thisCard = cardsDictionary.InitializeCard(id);
+        thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;
         cardName = thisCard.cardName;

@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+        boardManager = GameObject.Find("GameDirector").GetComponent<BoardManager>();
         Player = GameObject.Find("PlayerInBoard").GetComponent<PlayerMovement>();
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         PrevMoveInd = -1;
