@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
 {
+
     public List<GameObject> deck = new List<GameObject>();
     public List<GameObject> discardPile = new List<GameObject>();
     [SerializeField]

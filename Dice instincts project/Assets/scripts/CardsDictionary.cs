@@ -8,41 +8,28 @@ public partial class CardsDictionary : MonoBehaviour
 
 
     //     EffectSelect1 - Amount - EffectSelect2 - Amount 
-    List<Tuple<string, List<Tuple<EffectSelector, int>>>> cardIDs = new List<Tuple<string, List<Tuple<EffectSelector, int>>>>();
+    private List<Card> cardList = new List<Card>();
 
 
     
 
-    private void addCard(List<Tuple<EffectSelector, int>> effectsList, string name)
+    /*private void addCard(List<Tuple<EffectSelector, int>> effectsList, string name)
     {
         Tuple<string, List<Tuple<EffectSelector, int>>> curCard = new Tuple<string, List<Tuple<EffectSelector, int>>>(name, effectsList);
-        cardIDs.Add(curCard);
-    }
+        cardList.Add(curCard);
+    } */
 
 
     // Start is called before the first frame update
     void Start()
-    {
-        addCard(new List<Tuple<EffectSelector, int>>()
-        {
-            new Tuple<EffectSelector, int>(EffectSelector.Damage, 6)
-        }, "Attack");
-        addCard(new List<Tuple<EffectSelector, int>>()
-        {
-            new Tuple<EffectSelector, int>(EffectSelector.Block, 5)
-        }, "Defend");
+    { //ID,Name,ManaCost,Description,Image,Class,EffectList
+        cardList.Add(new Card(0,"Attack",1,"Deal 6 damage",Resources.Load<Sprite>("CardSprites/1"),Classes.Warrior,new List<Tuple<EffectSelector, int>>(){Tuple.Create(EffectSelector.Damage,6)})); 
+        cardList.Add(new Card(0, "Defense", 1, "Gain 5 Armor", Resources.Load<Sprite>("CardSprites/1"), Classes.Warrior, new List<Tuple<EffectSelector, int>>() { Tuple.Create(EffectSelector.Block, 5) }));
+        cardList.Add(new Card(0, "Rage", 1, "Lose 8 Health,Draw 2 Card", Resources.Load<Sprite>("CardSprites/1"), Classes.Warrior, new List<Tuple<EffectSelector, int>>() { Tuple.Create(EffectSelector.DamageSelf, 8),Tuple.Create(EffectSelector.Draw, 2) }));
     }
-    public Tuple<string, List<Tuple<EffectSelector, int>>> InitializeCard(string cardName)
+    public Card InitializeCard(int cardId)
     {
-        foreach(var cardID in cardIDs)
-        {
-            if(cardID.Item1 == cardName)
-            {
-                return cardID;
-            }
-        }
-        return null;
-        
+        return cardList[cardId];
     }
     // Update is called once per frame
     void Update()
