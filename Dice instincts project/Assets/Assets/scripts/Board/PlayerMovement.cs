@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -128,13 +129,14 @@ public class PlayerMovement : MonoBehaviour
         foreach (var step in PossiblePaths[ChosenPathInd])
         {
             gameObject.transform.position = tilemap.GetCellCenterWorld(step);
+            cellPlayerPosition = step;
             if (boardManager.IsContainingEnemy(step))
                 while (boardManager.IsInCombat)
                     yield return null;
             yield return new WaitForSeconds(0.3f);
         }
         Dice.IsRollAllowed = true;
-        boardManager.TurnIsOver();
+        boardManager.TurnIsOver(tilemap.GetTile(cellPlayerPosition));
         PossiblePaths.Clear();
     }
 }

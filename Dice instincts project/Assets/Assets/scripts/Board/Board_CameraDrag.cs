@@ -14,9 +14,19 @@ public class Board_CameraDrag : MonoBehaviour
     PointerEventData m_PointerEventData;
     Vector3 startingMousePosition = Vector3.zero;
     Vector3 startingCameraPosition;
+    [SerializeField]
+    public float zoomSpeed = 2.25f;
+    private bool m_Dragging = false;
+
+    private void ZoomCam()
+    {
+        float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
+        this.GetComponent<Camera>().orthographicSize = this.GetComponent<Camera>().orthographicSize + scrollWheelInput * zoomSpeed;
+    }
 
     private void OnBeginDrag()
     {
+        m_Dragging = true;
         startingMousePosition = m_PointerEventData.position;
         startingCameraPosition = this.transform.position;
     }
@@ -29,6 +39,7 @@ public class Board_CameraDrag : MonoBehaviour
 
     private void OnEndDrag()
     {
+        m_Dragging = false;
        startingCameraPosition = this.transform.position;
     }
 
@@ -62,6 +73,10 @@ public class Board_CameraDrag : MonoBehaviour
     void Update()
     {
         if (isInBoardState)
+        {
             DragManager();
+            if (!m_Dragging)
+                ZoomCam();
+        }
     }
 }

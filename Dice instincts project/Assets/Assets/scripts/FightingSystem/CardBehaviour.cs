@@ -13,16 +13,17 @@ public class CardBehaviour : MonoBehaviour
     public bool hasBeenPlayed;
     public int handIndex;
     private Card thisCard;
-    [SerializeField]
     private CardsDictionary cardsDictionary;
+    private bool IsCardInit = false;
 
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI manacostText;
     public TextMeshProUGUI descriptionText;
+    public Image cardBorders;
     public Image cardImage;
 
-    public int id;
-    public string name;
+    public int id = -1;
+    public string cardName;
     public int cost;
     public string cardDisc;
     public Sprite cardSprite;
@@ -44,7 +45,6 @@ public class CardBehaviour : MonoBehaviour
     {
         
     }
-
 
     void MoveToDiscardPile()
     { 
@@ -71,6 +71,9 @@ public class CardBehaviour : MonoBehaviour
                 case "CardImage":
                     cardImage = childObject.GetComponent<Image>();
                     break;
+                case "Card":
+                    cardBorders = childObject.GetComponent<Image>();
+                    break;
             }
         }
     }
@@ -79,22 +82,31 @@ public class CardBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsCardInit)
+        {
+            id = UnityEngine.Random.Range(0, 3); // make it take from ids in deck later
+            CreateCard(id);
+        }
+    }
+
+    public void CreateCard(int id)
+    {
         GetChildrenComponents();
         cardsDictionary = GameObject.Find("GameDirector").GetComponent<CardsDictionary>();
-        int cardID = UnityEngine.Random.Range(0, 3); // make it take from ids in deck later
-        thisCard = cardsDictionary.InitializeCard(cardID);
+        thisCard = cardsDictionary.InitializeCard(id);
         //creating card from thiscard
-        id = thisCard.id;
-        name = thisCard.name;
-        cost = thisCard.cost;
+        this.id = thisCard.id;
+        cardName = thisCard.cardName;
+        cost = thisCard.manaCost;
         cardDisc = thisCard.cardDisc;
         cardSprite = thisCard.cardImage;
         cardForClass = thisCard.cardForClass;
         effects = thisCard.effects;
         cardImage.sprite = cardSprite;
-        cardNameText.text = name;
+        cardNameText.text = cardName;
         manacostText.text = cost.ToString();
         descriptionText.text = cardDisc;
+        IsCardInit = true;
     }
 
     // Update is called once per frame

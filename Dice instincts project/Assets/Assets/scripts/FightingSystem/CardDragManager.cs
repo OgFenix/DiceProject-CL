@@ -34,7 +34,7 @@ public class CardDragManager : MonoBehaviour
             return;
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject.tag == "Card")
+            if (result.gameObject.tag == "Card" && (result.gameObject.transform.parent.gameObject == this.gameObject || result.gameObject.transform.parent.parent.gameObject == this.gameObject))
             {
                 if (result.gameObject.transform.parent.tag == "Card")
                     CardToDrag = result.gameObject.transform.parent.gameObject;

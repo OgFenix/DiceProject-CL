@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Card
   - Enemy
+  - CardDescription
+  - ManaCost
+  - CardImage
+  - Card_Name
+  - CardBorder
   layers:
   - Default
   - TransparentFX
