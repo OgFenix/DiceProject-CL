@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7050953842599315037}
   - component: {fileID: -3985692472662981757}
   m_Layer: 5
-  m_Name: DefenceCard
+  m_Name: Defend
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,7 +14,6 @@ public class CardBehaviour : MonoBehaviour
     EventSystem eventSystem;
     public bool hasBeenPlayed;
     public int handIndex;
-
     private void OnMouseDown()
     {
         if(hasBeenPlayed == false)
@@ -24,9 +23,18 @@ public class CardBehaviour : MonoBehaviour
             MoveToDiscardPile();
         }
     }
+
+    public void activateCard()
+    {
+        
+    }
+
+
     void MoveToDiscardPile()
     { 
     }
+
+    
 
     // Start is called before the first frame update
     void Start()

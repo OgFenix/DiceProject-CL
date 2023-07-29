@@ -5,6 +5,7 @@ using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class CardDragManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class CardDragManager : MonoBehaviour
     GraphicRaycaster CanvasRaycast;
     [SerializeField]
     EventSystem eventSystem;
+    [SerializeField]
+    RectTransform canvas;
+    public Vector3 handPosition;
+    public Vector2 handSize;
     PointerEventData m_PointerEventData;
     private GameObject CardToDrag = null;
 
@@ -47,9 +52,31 @@ public class CardDragManager : MonoBehaviour
         if (CardToDrag != null) 
             CardToDrag.transform.position = m_PointerEventData.position;
     }
+    public bool IsMouseInHand(Vector3 mousePos)
+    {
+        Vector3 handHalfSize = handSize / 2.0f;
+
+        // Calculate the minimum and maximum positions of the panel in all three dimensions
+        Vector3 handMin = handPosition - handHalfSize;
+        Vector3 handMax = handPosition + handHalfSize;
+
+        // Check if the position is within the panel's boundaries
+        if (mousePos.x >= handMin.x && mousePos.x <= handMax.x &&
+        mousePos.y >= handMin.y && mousePos.y <= handMax.y)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private void OnEndDrag()
     {
+        Vector3 mousePos = MousePositionCalc.GetMousePositionInCanvas(canvas);
+        if (IsMouseInHand(mousePos))
+        {
+
+        }
         CardToDrag = null;
     }
 
