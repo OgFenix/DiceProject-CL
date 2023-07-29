@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 1342932399884266938}
   m_Layer: 5
   m_Name: CardBorders
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -622,6 +622,16 @@ MonoBehaviour:
   hasBeenPlayed: 0
   handIndex: 0
   cardsDictionary: {fileID: 0}
+  cardNameText: {fileID: 0}
+  manacostText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  cardImage: {fileID: 0}
+  id: 0
+  name: 
+  cost: 0
+  cardDisc: 
+  cardSprite: {fileID: 0}
+  cardForClass: 0
 --- !u!114 &-3200589116402425300
 MonoBehaviour:
   m_ObjectHideFlags: 0
