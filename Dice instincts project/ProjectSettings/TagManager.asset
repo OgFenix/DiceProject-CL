@@ -11,6 +11,9 @@ TagManager:
   - CardImage
   - Card_Name
   - CardBorder
+  - EnemyImage
+  - EnemyCurHealth
+  - EnemyCurEffect
   layers:
   - Default
   - TransparentFX

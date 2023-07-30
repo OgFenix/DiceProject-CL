@@ -12,7 +12,6 @@ public class Card : FrameworkOfObject
     public string cardDisc;
     public Sprite cardImage;
     public Classes cardForClass;
-    //EffectSelect1 - Effect - EffectSelect2 - Amount 
     public List<Tuple<EffectSelector, int>> effects;
 
     public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, List<Tuple<EffectSelector, int>> effects)

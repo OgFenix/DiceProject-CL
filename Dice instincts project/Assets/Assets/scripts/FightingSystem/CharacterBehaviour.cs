@@ -3,38 +3,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-public class CharacterBehaviour : MonoBehaviour
+abstract public class CharacterBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI characterHealth;
-    [SerializeField]
-    List<Tuple<string, int, int>> enemyIDs = new List<Tuple<string, int, int>>();
+    public virtual string characterName { get; set; }
+    public virtual int health { get; set; }
 
-    private int health;
+    public abstract void UpdateHealth(int damage);
+    public abstract void startingHealth(int startingHealth);
 
-    public void UpdateHealth(int damage)
-    {
-        health -= damage;
-    }
-    public void startingHealth(int startingHealth)
-    {
-        health = startingHealth;
-    }
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.tag == "Enemy")
-            startingHealth(enemyIDs[0].Item2);
-        //starting health of every hero is 50
-        else
-            startingHealth(50);
+        startingHealth(health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        characterHealth.text = health.ToString();
     }
 }

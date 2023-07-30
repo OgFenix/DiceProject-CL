@@ -30,17 +30,6 @@ public class CardBehaviour : MonoBehaviour
     public Classes cardForClass;
     public List<Tuple<EffectSelector, int>> effects;
 
-
-    private void OnMouseDown()
-    {
-        if(hasBeenPlayed == false)
-        {
-            transform.position += Vector3.up * 5;
-            hasBeenPlayed = true;
-            MoveToDiscardPile();
-        }
-    }
-
     public void activateCard()
     {
         

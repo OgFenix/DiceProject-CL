@@ -4,19 +4,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemyDictionary : MonoBehaviour
+public class EnemyDictionary : FrameworkDictionary
 {
-    //     Name - Health - Attack
-    List<Tuple<string, int, int>> enemyIDs = new List<Tuple<string, int, int>>();
+    
 
-    private void Start()
+    public override void InitList()
     {
-        enemyIDs.Add(new Tuple<string, int, int>("Mondo", 15, 5));
-    }
-
-    private void Update()
-    {
-        
+        //IDs 100-199
+        //ID,Name,Health,Image,Attack,EffectsList
+        ListOfObject.Add(new Enemy(100, "Mondo", 15, Resources.Load<Sprite>("EnemySprites/Mondo"), 4, new List<Tuple<EnemiesEffectSelector, int>> { Tuple.Create(EnemiesEffectSelector.Attack, 5), Tuple.Create(EnemiesEffectSelector.strength,2) }));
     }
 
 }
