@@ -27,7 +27,7 @@ public class EnemyBehaviour : CharacterBehaviour
     {
         if (!isEnemyInit)
         {
-            id = UnityEngine.Random.Range(100, 100);
+            id = 0;
             CreateEnemy(id);
         }
     }
