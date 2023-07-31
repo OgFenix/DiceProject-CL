@@ -8,8 +8,13 @@ using UnityEngine;
 
 abstract public class CharacterBehaviour : MonoBehaviour
 {
+
+
+    public List<CharacterStatus> statusesList;
+
     public virtual string characterName { get; set; }
     public virtual int health { get; set; }
+    public virtual int block { get; set; }
 
     public abstract void UpdateHealth(int damage);
     public abstract void startingHealth(int startingHealth);

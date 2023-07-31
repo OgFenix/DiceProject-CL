@@ -12,9 +12,17 @@ public class FuncArgs
 {
     public int EffectNum;
     public EffectTiming Timing;
-    public FuncArgs(int effectNum,EffectTiming timing)
+    public CharacterBehaviour character = null;
+    public Status status;
+    public FuncArgs(int effectNum, EffectTiming timing)
     {
         this.EffectNum = effectNum;
         Timing = timing;
+    }
+    public FuncArgs(int effectNum, EffectTiming timing, Status status)
+    {
+        this.EffectNum = effectNum;
+        Timing = timing;
+        this.status = status;
     }
 }
