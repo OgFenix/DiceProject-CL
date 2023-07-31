@@ -40,8 +40,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 109, y: 168}
-  m_SizeDelta: {x: 78.4015, y: 82.1951}
+  m_AnchoredPosition: {x: 66.20703, y: 38.017975}
+  m_SizeDelta: {x: -982.3107, y: -487.7671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3693498385506041153
 CanvasRenderer:
@@ -93,6 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80136f4a7b49f1f4c8f3958e31bb2f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealthCurText: {fileID: 0}
+  enemyActionCurText: {fileID: 0}
+  enemyImage: {fileID: 0}
+  id: -1
+  attack: 0
 --- !u!1 &3056551793278735352
 GameObject:
   m_ObjectHideFlags: 0

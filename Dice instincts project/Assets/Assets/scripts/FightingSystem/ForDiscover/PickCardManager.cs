@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PickCardManager : MonoBehaviour
 {
     [SerializeField]
-    private CardGameManager cardGameManager;
+    private OverallGameManager cardGameManager;
     [SerializeField]
     GraphicRaycaster CanvasRaycast;
     [SerializeField]

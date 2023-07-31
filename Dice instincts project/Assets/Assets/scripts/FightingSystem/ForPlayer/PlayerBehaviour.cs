@@ -7,11 +7,12 @@ public class PlayerBehaviour : CharacterBehaviour
 {
 
     [SerializeField]
-    private TextMeshProUGUI playerCurMana;
+    private TextMeshProUGUI playerMana;
     [SerializeField]
-    private TextMeshProUGUI playerMaxMana;
-    
+    private TextMeshProUGUI playerHealth;
 
+
+    private int maxHealth;
     private int curMana;
     private int maxMana;
 
@@ -40,15 +41,14 @@ public class PlayerBehaviour : CharacterBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxMana = 3;
-        curMana = 3;
+        maxHealth = 50;
+        startingHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerCurMana.text = curMana.ToString();
-        playerMaxMana.text = maxMana.ToString();
+        
         
     }
 }
