@@ -12,9 +12,9 @@ public class Card : FrameworkOfObject
     public string cardDisc;
     public Sprite cardImage;
     public Classes cardForClass;
-    public List<Tuple<EffectSelector, int>> effects;
+    public List<Tuple<Action<FuncArgs>,FuncArgs>> effects;
 
-    public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, List<Tuple<EffectSelector, int>> effects)
+    public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, List<Tuple<Action<FuncArgs>, FuncArgs>> effects)
     {
         this.id = id;
         this.cardName = cardName;

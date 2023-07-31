@@ -548,7 +548,6 @@ RectTransform:
   m_Children:
   - {fileID: 63574166}
   - {fileID: 1426506141}
-  - {fileID: 942444548}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2510,11 +2509,11 @@ Transform:
   m_GameObject: {fileID: 942444547}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 55.582214, z: 0}
+  m_LocalPosition: {x: 546, y: 310.5822, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 143912527}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &942444549
 MonoBehaviour:
@@ -4377,6 +4376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f433e19ef1316b64d982d4215a522344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 0}
 --- !u!4 &2083618893
 Transform:
   m_ObjectHideFlags: 0
@@ -4442,6 +4442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196e2dc88ba5c9a45bc5c5326e91e8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 0}
 --- !u!114 &2083618897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4454,6 +4455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be31b51478eb2a4db12d08a9d07a1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 0}
 --- !u!1 &2103266422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4746,3 +4748,4 @@ SceneRoots:
   - {fileID: 143912527}
   - {fileID: 570399733}
   - {fileID: 2083618893}
+  - {fileID: 942444548}

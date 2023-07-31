@@ -6,9 +6,11 @@ abstract public class FrameworkDictionary : MonoBehaviour
 {
 
     public List<FrameworkOfObject> ListOfObject { get; private set; } = new List<FrameworkOfObject>();
+    public CardGameManager cardGameManager;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        cardGameManager = GameObject.Find("GameDirector").GetComponent<CardGameManager>();
         InitList();
     }
     public abstract void InitList();

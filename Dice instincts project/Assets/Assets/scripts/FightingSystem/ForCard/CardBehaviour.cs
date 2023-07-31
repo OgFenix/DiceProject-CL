@@ -28,7 +28,7 @@ public class CardBehaviour : MonoBehaviour
     public string cardDisc;
     public Sprite cardSprite;
     public Classes cardForClass;
-    public List<Tuple<EffectSelector, int>> effects;
+    public List<Tuple<Action<FuncArgs>, FuncArgs>> effects;
 
     public void activateCard()
     {
