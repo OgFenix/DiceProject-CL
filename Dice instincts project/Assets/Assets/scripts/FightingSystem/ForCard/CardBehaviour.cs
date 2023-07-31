@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class CardBehaviour : MonoBehaviour
 {
+    public OverallGameManager overallGameManager;
     public bool hasBeenPlayed;
     public int handIndex;
     private Card thisCard;
@@ -28,7 +29,7 @@ public class CardBehaviour : MonoBehaviour
     public string cardDisc;
     public Sprite cardSprite;
     public Classes cardForClass;
-    public List<Tuple<Action<FuncArgs>, FuncArgs>> effects;
+    public List<FuncArgs> effects;
 
     public void activateCard()
     {
@@ -81,7 +82,9 @@ public class CardBehaviour : MonoBehaviour
     public void CreateCard(int id)
     {
         GetChildrenComponents();
-        cardsDictionary = GameObject.Find("GameDirector").GetComponent<CardsDictionary>();
+        GameObject gamedirector = GameObject.Find("GameDirector");
+        overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
         thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;
@@ -95,7 +98,17 @@ public class CardBehaviour : MonoBehaviour
         cardNameText.text = cardName;
         manacostText.text = cost.ToString();
         descriptionText.text = cardDisc;
+        foreach (var effect in effects)
+        {
+            overallGameManager.SubscribeToReleventEvent(effect.Timing, effect.FuncToRun);
+        }
         IsCardInit = true;
+
+    }
+
+    void PPP(FuncArgs args)
+    {
+
     }
 
     // Update is called once per frame

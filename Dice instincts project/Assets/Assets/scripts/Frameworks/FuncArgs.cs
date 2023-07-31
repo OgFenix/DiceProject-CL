@@ -1,20 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum EffectTiming
+public class FuncArgs : EventArgs
 {
-    Immidiate,
-    Startofturn,
-    Endofturn
-}
-public class FuncArgs
-{
+    public EventHandler<FuncArgs> FuncToRun;
     public int EffectNum;
     public EffectTiming Timing;
-    public FuncArgs(int effectNum,EffectTiming timing)
+    public FuncArgs(EventHandler<FuncArgs> funcToRun, int effectNum,EffectTiming timing)
     {
-        this.EffectNum = effectNum;
+        FuncToRun = funcToRun;
+        EffectNum = effectNum;
         Timing = timing;
     }
 }

@@ -14,7 +14,7 @@ public class RelicBehaviour : MonoBehaviour
     public string relicDisc;
     public Sprite relicSprite;
     public Classes relicForClass;
-    public string scriptPath;
+    public List<FuncArgs> effects;
     private Relic thisRelic;
     private RelicDictionary relicDictionary;
     public TextMeshProUGUI relicNameText;
@@ -52,22 +52,11 @@ public class RelicBehaviour : MonoBehaviour
         relicDisc = thisRelic.relicDisc;
         relicSprite = thisRelic.relicImage;
         relicForClass = thisRelic.relicForClass;
-        scriptPath = thisRelic.scriptPath;
+        effects = thisRelic.effects;
         relicImage.sprite = relicSprite;
         relicNameText.text = relicName;
         descriptionText.text = relicDisc;
-        FindRelicSpesificScript();
         IsRelicInit = true;
-    }
-
-    private void FindRelicSpesificScript()
-    {
-        Assembly assembly = Assembly.Load("Assembly-CSharp");
-        Type scriptType = assembly.GetType(scriptPath);
-        if(scriptType != null )
-        {
-            RelicSpesificScript = gameObject.AddComponent(scriptType);
-        }
     }
     // Start is called before the first frame update
     void Start()

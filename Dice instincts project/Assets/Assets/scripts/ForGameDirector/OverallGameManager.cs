@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
+
 public class OverallGameManager : MonoBehaviour
 {
+    public event EventHandler<FuncArgs> StartOfTurn;
+    public event EventHandler<FuncArgs> EndOfTurn;
     [SerializeField]
     GameObject cardPrefab;
     [SerializeField]
@@ -13,6 +18,19 @@ public class OverallGameManager : MonoBehaviour
     private GameObject cardContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
     public List<GameObject> deck { get; private set; }
+
+    public void SubscribeToReleventEvent(EffectTiming trigger, EventHandler<FuncArgs> action)
+    {
+        switch (trigger)
+        {
+            case EffectTiming.Startofturn:
+                StartOfTurn += action;
+                break;
+            case EffectTiming.Endofturn:
+                StartOfTurn += action;
+                break;
+        }
+    }
     private void initializeDeck(List<GameObject> deck)
     {
         GameObject curCard;

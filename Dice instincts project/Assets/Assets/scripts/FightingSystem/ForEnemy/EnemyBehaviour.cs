@@ -18,7 +18,7 @@ public class EnemyBehaviour : CharacterBehaviour
 
     public int id = -1;
     public int attack;
-    public List<Tuple<EnemiesEffectSelector, int>> enemiesEffectsList;
+    public List<FuncArgs> enemiesEffectsList;
 
 
 
@@ -64,9 +64,9 @@ public class EnemyBehaviour : CharacterBehaviour
             }
         }
     }
-    private Tuple<EnemiesEffectSelector, int> getEnemyEffect(List<Tuple<EnemiesEffectSelector, int>> enemiesEffectsList)
+    private FuncArgs getEnemyEffect(List<FuncArgs> enemiesEffectsList)
     {
-        Tuple<EnemiesEffectSelector, int> res;
+        FuncArgs res;
         res = enemiesEffectsList[UnityEngine.Random.Range(0, enemiesEffectsList.Count - 1)];
         return res;
     }
@@ -81,8 +81,8 @@ public class EnemyBehaviour : CharacterBehaviour
         enemiesEffectsList = thisEnemy.enemiesEffectsList;
         enemyImage.sprite = thisEnemy.enemyImage;
         enemyHealthCurText.text = health.ToString();
-        Tuple<EnemiesEffectSelector, int> firstEffect = getEnemyEffect(thisEnemy.enemiesEffectsList);
-        enemyActionCurText.text = firstEffect.Item1.ToString() + ", " + firstEffect.Item2.ToString();
+        FuncArgs firstEffect = getEnemyEffect(enemiesEffectsList);
+        enemyActionCurText.text = firstEffect.FuncToRun.ToString() + ", " + firstEffect.EffectNum.ToString();
         isEnemyInit = true;
     }
 

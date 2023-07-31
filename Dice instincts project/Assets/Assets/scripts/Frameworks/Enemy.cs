@@ -10,8 +10,8 @@ public class Enemy : FrameworkOfObject
     public int health;
     public Sprite enemyImage;
     public int attack;
-    public List<Tuple<EnemiesEffectSelector, int>> enemiesEffectsList;
-    public Enemy(int id, string enemyName,  int health, Sprite enemyImage, int attack, List<Tuple<EnemiesEffectSelector, int>> enemiesEffectsList)
+    public List<FuncArgs> enemiesEffectsList;
+    public Enemy(int id, string enemyName,  int health, Sprite enemyImage, int attack, List<FuncArgs> enemiesEffectsList)
     {
         this.id = id;
         this.enemyName = enemyName;

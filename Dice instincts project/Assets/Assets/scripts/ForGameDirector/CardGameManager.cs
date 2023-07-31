@@ -37,7 +37,7 @@ public class CardGameManager : MonoBehaviour
         deckAmount.text = deck.Count.ToString();
     }
 
-    public void AAAAA(FuncArgs Args)
+    public void AAAAA(object sender, FuncArgs Args)
     {
 
     }

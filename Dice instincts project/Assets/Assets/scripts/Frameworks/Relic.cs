@@ -10,16 +10,16 @@ public class Relic : FrameworkOfObject
     public string relicDisc;
     public Sprite relicImage;
     public Classes relicForClass;
-    public string scriptPath;
+    public List<FuncArgs> effects;
 
-    public Relic(int id, string relicName, string relicDisc, Sprite relicImage, Classes relicForClass, string scriptPath)
+    public Relic(int id, string relicName, string relicDisc, Sprite relicImage, Classes relicForClass, List<FuncArgs> effects)
     {
         this.id = id;
         this.relicName = relicName;
         this.relicDisc = relicDisc;
         this.relicImage = relicImage;
         this.relicForClass = relicForClass;
-        this.scriptPath = scriptPath;
+        this.effects = effects;
     }
     // type component = CardBehaviour;
 }
