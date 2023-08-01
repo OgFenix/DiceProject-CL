@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92fcd53a6956295409f35407469bd7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInBoardState: 1
+  isInBoardState: 0
   eventSystem: {fileID: 942444550}
   zoomSpeed: 2.25
 --- !u!1 &570399732
@@ -2678,7 +2678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bff7b8edf2ff9b4f96688e1701878a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardGameManager: {fileID: 2083618894}
+  cardGameManager: {fileID: 0}
   CanvasRaycast: {fileID: 143912524}
   eventSystem: {fileID: 942444550}
   canvas: {fileID: 143912527}
@@ -3650,8 +3650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd5c220fb86544db8232da598ccc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCurMana: {fileID: 1428792309}
-  playerMaxMana: {fileID: 167481537}
+  playerMana: {fileID: 0}
+  playerHealth: {fileID: 0}
 --- !u!4 &1553145679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3441985959200228960, guid: 661116f58c6a79a4e926e483ad2348c4, type: 3}
@@ -4352,6 +4352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2083618893}
+  - component: {fileID: 2083618898}
   - component: {fileID: 2083618894}
   - component: {fileID: 2083618895}
   - component: {fileID: 2083618892}
@@ -4376,7 +4377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f433e19ef1316b64d982d4215a522344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardGameManager: {fileID: 0}
+  cardGameManager: {fileID: 2083618894}
 --- !u!4 &2083618893
 Transform:
   m_ObjectHideFlags: 0
@@ -4406,8 +4407,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 8681002620362736871, guid: df85a7cd782d9804fbdfbcefab6c96a3, type: 3}
   cardContainer: {fileID: 826496046}
-  deck: []
   deckAmount: {fileID: 926530978}
+  deck: []
+  hand: {fileID: 209712445}
+  player: {fileID: 1513347496}
 --- !u!114 &2083618895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4442,7 +4445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196e2dc88ba5c9a45bc5c5326e91e8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardGameManager: {fileID: 0}
+  cardGameManager: {fileID: 2083618894}
 --- !u!114 &2083618897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4455,7 +4458,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be31b51478eb2a4db12d08a9d07a1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardGameManager: {fileID: 0}
+  cardGameManager: {fileID: 2083618894}
+--- !u!114 &2083618898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083618891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720a11bced75fd94fa56b8c95b9a705b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 8681002620362736871, guid: df85a7cd782d9804fbdfbcefab6c96a3, type: 3}
+  deckAmount: {fileID: 926530978}
+  cardContainer: {fileID: 826496046}
 --- !u!1 &2103266422
 GameObject:
   m_ObjectHideFlags: 0

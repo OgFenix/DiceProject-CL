@@ -29,7 +29,7 @@ public class CardGameManager : MonoBehaviour
     private List<GameObject> discardPile = new List<GameObject>();
     OverallGameManager gameManager;
 
-    private void copyList(List<GameObject> curFightDeck, List<GameObject> discardPile)
+    public void copyList(List<GameObject> curFightDeck, List<GameObject> discardPile)
     {
         foreach(var card in discardPile)
         {
@@ -37,7 +37,7 @@ public class CardGameManager : MonoBehaviour
         }
         discardPile.Clear();
     }
-    private void DrawCards(FuncArgs args)
+    public void DrawCards(object sender, FuncArgs args)
     {
         for (int i = 0; i < args.EffectNum; i++) {
             if (curFightDeck.Count == 0 && discardPile.Count > 0)
@@ -55,7 +55,7 @@ public class CardGameManager : MonoBehaviour
         }
 
     }
-    private void DealDamage(FuncArgs args)
+    public void DealDamage(object sender, FuncArgs args)
     {
         bool isWeak = false;
         int curEffectNum = args.EffectNum;
@@ -77,7 +77,7 @@ public class CardGameManager : MonoBehaviour
             args.character.health -= curEffectNum;
         }
     }
-    private void ApplyStatus(FuncArgs args)
+    public void ApplyStatus(object sender, FuncArgs args)
     {
         for(int i = 0; i< args.character.statusesList.Count; i++)
         {
@@ -89,31 +89,27 @@ public class CardGameManager : MonoBehaviour
         }
         args.character.statusesList.Add(new CharacterStatus(args.status, args.EffectNum));
     }
-    private void GainBlock(FuncArgs args)
+    public void GainBlock(object sender, FuncArgs args)
     {
         args.character.block += args.EffectNum;
     }
-    private void DamageSelf(FuncArgs args)
+    public void DamagePlayer(object sender, FuncArgs args)
     {
         args.character = player;
-        DealDamage(args);
+        DealDamage(sender,args);
     }
     
     
     // Start is called before the first frame update
     void Start()
     {
-        curFightDeck = ListRandomizer.Randomize(gameManager.deck);
+        gameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
+        curFightDeck = ListRandomizer<GameObject>.Randomize(gameManager.deck);
     }
 
     // Update is called once per frame
     void Update()
     {
         deckAmount.text = deck.Count.ToString();
-    }
-
-    public void AAAAA(object sender, FuncArgs Args)
-    {
-
     }
 }

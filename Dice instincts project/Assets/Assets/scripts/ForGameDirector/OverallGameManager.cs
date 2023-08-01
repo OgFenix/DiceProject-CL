@@ -27,7 +27,7 @@ public class OverallGameManager : MonoBehaviour
                 StartOfTurn += action;
                 break;
             case EffectTiming.Endofturn:
-                StartOfTurn += action;
+                EndOfTurn += action;
                 break;
         }
     }

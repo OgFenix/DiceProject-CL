@@ -14,6 +14,6 @@ public class RelicDictionary : FrameworkDictionary
     string ScriptPath = string.Empty;
     public override void InitList()
     { //ID,Name,ManaCost,Description,Image,Class,EffectList
-        AddToList(0, "Namaim", "Namaim is the man!", Classes.Warrior, new List<FuncArgs>(){ new FuncArgs(cardGameManager.AAAAA, 4, EffectTiming.Startofturn)});
+        AddToList(0, "Namaim", "Namaim is the man!", Classes.Warrior, new List<FuncArgs>(){ new FuncArgs(cardGameManager.GainBlock, 4, EffectTiming.Startofturn)});
     }
 }

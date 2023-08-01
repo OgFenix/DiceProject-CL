@@ -14,8 +14,8 @@ public partial class CardsDictionary : FrameworkDictionary
     public override void InitList()
     {
         //ID,Name,ManaCost,Description,Image,Class,EffectList
-        AddToList(0, "Attack", 1, "Deal 6 damage", Classes.Warrior, new List<FuncArgs>() {new FuncArgs(cardGameManager.AAAAA,6,EffectTiming.Immidiate)});
-        AddToList(1, "Defense", 1, "Gain 5 armor", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.AAAAA, 5, EffectTiming.Immidiate)});
-        AddToList(2, "Rage", 1, "Lose 8 Health,Draw 2 Cards", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.AAAAA, 8, EffectTiming.Immidiate), new FuncArgs(cardGameManager.AAAAA, 2, EffectTiming.Immidiate)});
+        AddToList(0, "Attack", 1, "Deal 6 damage", Classes.Warrior, new List<FuncArgs>() {new FuncArgs(cardGameManager.DealDamage,6,EffectTiming.Immidiate)});
+        AddToList(1, "Defense", 1, "Gain 5 armor", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.GainBlock, 5, EffectTiming.Immidiate)});
+        AddToList(2, "Rage", 1, "Lose 8 Health,Draw 2 Cards", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.DamagePlayer, 8, EffectTiming.Immidiate), new FuncArgs(cardGameManager.DrawCards, 2, EffectTiming.Immidiate)});
     }
 }
