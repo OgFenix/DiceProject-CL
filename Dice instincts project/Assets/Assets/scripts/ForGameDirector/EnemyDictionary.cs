@@ -14,7 +14,7 @@ public class EnemyDictionary : FrameworkDictionary
     public override void InitList()
     {
         //ID,Name,Health,Image,Attack,EffectsList
-        AddToList(0, "Mondo", 15,4, new List<FuncArgs>() { new FuncArgs(cardGameManager.DamagePlayer, 8, EffectTiming.Immidiate)});
+        AddToList(0, "Mondo", 15,4, new List<FuncArgs>() { new FuncArgs(cardGameManager.DamagePlayer,cardGameManager.EffectOnPlayer, 8, EffectTiming.Immidiate)});
     }
 
 }

@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class OverallGameManager : MonoBehaviour
 {
-    public event EventHandler<FuncArgs> StartOfTurn;
-    public event EventHandler<FuncArgs> EndOfTurn;
     [SerializeField]
-    GameObject cardPrefab;
+    private CardGameManager cardGameManager;
     [SerializeField]
-    TextMeshProUGUI deckAmount;
+    private GameObject cardPrefab;
+    [SerializeField]
+    private TextMeshProUGUI deckAmount;
     [SerializeField]
     private GameObject cardContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
@@ -24,10 +24,10 @@ public class OverallGameManager : MonoBehaviour
         switch (trigger)
         {
             case EffectTiming.Startofturn:
-                StartOfTurn += action;
+                cardGameManager.StartOfTurn += action;
                 break;
             case EffectTiming.Endofturn:
-                EndOfTurn += action;
+                cardGameManager.EndOfTurn += action;
                 break;
         }
     }

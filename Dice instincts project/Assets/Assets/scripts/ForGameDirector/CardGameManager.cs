@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
 {
+    public event EventHandler<FuncArgs> StartOfTurn;
+    public event EventHandler<FuncArgs> EndOfTurn;
     [SerializeField]
     private GameObject cardPrefab;
     [SerializeField]
@@ -24,6 +26,8 @@ public class CardGameManager : MonoBehaviour
     [SerializeField]
     private PlayerBehaviour player;
 
+    List<EnemyBehaviour> activeenemies;
+
     private List<GameObject> curFightDeck;
 
     private List<GameObject> discardPile = new List<GameObject>();
@@ -36,6 +40,23 @@ public class CardGameManager : MonoBehaviour
             curFightDeck.Add(card);
         }
         discardPile.Clear();
+    }
+    public void EffectOnEnemyTargeted(object sender, FuncArgs args)
+    {
+        args.FuncToRun(sender, args);
+    }
+    public void EffectOnPlayer(object sender, FuncArgs args)
+    {
+            args.character = player;
+            args.FuncToRun(sender, args);
+    }
+    public void AOE_Effect(object sender, FuncArgs args)
+    {
+        foreach (var enemy in activeenemies)
+        {
+            args.character = enemy;
+            args.FuncToRun(sender, args);
+        }
     }
     public void DrawCards(object sender, FuncArgs args)
     {
