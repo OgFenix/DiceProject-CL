@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
 {
-    public event EventHandler<FuncArgs> StartOfTurn;
-    public event EventHandler<FuncArgs> EndOfTurn;
+    public event GameEvent StartOfTurn;
+    public event GameEvent EndOfTurn;
     [SerializeField]
     private GameObject cardPrefab;
     [SerializeField]

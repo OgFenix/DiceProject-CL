@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
+public delegate void GameEvent(EffectTiming timing);
 
 public class OverallGameManager : MonoBehaviour
 {
@@ -18,8 +18,12 @@ public class OverallGameManager : MonoBehaviour
     private GameObject cardContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
     public List<GameObject> deck { get; private set; }
+    public void ImmidateActivate(object sender, FuncArgs args)
+    {
+        args.TargetTypeFunc(sender,args);
+    }
 
-    public void SubscribeToReleventEvent(EffectTiming trigger, EventHandler<FuncArgs> action)
+    public void SubscribeToReleventEvent(EffectTiming trigger, GameEvent action)
     {
         switch (trigger)
         {

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : CharacterBehaviour
 {
+    public OverallGameManager overallGameManager;
     private EnemyDictionary enemyDictionary;
     private Enemy thisEnemy;
     private bool isEnemyInit = false;
@@ -73,6 +74,8 @@ public class EnemyBehaviour : CharacterBehaviour
     public void CreateEnemy(int id)
     {
         GetChildrenComponents();
+        GameObject gamedirector = GameObject.Find("GameDirector");
+        overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         enemyDictionary = GameObject.Find("GameDirector").GetComponent<EnemyDictionary>();
         thisEnemy = (Enemy)enemyDictionary.InitializeByID(id);
         characterName = thisEnemy.enemyName;
@@ -83,7 +86,18 @@ public class EnemyBehaviour : CharacterBehaviour
         enemyHealthCurText.text = health.ToString();
         FuncArgs firstEffect = getEnemyEffect(enemiesEffectsList);
         enemyActionCurText.text = firstEffect.FuncToRun.ToString() + ", " + firstEffect.EffectNum.ToString();
+        foreach (var effect in enemiesEffectsList)
+            if (effect.Timing == EffectTiming.Immidiate)
+                overallGameManager.ImmidateActivate(this, effect);
+            else
+                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         isEnemyInit = true;
+    }
+    void ActivateEffect(EffectTiming Timing)
+    {
+        foreach (var effect in enemiesEffectsList)
+            if (effect.Timing == Timing)
+                effect.TargetTypeFunc(this, effect);
     }
 
 

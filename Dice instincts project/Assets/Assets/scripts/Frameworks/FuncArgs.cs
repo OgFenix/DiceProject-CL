@@ -6,9 +6,9 @@ public class FuncArgs : EventArgs
 {
     
     public EventHandler<FuncArgs> FuncToRun;
+    public EventHandler<FuncArgs> TargetTypeFunc;
     public int EffectNum;
     public EffectTiming Timing;
-    public EventHandler<FuncArgs> TargetTypeFunc;
     public CharacterBehaviour character = null;
     public Status status;
     public FuncArgs(EventHandler<FuncArgs> funcToRun, EventHandler<FuncArgs> targetTypeFunc, int effectNum, EffectTiming timing)

@@ -22,6 +22,7 @@ public class RelicBehaviour : MonoBehaviour
     public Image relicImage;
     public Component RelicSpesificScript;
     private GameObject RelicDiscContainer;
+    private OverallGameManager overallGameManager; 
     private void GetChildrenComponents()
     {
         RelicDiscContainer = transform.GetChild(0).gameObject;
@@ -44,7 +45,9 @@ public class RelicBehaviour : MonoBehaviour
     {
         relicImage = GetComponent<Image>();
         GetChildrenComponents();
-        relicDictionary = GameObject.Find("GameDirector").GetComponent<RelicDictionary>();
+        GameObject gamedirector = GameObject.Find("GameDirector");
+        overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        relicDictionary = gamedirector.GetComponent<RelicDictionary>();
         thisRelic = (Relic)relicDictionary.InitializeByID(id);
         //creating relic from thisRelic
         this.id = thisRelic.id;
@@ -56,7 +59,18 @@ public class RelicBehaviour : MonoBehaviour
         relicImage.sprite = relicSprite;
         relicNameText.text = relicName;
         descriptionText.text = relicDisc;
+        foreach (var effect in effects)
+            if (effect.Timing == EffectTiming.Immidiate)
+                overallGameManager.ImmidateActivate(this, effect);
+            else
+                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         IsRelicInit = true;
+    }
+    void ActivateEffect(EffectTiming Timing)
+    {
+        foreach (var effect in effects)
+            if (effect.Timing == Timing)
+                effect.TargetTypeFunc(this, effect);
     }
     // Start is called before the first frame update
     void Start()

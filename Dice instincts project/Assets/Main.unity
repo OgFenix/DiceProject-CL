@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 209712451}
   m_Layer: 5
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4471,6 +4471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720a11bced75fd94fa56b8c95b9a705b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 0}
   cardPrefab: {fileID: 8681002620362736871, guid: df85a7cd782d9804fbdfbcefab6c96a3, type: 3}
   deckAmount: {fileID: 926530978}
   cardContainer: {fileID: 826496046}

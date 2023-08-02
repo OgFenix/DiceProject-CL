@@ -19,6 +19,7 @@ public class CardDragManager : MonoBehaviour
     public Vector2 handSize;
     PointerEventData m_PointerEventData;
     private GameObject CardToDrag = null;
+    private Vector3 StartingPos;
 
     private void OnBeginDrag()
     {
@@ -36,6 +37,7 @@ public class CardDragManager : MonoBehaviour
         {
             if (result.gameObject.tag == "Card" && (result.gameObject.transform.parent.gameObject == this.gameObject || result.gameObject.transform.parent.parent.gameObject == this.gameObject))
             {
+                StartingPos = result.gameObject.transform.position;
                 if (result.gameObject.transform.parent.tag == "Card")
                     CardToDrag = result.gameObject.transform.parent.gameObject;
                 else
@@ -52,32 +54,42 @@ public class CardDragManager : MonoBehaviour
         if (CardToDrag != null) 
             CardToDrag.transform.position = m_PointerEventData.position;
     }
-    public bool IsMouseInHand(Vector3 mousePos)
+    public bool IsMouseInHand()
     {
-        Vector3 handHalfSize = handSize / 2.0f;
-
-        // Calculate the minimum and maximum positions of the panel in all three dimensions
-        Vector3 handMin = handPosition - handHalfSize;
-        Vector3 handMax = handPosition + handHalfSize;
-
-        // Check if the position is within the panel's boundaries
-        if (mousePos.x >= handMin.x && mousePos.x <= handMax.x &&
-        mousePos.y >= handMin.y && mousePos.y <= handMax.y)
-        {
-            return true;
-        }
-
+        List<RaycastResult> results = new List<RaycastResult>();
+        CanvasRaycast.Raycast(m_PointerEventData, results);
+        foreach (RaycastResult result in results)
+            if (result.gameObject.tag == "Hand")
+            {
+                return true;
+            }
         return false;
     }
 
     private void OnEndDrag()
     {
         Vector3 mousePos = MousePositionCalc.GetMousePositionInCanvas(canvas);
-        if (IsMouseInHand(mousePos))
+        if (IsMouseInHand())
         {
-
+            CardToDrag.transform.position = StartingPos;
+            CardToDrag = null;
+            return;
         }
+        GameObject Enemytargeted = null;
+        List<RaycastResult> results = new List<RaycastResult>();
+        CanvasRaycast.Raycast(m_PointerEventData, results);
+        foreach (RaycastResult result in results)
+            if (result.gameObject.tag == "Enemy")
+            {
+                Enemytargeted = result.gameObject;
+                break;
+            }
+        if (CardToDrag.GetComponent<CardBehaviour>().IsCardPlayable(Enemytargeted))
+            CardToDrag.GetComponent<CardBehaviour>().PlayCard(Enemytargeted);
+        else
+            CardToDrag.transform.position = StartingPos;
         CardToDrag = null;
+
     }
 
     private void DragManager()

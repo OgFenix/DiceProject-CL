@@ -11,7 +11,9 @@ using UnityEngine.UI;
 public class CardBehaviour : MonoBehaviour
 {
     public OverallGameManager overallGameManager;
+    public CardGameManager cardGameManager;
     public bool hasBeenPlayed;
+    public bool hasOvertimeEffect;
     public int handIndex;
     private Card thisCard;
     private CardsDictionary cardsDictionary;
@@ -84,6 +86,7 @@ public class CardBehaviour : MonoBehaviour
         GetChildrenComponents();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        cardGameManager = gamedirector.GetComponent<CardGameManager>();
         cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
         thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
@@ -99,16 +102,43 @@ public class CardBehaviour : MonoBehaviour
         manacostText.text = cost.ToString();
         descriptionText.text = cardDisc;
         foreach (var effect in effects)
-        {
-            overallGameManager.SubscribeToReleventEvent(effect.Timing, effect.FuncToRun);
-        }
+            if (effect.Timing == EffectTiming.Immidiate)
+                overallGameManager.ImmidateActivate(this, effect);
+            else
+                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         IsCardInit = true;
-
     }
 
-    void PPP(FuncArgs args)
+    void ActivateEffect(EffectTiming Timing)
     {
+        foreach (var effect in effects)
+            if (effect.Timing == Timing)
+                effect.TargetTypeFunc(this,effect);
+    }
 
+    public void PlayCard(GameObject TargetedEnemy)
+    {
+        
+        hasOvertimeEffect = false;
+        foreach (var effect in effects)
+            if (effect.Timing == EffectTiming.Immidiate)
+                overallGameManager.ImmidateActivate(this, effect);
+            else
+            {
+                hasOvertimeEffect = true;
+                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
+            }
+        if (!hasOvertimeEffect)
+            Destroy(this.gameObject);
+    }
+
+    public bool IsCardPlayable(GameObject TargetedEnemy)
+    {
+        if (TargetedEnemy == null)
+            foreach (var effect in effects)
+                if (effect.TargetTypeFunc == cardGameManager.EffectOnEnemyTargeted)
+                    return false;
+        return true;
     }
 
     // Update is called once per frame
