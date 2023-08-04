@@ -22,7 +22,7 @@ public class OverallGameManager : MonoBehaviour
     private TextMeshProUGUI deckAmount;
     [SerializeField]
     private GameObject cardContainer;
-    List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
+    List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2, 3};
     [SerializeField]
     public List<GameObject> deck;
 

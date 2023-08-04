@@ -206,9 +206,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 480115208}
     m_Modifications:
+    - target: {fileID: 89798018022121859, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 17.657
+      objectReference: {fileID: 0}
+    - target: {fileID: 89798018022121859, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 16.234
+      objectReference: {fileID: 0}
+    - target: {fileID: 89798018022121859, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000082761
+      objectReference: {fileID: 0}
+    - target: {fileID: 89798018022121859, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00014883
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242454547368774047, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 26.8404
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242454547368774047, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 24.677
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242454547368774047, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -69.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242454547368774047, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -102.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1537544723524767385, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525569152027269677, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4863654466465858779, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_Name
+      value: FirstStatus
+      objectReference: {fileID: 0}
+    - target: {fileID: 4863654466465858779, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9013741632756338447, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
       propertyPath: m_Pivot.x
@@ -272,11 +316,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013741632756338447, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 182
+      value: 162
       objectReference: {fileID: 0}
     - target: {fileID: 9013741632756338447, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 88
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 9013741632756338447, guid: fd5aed1d66968f74c81a24d5e5aa088f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -310,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &63574166
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1480,7 +1524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &570399733
 Transform:
   m_ObjectHideFlags: 0
@@ -3459,7 +3503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1426506141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3758,10 +3802,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd5c220fb86544db8232da598ccc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusContainer: {fileID: 0}
   characterName: 
   startingHealth: 0
   health: 0
   block: 0
+  lastStatusPos: {x: 0, y: 0, z: 0}
   playerMana: {fileID: 1428792309}
 --- !u!4 &1553145679 stripped
 Transform:
@@ -4570,6 +4616,7 @@ MonoBehaviour:
   CoinText: {fileID: 574243365}
   cardPrefab: {fileID: 8681002620362736871, guid: df85a7cd782d9804fbdfbcefab6c96a3, type: 3}
   cardGameManager: {fileID: 2083618894}
+  overallGameManager: {fileID: 0}
   enemies:
   - {fileID: 1553145680}
   - {fileID: 101838513}
@@ -4613,6 +4660,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardGameManager: {fileID: 2083618894}
+  Board: {fileID: 0}
+  BoardInCanvas: {fileID: 0}
+  CardGame: {fileID: 0}
   cardPrefab: {fileID: 8681002620362736871, guid: df85a7cd782d9804fbdfbcefab6c96a3, type: 3}
   deckAmount: {fileID: 926530978}
   cardContainer: {fileID: 1703183514}

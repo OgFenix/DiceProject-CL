@@ -32,6 +32,7 @@ public class CardGameManager : MonoBehaviour
 
     public List<GameObject> discardPile = new List<GameObject>();
     OverallGameManager gameManager;
+    private StatusDictionary statusDictionary;
 
     public void endYourTurn()
     {
@@ -136,6 +137,12 @@ public class CardGameManager : MonoBehaviour
             args.character.UpdateHealth(curEffectNum);
         }
     }
+    private Sprite getStatusSprite(Status status)
+    {
+        string path = "StatusesSprites/";
+        return Resources.Load<Sprite>(path + (int)status);
+
+    }
     public void ApplyStatus(object sender, FuncArgs args)
     {
         for(int i = 0; i< args.character.statusesList.Count; i++)
@@ -146,7 +153,8 @@ public class CardGameManager : MonoBehaviour
                 return;
             }
         }
-        args.character.statusesList.Add(new CharacterStatus(args.status, args.EffectNum));
+        args.character.statusesList.Add((CharacterStatus)statusDictionary.ListOfObject[(int)args.status]);
+        args.character.statusesList[args.character.statusesList.Count - 1].amountOfTurns = args.EffectNum;
     }
     public void GainBlock(object sender, FuncArgs args)
     {
