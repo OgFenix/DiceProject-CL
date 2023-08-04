@@ -24,6 +24,8 @@ public class BoardManager : MonoBehaviour
     GameObject cardPrefab;
     [SerializeField]
     CardGameManager cardGameManager;
+    [SerializeField]
+    OverallGameManager overallGameManager;
     CardBehaviour NewCard;
     int Money = 0;
     public bool IsInCombat { get; private set; } = false;
@@ -120,19 +122,10 @@ public class BoardManager : MonoBehaviour
         foreach (EnemyMovement enemy in enemies)
             if(pos == enemy.EnemyCellPos)
             {
-                EnterCombat(enemy);
+                overallGameManager.EnterCombat(enemy);
                 return true;
             }
         return false;
-    }
-    public void EnterCombat(EnemyMovement enemy,bool IsFromEnemy = false)
-    {
-        if (IsFromEnemy == true)
-            Dice.IsRollAllowed = false;
-        didEnemyStartCurrFight = IsFromEnemy;
-        EnemyInCombat = enemy.gameObject;
-        IsInCombat = true;
-        CombatButton.SetActive(true);
     }
 
     private void Update()

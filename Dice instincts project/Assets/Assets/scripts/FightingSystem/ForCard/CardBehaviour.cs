@@ -87,7 +87,7 @@ public class CardBehaviour : MonoBehaviour
     public void CreateCard(int id)
     {
         GetChildrenComponents();
-        Player = GameObject.Find("PlayerStats").GetComponent<PlayerBehaviour>();
+        Player = GameObject.Find("PlayerStats")?.GetComponent<PlayerBehaviour>();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         cardGameManager = gamedirector.GetComponent<CardGameManager>();

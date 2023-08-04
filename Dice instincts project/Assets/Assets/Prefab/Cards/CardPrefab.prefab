@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3399058757042553923}
   - component: {fileID: 3310401925760129497}
   - component: {fileID: 5793644184008195875}
+  - component: {fileID: 6835053487937475685}
   m_Layer: 5
   m_Name: Description
   m_TagString: CardDescription
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &6835053487937475685
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897974250534130639}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5338401151428232967
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +160,7 @@ GameObject:
   - component: {fileID: 6387697501161963470}
   - component: {fileID: 5577017905885247528}
   - component: {fileID: 5138724275689765739}
+  - component: {fileID: 2249121773512433849}
   m_Layer: 5
   m_Name: ManaCost
   m_TagString: ManaCost
@@ -270,6 +284,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &2249121773512433849
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338401151428232967}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5390604651676040727
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +307,7 @@ GameObject:
   - component: {fileID: 9184958998355122797}
   - component: {fileID: 3868945206517847757}
   - component: {fileID: 8249139481604524023}
+  - component: {fileID: 3948703796106029617}
   m_Layer: 5
   m_Name: CardImage
   m_TagString: CardImage
@@ -345,6 +372,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3948703796106029617
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5390604651676040727}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &6648078361103146763
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +395,7 @@ GameObject:
   - component: {fileID: 668794457324308206}
   - component: {fileID: 3556642039504048624}
   - component: {fileID: 330180427590146195}
+  - component: {fileID: 5996855780235478971}
   m_Layer: 5
   m_Name: NameText
   m_TagString: Card_Name
@@ -481,6 +521,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &5996855780235478971
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6648078361103146763}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &8129395270985366885
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,15 +728,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b7cb7fd8c1161479fdb1dc9f9b85ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasBeenPlayed: 0
-  handIndex: 0
   cardNameText: {fileID: 0}
   manacostText: {fileID: 0}
   descriptionText: {fileID: 0}
   cardBorders: {fileID: 0}
   cardImage: {fileID: 0}
   id: 0
-  name: 
+  cardName: 
   cost: 0
   cardDisc: 
   cardSprite: {fileID: 0}

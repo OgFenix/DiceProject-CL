@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class EnemyMovement : MonoBehaviour
 {
-    BoardManager boardManager;
+    OverallGameManager overallGameManager;
     Tilemap tilemap;
     PlayerMovement Player;
     List<Vector3Int> MoveableDirections = new List<Vector3Int>()
@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boardManager = GameObject.Find("GameDirector").GetComponent<BoardManager>();
+        overallGameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
         Player = GameObject.Find("PlayerInBoard").GetComponent<PlayerMovement>();
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         PrevMoveInd = -1;
@@ -59,7 +59,7 @@ public class EnemyMovement : MonoBehaviour
         gameObject.transform.position = tilemap.GetCellCenterWorld(EnemyCellPos);
         if (Player.cellPlayerPosition == EnemyCellPos)
         {
-            boardManager.EnterCombat(this,true);
+            overallGameManager.EnterCombat(this,true);
         }
     }
 

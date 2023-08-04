@@ -9,9 +9,13 @@ public delegate void GameEvent(EffectTiming timing);
 public class OverallGameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject overallCardContainer;
-    [SerializeField]
     private CardGameManager cardGameManager;
+    [SerializeField]
+    private GameObject Board;
+    [SerializeField]
+    private GameObject BoardInCanvas;
+    [SerializeField]
+    private GameObject CardGame;
     [SerializeField]
     private GameObject cardPrefab;
     [SerializeField]
@@ -21,6 +25,13 @@ public class OverallGameManager : MonoBehaviour
     List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
     [SerializeField]
     public List<GameObject> deck;
+
+    public void EnterCombat(EnemyMovement enemy, bool IsFromEnemy = false)
+    {
+        Board.SetActive(false);
+        BoardInCanvas.SetActive(false);
+        CardGame.SetActive(true);
+    }
     public void ImmidateActivate(object sender, FuncArgs args)
     {
         args.TargetTypeFunc(sender,args);
@@ -45,8 +56,9 @@ public class OverallGameManager : MonoBehaviour
         {
             curCard = Instantiate(cardPrefab);
             curCard.GetComponent<CardBehaviour>().CreateCard(cardID);
-            curCard.transform.SetParent(overallCardContainer.transform, false);
+            curCard.transform.SetParent(cardContainer.transform, false);
             curCard.SetActive(false);
+            curCard.name = curCard.GetComponent<CardBehaviour>().cardName;
             deck.Add(curCard);
         }
         cardGameManager.curFightDeck = deck;
@@ -56,8 +68,10 @@ public class OverallGameManager : MonoBehaviour
     {
         CardBehaviour newCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
         newCard.CreateCard(id);
-        newCard.transform.SetParent(cardContainer.transform);
+        newCard.transform.SetParent(cardContainer.transform,false);
         deck.Add(newCard.gameObject);
+        newCard.name = newCard.GetComponent<CardBehaviour>().cardName;
+        newCard.gameObject.SetActive(false);
         deckAmount.text = deck.Count.ToString();
     }
     // Start is called before the first frame update

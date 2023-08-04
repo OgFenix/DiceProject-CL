@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3693498385506041153}
   - component: {fileID: 3076305986973202065}
   - component: {fileID: 2323900900749838834}
+  - component: {fileID: 7843798891630442248}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Enemy
@@ -28,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 1537544723524767385}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5200772, y: 1.5200772, z: 1.5200772}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1575945266014911391}
@@ -104,6 +105,18 @@ MonoBehaviour:
   enemyImage: {fileID: 0}
   id: -1
   attack: 0
+--- !u!225 &7843798891630442248
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537544723524767385}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2101283338552437158
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +532,7 @@ GameObject:
   - component: {fileID: 1575945266014911391}
   - component: {fileID: 6749840559619639462}
   - component: {fileID: 7788351848928140451}
+  - component: {fileID: 1528083237877540844}
   m_Layer: 5
   m_Name: EnemyImage
   m_TagString: EnemyImage
@@ -583,6 +597,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1528083237877540844
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766821419868850994}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 1
 --- !u!1 &4795346975951731813
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +890,7 @@ GameObject:
   - component: {fileID: 6886451012372226523}
   m_Layer: 5
   m_Name: Armor
-  m_TagString: Untagged
+  m_TagString: EnemyCurBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
