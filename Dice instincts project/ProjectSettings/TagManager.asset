@@ -15,6 +15,7 @@ TagManager:
   - EnemyCurHealth
   - EnemyCurEffect
   - Hand
+  - EnemyCurBlock
   layers:
   - Default
   - TransparentFX

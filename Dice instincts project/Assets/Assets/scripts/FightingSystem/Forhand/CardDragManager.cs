@@ -68,6 +68,8 @@ public class CardDragManager : MonoBehaviour
 
     private void OnEndDrag()
     {
+        if (CardToDrag == null)
+            return;
         Vector3 mousePos = MousePositionCalc.GetMousePositionInCanvas(canvas);
         if (IsMouseInHand())
         {
@@ -79,9 +81,9 @@ public class CardDragManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         CanvasRaycast.Raycast(m_PointerEventData, results);
         foreach (RaycastResult result in results)
-            if (result.gameObject.tag == "Enemy")
+            if (result.gameObject.tag == "EnemyImage")
             {
-                Enemytargeted = result.gameObject;
+                Enemytargeted = result.gameObject.transform.parent.gameObject;
                 break;
             }
         if (CardToDrag.GetComponent<CardBehaviour>().IsCardPlayable(Enemytargeted))
@@ -105,6 +107,7 @@ public class CardDragManager : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
+            Debug.Log("Ending Drag");
             OnEndDrag(); //finish Dragging
         }
     }

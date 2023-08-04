@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 abstract public class CharacterBehaviour : MonoBehaviour
@@ -12,17 +11,33 @@ abstract public class CharacterBehaviour : MonoBehaviour
 
     public List<CharacterStatus> statusesList;
 
-    public virtual string characterName { get; set; }
-    public virtual int health { get; set; }
-    public virtual int block { get; set; }
+    public string characterName;
+    public int startingHealth;
+    public int health;
+    public int block;
+    protected TextMeshProUGUI CurHealthText;
+    protected TextMeshProUGUI CurBlockText;
 
-    public abstract void UpdateHealth(int damage);
-    public abstract void startingHealth(int startingHealth);
+    public void UpdateHealth(int damage)
+    {
+        health -= damage;
+        CurHealthText.text = health.ToString();
+    }
+    public void ChangeArmor(int num) //give negative number for reduction and positive to increase
+    {
+        block += num;
+        CurBlockText.text = block.ToString();
+    }
+    public void SetArmor(int num)
+    {
+        block = num;
+        CurBlockText.text = block.ToString();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        startingHealth(health);
+
     }
 
     // Update is called once per frame

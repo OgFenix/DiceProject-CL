@@ -10,11 +10,12 @@ using UnityEngine.UI;
 
 public class CardBehaviour : MonoBehaviour
 {
-    public OverallGameManager overallGameManager;
-    public CardGameManager cardGameManager;
-    public bool hasBeenPlayed;
-    public bool hasOvertimeEffect;
-    public int handIndex;
+    private PlayerBehaviour Player;
+    private OverallGameManager overallGameManager;
+    private CardGameManager cardGameManager;
+    private bool hasBeenPlayed;
+    private bool hasOvertimeEffect;
+    private int handIndex;
     private Card thisCard;
     private CardsDictionary cardsDictionary;
     private bool IsCardInit = false;
@@ -38,8 +39,10 @@ public class CardBehaviour : MonoBehaviour
         
     }
 
-    void MoveToDiscardPile()
-    { 
+    private void MoveToDiscardPile()
+    {
+        cardGameManager.discardPile.Add(this.gameObject);
+        cardGameManager.DiscardAmount.text = cardGameManager.discardPile.Count.ToString();
     }
 
     
@@ -84,6 +87,7 @@ public class CardBehaviour : MonoBehaviour
     public void CreateCard(int id)
     {
         GetChildrenComponents();
+        Player = GameObject.Find("PlayerStats").GetComponent<PlayerBehaviour>();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
@@ -101,11 +105,6 @@ public class CardBehaviour : MonoBehaviour
         cardNameText.text = cardName;
         manacostText.text = cost.ToString();
         descriptionText.text = cardDisc;
-        foreach (var effect in effects)
-            if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(this, effect);
-            else
-                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         IsCardInit = true;
     }
 
@@ -121,19 +120,26 @@ public class CardBehaviour : MonoBehaviour
         
         hasOvertimeEffect = false;
         foreach (var effect in effects)
+        {
+            if(TargetedEnemy != null)
+                effect.character = TargetedEnemy.GetComponent<EnemyBehaviour>();
             if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(this, effect);
+                overallGameManager.ImmidateActivate(Player.gameObject, effect);
             else
             {
                 hasOvertimeEffect = true;
                 overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
             }
-        if (!hasOvertimeEffect)
-            Destroy(this.gameObject);
+        }
+        this.gameObject.SetActive(false);
+        Player.UpdateCurMana(cost);
+        MoveToDiscardPile();
     }
 
     public bool IsCardPlayable(GameObject TargetedEnemy)
     {
+        if(!Player.IsManaSufficent(cost))
+            return false;
         if (TargetedEnemy == null)
             foreach (var effect in effects)
                 if (effect.TargetTypeFunc == cardGameManager.EffectOnEnemyTargeted)

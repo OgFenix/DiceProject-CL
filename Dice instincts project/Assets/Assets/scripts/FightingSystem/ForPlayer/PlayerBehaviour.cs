@@ -8,27 +8,24 @@ public class PlayerBehaviour : CharacterBehaviour
 
     [SerializeField]
     private TextMeshProUGUI playerMana;
-    [SerializeField]
-    private TextMeshProUGUI playerHealth;
-
-
-    private int maxHealth;
     private int curMana;
     private int maxMana;
 
-    public override void startingHealth(int startingHealth)
+    public bool IsManaSufficent(int cardCost)
     {
-        health = startingHealth;
+        return curMana >= cardCost;
+    }
+
+    public void CurManaToMaxMana()
+    {
+        curMana = maxMana;
+        playerMana.text = curMana.ToString();
     }
 
     public void UpdateCurMana(int cardCost)
     {
         curMana -= cardCost;
-    }
-
-    public override void UpdateHealth(int damage)
-    {
-        health -= damage;
+        playerMana.text = curMana.ToString();
     }
 
     public void UpdateMaxMana(int additionalMaxMana)
@@ -41,8 +38,12 @@ public class PlayerBehaviour : CharacterBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 50;
-        startingHealth(maxHealth);
+        CurHealthText = this.transform.Find("HealthPlayer").GetComponent<TextMeshProUGUI>();
+        CurBlockText = this.transform.Find("Armor").GetComponent<TextMeshProUGUI>();
+        maxMana = 3;
+        curMana = maxMana;
+        startingHealth = 50;
+        health = startingHealth;
     }
 
     // Update is called once per frame

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
@@ -16,9 +17,8 @@ public class CardGameManager : MonoBehaviour
     
     [SerializeField]
     TextMeshProUGUI deckAmount;
-
     [SerializeField]
-    private List<GameObject> deck = new List<GameObject>();
+    public TextMeshProUGUI DiscardAmount;
 
     [SerializeField]
     private GameObject hand;
@@ -26,25 +26,60 @@ public class CardGameManager : MonoBehaviour
     [SerializeField]
     private PlayerBehaviour player;
 
-    List<EnemyBehaviour> activeenemies;
+    public List<EnemyBehaviour> activeenemies;
 
-    private List<GameObject> curFightDeck;
+    public List<GameObject> curFightDeck;
 
-    private List<GameObject> discardPile = new List<GameObject>();
+    public List<GameObject> discardPile = new List<GameObject>();
     OverallGameManager gameManager;
 
-    public void copyList(List<GameObject> curFightDeck, List<GameObject> discardPile)
+    public void endYourTurn()
     {
-        foreach(var card in discardPile)
+        player.CurManaToMaxMana();
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        foreach(var enemy in activeenemies)
         {
-            curFightDeck.Add(card);
+            yield return new WaitForSeconds(0.3f);
+            enemy.EnemyAttack();
         }
-        discardPile.Clear();
+    }
+
+    public void DrawCard()
+    {
+        //Debug.Log(UnityEngine.Random.Range(0, deck.Count));
+        if (curFightDeck.Count == 0 && discardPile.Count > 0)
+            SwapDiscardPileAndDeck();
+        if (curFightDeck.Count == 0)
+            return;
+        GameObject randcard = curFightDeck[UnityEngine.Random.Range(0, curFightDeck.Count)];
+        curFightDeck.Remove(randcard);
+        randcard.SetActive(true);
+        randcard.transform.SetParent(hand.transform, false); 
+
+    }    
+    public void SwapDiscardPileAndDeck()
+    {
+        List<GameObject> tmp = discardPile;
+        discardPile = curFightDeck;
+        curFightDeck = tmp;
+        DiscardAmount.text = discardPile.Count.ToString();
+        deckAmount.text = curFightDeck.Count.ToString();
     }
     public void EffectOnEnemyTargeted(object sender, FuncArgs args)
     {
         args.FuncToRun(sender, args);
     }
+    public void EffectOnSelf(object sender, FuncArgs args)
+    {
+        GameObject sendergameobject = (GameObject)sender;
+        args.character = sendergameobject.GetComponent<CharacterBehaviour>();
+        args.FuncToRun(sender, args);
+    }
+
     public void EffectOnPlayer(object sender, FuncArgs args)
     {
             args.character = player;
@@ -62,11 +97,13 @@ public class CardGameManager : MonoBehaviour
     {
         for (int i = 0; i < args.EffectNum; i++) {
             if (curFightDeck.Count == 0 && discardPile.Count > 0)
-                copyList(curFightDeck, discardPile);
-            else if (curFightDeck.Count > 0)
+                SwapDiscardPileAndDeck();
+            if (curFightDeck.Count > 0)
             {
-                curFightDeck[0].transform.SetParent(hand.transform);
-                curFightDeck[0].SetActive(true);
+                GameObject cardToDraw = curFightDeck[0];
+                curFightDeck.RemoveAt(0);
+                cardToDraw.SetActive(true);
+                cardToDraw.transform.SetParent(hand.transform, false);
             }
             else
             {
@@ -80,22 +117,23 @@ public class CardGameManager : MonoBehaviour
     {
         bool isWeak = false;
         int curEffectNum = args.EffectNum;
-        foreach(var status in args.character.statusesList)
-        {
-            if(status.status == Status.weak)
-                isWeak = true;
+        if (args.character.statusesList != null)
+            foreach(var status in args.character.statusesList)
+            {
+                if(status.status == Status.weak)
+                    isWeak = true;
 
-        }
+            }
         if (isWeak)
             curEffectNum = (int)(curEffectNum * 0.75f);
 
         if (args.character.block >= curEffectNum)
-            args.character.block -= curEffectNum;
+            args.character.ChangeArmor(-1 * curEffectNum);
         else
         {
             curEffectNum -= args.character.block;
-            args.character.block = 0;
-            args.character.health -= curEffectNum;
+            args.character.SetArmor(0);
+            args.character.UpdateHealth(curEffectNum);
         }
     }
     public void ApplyStatus(object sender, FuncArgs args)
@@ -112,12 +150,7 @@ public class CardGameManager : MonoBehaviour
     }
     public void GainBlock(object sender, FuncArgs args)
     {
-        args.character.block += args.EffectNum;
-    }
-    public void DamagePlayer(object sender, FuncArgs args)
-    {
-        args.character = player;
-        DealDamage(sender,args);
+        args.character.ChangeArmor(args.EffectNum);
     }
     
     
@@ -131,6 +164,6 @@ public class CardGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        deckAmount.text = deck.Count.ToString();
+        deckAmount.text = curFightDeck.Count.ToString();
     }
 }

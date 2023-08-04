@@ -9,6 +9,8 @@ public delegate void GameEvent(EffectTiming timing);
 public class OverallGameManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject overallCardContainer;
+    [SerializeField]
     private CardGameManager cardGameManager;
     [SerializeField]
     private GameObject cardPrefab;
@@ -17,7 +19,8 @@ public class OverallGameManager : MonoBehaviour
     [SerializeField]
     private GameObject cardContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
-    public List<GameObject> deck { get; private set; }
+    [SerializeField]
+    public List<GameObject> deck;
     public void ImmidateActivate(object sender, FuncArgs args)
     {
         args.TargetTypeFunc(sender,args);
@@ -35,16 +38,18 @@ public class OverallGameManager : MonoBehaviour
                 break;
         }
     }
-    private void initializeDeck(List<GameObject> deck)
+    private void initializeDeck()
     {
         GameObject curCard;
         foreach (var cardID in startingDeckIDs)
         {
             curCard = Instantiate(cardPrefab);
             curCard.GetComponent<CardBehaviour>().CreateCard(cardID);
+            curCard.transform.SetParent(overallCardContainer.transform, false);
             curCard.SetActive(false);
             deck.Add(curCard);
         }
+        cardGameManager.curFightDeck = deck;
     }
     
     public void AddCardToDeck(int id)
@@ -58,7 +63,7 @@ public class OverallGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        initializeDeck();
     }
 
     // Update is called once per frame

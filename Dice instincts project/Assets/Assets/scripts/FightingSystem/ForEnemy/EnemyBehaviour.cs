@@ -8,12 +8,11 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : CharacterBehaviour
 {
+    private CardGameManager cardGameManager;
     public OverallGameManager overallGameManager;
     private EnemyDictionary enemyDictionary;
     private Enemy thisEnemy;
     private bool isEnemyInit = false;
-
-    public TextMeshProUGUI enemyHealthCurText;
     public TextMeshProUGUI enemyActionCurText;
     public Image enemyImage;
 
@@ -32,16 +31,6 @@ public class EnemyBehaviour : CharacterBehaviour
             CreateEnemy(id);
         }
     }
-    public override void UpdateHealth(int damage)
-    {
-        health -= damage;
-    }
-
-    public override void startingHealth(int startingHealth)
-    {
-        health = startingHealth;
-    }
-
 
 
     private void GetChildrenComponents()
@@ -56,7 +45,10 @@ public class EnemyBehaviour : CharacterBehaviour
                     enemyImage = child.GetComponent<Image>();
                     break;
                 case "EnemyCurHealth":
-                    enemyHealthCurText = child.GetComponent<TextMeshProUGUI>();
+                    CurHealthText = child.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "EnemyCurBlock":
+                    CurBlockText = child.GetComponent<TextMeshProUGUI>();
                     break;
                 case "EnemyCurEffect":
                     enemyActionCurText = child.GetComponent<TextMeshProUGUI>();
@@ -76,22 +68,37 @@ public class EnemyBehaviour : CharacterBehaviour
         GetChildrenComponents();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        cardGameManager = gamedirector.GetComponent<CardGameManager>();
+        cardGameManager.activeenemies.Add(this);
         enemyDictionary = GameObject.Find("GameDirector").GetComponent<EnemyDictionary>();
         thisEnemy = (Enemy)enemyDictionary.InitializeByID(id);
         characterName = thisEnemy.enemyName;
         attack = thisEnemy.attack;
-        health = thisEnemy.health;
+        startingHealth = thisEnemy.health;
+        health = startingHealth;
+        SetArmor(0);
         enemiesEffectsList = thisEnemy.enemiesEffectsList;
         enemyImage.sprite = thisEnemy.enemyImage;
-        enemyHealthCurText.text = health.ToString();
+        CurHealthText.text = health.ToString();
         FuncArgs firstEffect = getEnemyEffect(enemiesEffectsList);
-        enemyActionCurText.text = firstEffect.FuncToRun.ToString() + ", " + firstEffect.EffectNum.ToString();
+        enemyActionCurText.text = ChooseEnemyAttackType(firstEffect.FuncToRun) + ", " + firstEffect.EffectNum.ToString();
+        isEnemyInit = true;
+    }
+    public void EnemyAttack()
+    {
         foreach (var effect in enemiesEffectsList)
             if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(this, effect);
+                overallGameManager.ImmidateActivate(this.gameObject, effect);
             else
                 overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
-        isEnemyInit = true;
+    }
+    private string ChooseEnemyAttackType(EventHandler<FuncArgs> ActionToDo)
+    {
+        if (ActionToDo == cardGameManager.DealDamage)
+            return "Attack";
+        if (ActionToDo == cardGameManager.GainBlock)
+            return "Defend";
+        return string.Empty;
     }
     void ActivateEffect(EffectTiming Timing)
     {
