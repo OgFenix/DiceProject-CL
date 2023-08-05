@@ -87,7 +87,7 @@ public class CardDragManager : MonoBehaviour
                 break;
             }
         if (CardToDrag.GetComponent<CardBehaviour>().IsCardPlayable(Enemytargeted))
-            CardToDrag.GetComponent<CardBehaviour>().PlayCard(Enemytargeted);
+            CardToDrag.GetComponent<CardBehaviour>().PlayCard(Enemytargeted);   
         else
             CardToDrag.transform.position = StartingPos;
         CardToDrag = null;

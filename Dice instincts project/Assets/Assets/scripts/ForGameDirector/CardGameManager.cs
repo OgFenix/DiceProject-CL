@@ -33,6 +33,8 @@ public class CardGameManager : MonoBehaviour
 
     public List<GameObject> discardPile = new List<GameObject>();
     OverallGameManager gameManager;
+    [SerializeField]
+    private StatusDictionary statusDictionary;
 
     public void endYourTurn()
     {
@@ -116,15 +118,26 @@ public class CardGameManager : MonoBehaviour
     }
     public void DealDamage(object sender, FuncArgs args)
     {
+        CharacterBehaviour curSender;
+        curSender = ((GameObject)sender).GetComponent<EnemyBehaviour>();
+        if (curSender == null)
+            curSender = ((GameObject)sender).GetComponent<PlayerBehaviour>();
+
         bool isWeak = false;
         int curEffectNum = args.EffectNum;
-        if (args.character.statusesList != null)
-            foreach(var status in args.character.statusesList)
+        if (curSender.statusesList != null)
+        {
+            foreach(var status in curSender.statusesList)
             {
-                if(status.status == Status.weak)
-                    isWeak = true;
-
+                if (status.status == Status.strength)
+                    curEffectNum += status.count;
             }
+            foreach (var status in curSender.statusesList)
+            {
+                if (status.status == Status.weak)
+                    isWeak = true;
+            }
+        }
         if (isWeak)
             curEffectNum = (int)(curEffectNum * 0.75f);
 
@@ -139,15 +152,19 @@ public class CardGameManager : MonoBehaviour
     }
     public void ApplyStatus(object sender, FuncArgs args)
     {
-        for(int i = 0; i< args.character.statusesList.Count; i++)
+        for (int i = 0; i < args.character.statusesList.Count; i++)
         {
             if (args.character.statusesList[i].status == args.status)
             {
-                args.character.statusesList[i].amountOfTurns += args.EffectNum;
+                args.character.statusesList[i].count += args.EffectNum;
+                args.character.statusContainer.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = args.character.statusesList[i].count.ToString();
+
                 return;
             }
         }
-        args.character.statusesList.Add(new CharacterStatus(args.status, args.EffectNum));
+        args.character.statusesList.Add((GeneralStatus)statusDictionary.ListOfObject[(int)args.status]);
+        args.character.statusesList[args.character.statusesList.Count - 1].count = args.EffectNum;
+        args.character.addStatus();
     }
     public void GainBlock(object sender, FuncArgs args)
     {

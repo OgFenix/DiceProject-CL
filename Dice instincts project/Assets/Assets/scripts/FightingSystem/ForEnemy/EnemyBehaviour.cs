@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class EnemyBehaviour : CharacterBehaviour
 
     private void GetChildrenComponents()
     {
+        
         for (int i = 0; i<transform.childCount; i++)
         {
             Transform childTransform = transform.GetChild(i);
@@ -48,6 +50,9 @@ public class EnemyBehaviour : CharacterBehaviour
                 case "EnemyCurEffect":
                     enemyActionCurText = child.GetComponent<TextMeshProUGUI>();
                     break;
+                case "StatusContainer":
+                    statusContainer = child.GetComponent<GameObject>();
+                    break;
                 default: break;
             }
         }
@@ -59,6 +64,7 @@ public class EnemyBehaviour : CharacterBehaviour
         enemyActionCurText.text = ChooseEnemyAttackType(res.FuncToRun) + ", " + res.EffectNum.ToString();
         return res;
     }
+
     public void CreateEnemy(int id)
     {
         GetChildrenComponents();

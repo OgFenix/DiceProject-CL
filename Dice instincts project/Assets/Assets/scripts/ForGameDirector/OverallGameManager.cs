@@ -30,8 +30,8 @@ public class OverallGameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI deckAmount;
     [SerializeField]
-    public GameObject cardContainer;
-    List<int> startingDeckIDs = new List<int>() { 0, 0, 0, 0, 1, 1, 1, 1, 2 };
+    private GameObject cardContainer;
+    List<int> startingDeckIDs = new List<int>() { 0, 0, 1, 1, 2, 3, 4, 5};
     [SerializeField]
     public List<GameObject> deck;
     public EnemyMovement EnemyInCombat;
