@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -24,7 +25,7 @@ public class CardGameManager : MonoBehaviour
     private GameObject hand;
 
     [SerializeField]
-    private PlayerBehaviour player;
+    public PlayerBehaviour player;
 
     public List<EnemyBehaviour> activeenemies;
 
@@ -153,17 +154,43 @@ public class CardGameManager : MonoBehaviour
         args.character.ChangeArmor(args.EffectNum);
     }
     
+    public void CardsFromHandToContainer()
+    {
+        Vector3 OrgLocalScale;
+        List<GameObject> Children = new List<GameObject>();
+        for (int i = 0; i < hand.transform.childCount; i++)
+            Children.Add(hand.transform.GetChild(i).gameObject);
+        for (int i = 0; i < Children.Count; i++)
+        {
+            OrgLocalScale = Children[i].transform.localScale;
+            Children[i].transform.SetParent(gameManager.cardContainer.transform);
+            Children[i].transform.localScale = OrgLocalScale;
+        }
+    }   
+    
+    public void ClearDiscardPile()
+    {
+        discardPile.Clear();
+        DiscardAmount.text = "0";
+    }
     
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
-        curFightDeck = ListRandomizer<GameObject>.Randomize(gameManager.deck);
+        curFightDeck = ListRandomizer<GameObject>.Randomize(gameManager.deck).ToList();
     }
 
     // Update is called once per frame
     void Update()
     {
         deckAmount.text = curFightDeck.Count.ToString();
+        if (activeenemies.Count > 0 && activeenemies.All(x => x.health < 0))
+        {
+            gameManager.CombatWon();
+            activeenemies.Clear();
+        }
+        if (player.health < 0)
+            gameManager.CombatLost();
     }
 }

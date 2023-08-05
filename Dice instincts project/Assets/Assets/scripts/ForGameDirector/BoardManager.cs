@@ -26,11 +26,13 @@ public class BoardManager : MonoBehaviour
     CardGameManager cardGameManager;
     [SerializeField]
     OverallGameManager overallGameManager;
+    [SerializeField]
+    PlayerMovement playerMovement;
     CardBehaviour NewCard;
     int Money = 0;
-    public bool IsInCombat { get; private set; } = false;
+    public bool IsInCombat { get; set; } = false;
     [SerializeField]
-    private List<EnemyMovement> enemies = new List<EnemyMovement>();
+    public List<EnemyMovement> enemies = new List<EnemyMovement>();
     GameObject EnemyInCombat = null;
     bool didEnemyStartCurrFight = false;
     int NumberOfItemsToChooseFromChest = 3;
@@ -132,6 +134,25 @@ public class BoardManager : MonoBehaviour
     {
 
     }
+    public void StartGoAlongPath(List<Vector3Int> ChosenPath, Tilemap tilemap)
+    {
+        StartCoroutine(GoAlongChosenPath(ChosenPath, tilemap));
+    }
+    public IEnumerator GoAlongChosenPath(List<Vector3Int> ChosenPath,Tilemap tilemap)
+    {
+        Vector3Int cellPlayerPosition = new Vector3Int();
+        foreach (var step in ChosenPath)
+        {
+            if (IsContainingEnemy(step))
+                while (IsInCombat)
+                    yield return null;
+            playerMovement.transform.position = tilemap.GetCellCenterWorld(step);
+            cellPlayerPosition = step;
+            yield return new WaitForSeconds(0.3f);
+        }
+        playerMovement.UpdatedPos();
+        TurnIsOver(tilemap.GetTile(cellPlayerPosition));
+    }
 
     public void CombatButtonPressed()
     {
@@ -140,8 +161,6 @@ public class BoardManager : MonoBehaviour
                 enemies.Remove(EnemyInCombat.GetComponent<EnemyMovement>());
                 GameObject.Destroy(EnemyInCombat);
             }
-            if (didEnemyStartCurrFight == true)
-                Dice.IsRollAllowed = true;
             CombatButton.SetActive(false);
             IsInCombat = false;
     }    

@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class EnemyMovement : MonoBehaviour
 {
     OverallGameManager overallGameManager;
+    private EnemyDictionary enemyDictionary;
+    public int EnemyID;
     Tilemap tilemap;
     PlayerMovement Player;
     List<Vector3Int> MoveableDirections = new List<Vector3Int>()
@@ -17,11 +19,18 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetEnemyID();
         overallGameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
         Player = GameObject.Find("PlayerInBoard").GetComponent<PlayerMovement>();
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         PrevMoveInd = -1;
         EnemyCellPos = tilemap.WorldToCell(gameObject.transform.position);
+    }
+
+    private void SetEnemyID()
+    {
+        enemyDictionary = GameObject.Find("GameDirector").GetComponent<EnemyDictionary>();
+        EnemyID = enemyDictionary.GetRandomID();
     }
 
     // Update is called once per frame

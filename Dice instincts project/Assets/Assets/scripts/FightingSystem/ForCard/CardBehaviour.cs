@@ -92,6 +92,7 @@ public class CardBehaviour : MonoBehaviour
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
         cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
+        Player = cardGameManager.player;
         thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;

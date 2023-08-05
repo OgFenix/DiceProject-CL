@@ -40,7 +40,6 @@ public class DiceBehaviour : MonoBehaviour
         {
             if (isRolling)
             {
-                IsRollAllowed = false;
                 PlayerMovementManager.initializePossibleEndingSqures(currentface);
             }
             // Toggle the dice rolling state

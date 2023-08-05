@@ -15,9 +15,8 @@ public class EnemyBehaviour : CharacterBehaviour
     private bool isEnemyInit = false;
     public TextMeshProUGUI enemyActionCurText;
     public Image enemyImage;
-
+    private FuncArgs CurEffect;
     public int id = -1;
-    public int attack;
     public List<FuncArgs> enemiesEffectsList;
 
 
@@ -25,11 +24,7 @@ public class EnemyBehaviour : CharacterBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!isEnemyInit)
-        {
-            id = 0;
-            CreateEnemy(id);
-        }
+
     }
 
 
@@ -57,10 +52,11 @@ public class EnemyBehaviour : CharacterBehaviour
             }
         }
     }
-    private FuncArgs getEnemyEffect(List<FuncArgs> enemiesEffectsList)
+    private FuncArgs getAndDeclareEnemyNextEffect(List<FuncArgs> enemiesEffectsList)
     {
         FuncArgs res;
-        res = enemiesEffectsList[UnityEngine.Random.Range(0, enemiesEffectsList.Count - 1)];
+        res = enemiesEffectsList[UnityEngine.Random.Range(0, enemiesEffectsList.Count)];
+        enemyActionCurText.text = ChooseEnemyAttackType(res.FuncToRun) + ", " + res.EffectNum.ToString();
         return res;
     }
     public void CreateEnemy(int id)
@@ -73,24 +69,22 @@ public class EnemyBehaviour : CharacterBehaviour
         enemyDictionary = GameObject.Find("GameDirector").GetComponent<EnemyDictionary>();
         thisEnemy = (Enemy)enemyDictionary.InitializeByID(id);
         characterName = thisEnemy.enemyName;
-        attack = thisEnemy.attack;
         startingHealth = thisEnemy.health;
         health = startingHealth;
         SetArmor(0);
         enemiesEffectsList = thisEnemy.enemiesEffectsList;
         enemyImage.sprite = thisEnemy.enemyImage;
         CurHealthText.text = health.ToString();
-        FuncArgs firstEffect = getEnemyEffect(enemiesEffectsList);
-        enemyActionCurText.text = ChooseEnemyAttackType(firstEffect.FuncToRun) + ", " + firstEffect.EffectNum.ToString();
+        CurEffect = getAndDeclareEnemyNextEffect(enemiesEffectsList);
         isEnemyInit = true;
     }
     public void EnemyAttack()
     {
-        foreach (var effect in enemiesEffectsList)
-            if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(this.gameObject, effect);
-            else
-                overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
+        if (CurEffect.Timing == EffectTiming.Immidiate)
+            overallGameManager.ImmidateActivate(this.gameObject, CurEffect);
+        else
+            overallGameManager.SubscribeToReleventEvent(CurEffect.Timing, ActivateEffect);
+        CurEffect = getAndDeclareEnemyNextEffect(enemiesEffectsList);
     }
     private string ChooseEnemyAttackType(EventHandler<FuncArgs> ActionToDo)
     {

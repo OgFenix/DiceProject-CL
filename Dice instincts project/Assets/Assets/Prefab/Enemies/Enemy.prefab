@@ -43,8 +43,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 66.20703, y: 38.017975}
-  m_SizeDelta: {x: -982.3107, y: -487.7671}
+  m_AnchoredPosition: {x: 182, y: 88.00001}
+  m_SizeDelta: {x: -982.3108, y: -487.76703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3693498385506041153
 CanvasRenderer:
@@ -104,7 +104,6 @@ MonoBehaviour:
   enemyActionCurText: {fileID: 0}
   enemyImage: {fileID: 0}
   id: -1
-  attack: 0
 --- !u!225 &7843798891630442248
 CanvasGroup:
   m_ObjectHideFlags: 0

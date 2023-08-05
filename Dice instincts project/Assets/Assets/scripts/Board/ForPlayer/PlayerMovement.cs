@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void initializePossibleEndingSqures(int ToMove)
     {
+        PossiblePaths.Clear();
         PossibleEndingSqures.Clear();
         PossibleEndingSquresPos.Clear();
         GetAllPossibleEndingSqures(ToMove, cellPlayerPosition, new List<int>(), new List<Vector3Int>(),0);
@@ -110,21 +111,25 @@ public class PlayerMovement : MonoBehaviour
                 if (PossibleEndingSquaresMarks[i].GetComponent<BoxCollider2D>().OverlapPoint(new Vector2(MousePos.x, MousePos.y)))
                 {
                     gameObject.transform.position = PossibleEndingSquaresMarks[i].transform.position;
-                    cellPlayerPosition = tilemap.WorldToCell(gameObject.transform.position);
+                    //cellPlayerPosition = tilemap.WorldToCell(gameObject.transform.position);
                     foreach (var PossibleEndingSquareMark1 in PossibleEndingSquaresMarks)
                     {
                         GameObject.Destroy(PossibleEndingSquareMark1.gameObject);
                     }
                     ChosenPathInd = i;
-                    StartCoroutine(GoAlongChosenPath());
+                    boardManager.StartGoAlongPath(PossiblePaths[ChosenPathInd],tilemap);
                     PossibleEndingSquaresMarks.Clear();
                     break;
                 }
             }
         }
     }
+    public void UpdatedPos()
+    {
+        cellPlayerPosition = tilemap.WorldToCell(gameObject.transform.position);
+    } 
 
-    IEnumerator GoAlongChosenPath()
+    /*IEnumerator GoAlongChosenPath()
     {
         foreach (var step in PossiblePaths[ChosenPathInd])
         {
@@ -135,8 +140,7 @@ public class PlayerMovement : MonoBehaviour
                     yield return null;
             yield return new WaitForSeconds(0.3f);
         }
-        Dice.IsRollAllowed = true;
         boardManager.TurnIsOver(tilemap.GetTile(cellPlayerPosition));
         PossiblePaths.Clear();
-    }
+    } */
 }
