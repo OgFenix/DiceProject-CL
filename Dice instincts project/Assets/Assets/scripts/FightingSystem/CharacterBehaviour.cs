@@ -8,8 +8,10 @@ using UnityEngine.UI;
 
 abstract public class CharacterBehaviour : MonoBehaviour
 {
+    [SerializeField]
     GameObject statusPrefab;
-    public List<CharacterStatus> statusesList;
+    public List<GeneralStatus> statusesList = new List<GeneralStatus>();
+    [SerializeField]
     public GameObject statusContainer;
     public string characterName;
     public int startingHealth;
@@ -42,26 +44,27 @@ abstract public class CharacterBehaviour : MonoBehaviour
             {
                 statusContainer.transform.GetChild(0).gameObject.SetActive(true);
                 statusContainer.transform.GetChild(0).GetComponent<Image>().sprite = statusesList[0].statusImg;
-                statusContainer.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[0].amountOfTurns.ToString();
+                statusContainer.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[0].count.ToString();
                 lastStatusPos = statusContainer.transform.GetChild(0).position;
             }
             else
             {
                 Vector3 newPos = lastStatusPos;
-                newPos.x += 2;
+                newPos.x += 40;
                 GameObject newStatus;
                 newStatus = Instantiate(statusPrefab);
+                newStatus.transform.localScale = new Vector3(2.3106f, 2.3106f, 2.3106f);
                 newStatus.SetActive(true);
                 newStatus.transform.SetParent(statusContainer.transform);
                 newStatus.transform.position = newPos;
                 newStatus.GetComponent<Image>().sprite = statusesList[statusesList.Count - 1].statusImg;
-                newStatus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[statusesList.Count - 1].amountOfTurns.ToString();
+                newStatus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[statusesList.Count - 1].count.ToString();
                 lastStatusPos = newPos;
 
             }
         }
     }
-    public void removeStatus(CharacterStatus cStatus)
+    public void removeStatus(TimedStatuses cStatus)
     {
         int ind = statusesList.IndexOf(cStatus);
         Destroy(statusContainer.transform.GetChild(ind).gameObject);

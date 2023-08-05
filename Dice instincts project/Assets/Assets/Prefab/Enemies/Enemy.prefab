@@ -97,11 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80136f4a7b49f1f4c8f3958e31bb2f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstStatusImg: {fileID: 0}
+  statusContainer: {fileID: 3525569152027269677}
   characterName: 
   startingHealth: 0
   health: 0
   block: 0
+  lastStatusPos: {x: 0, y: 0, z: 0}
   overallGameManager: {fileID: 0}
   enemyActionCurText: {fileID: 0}
   enemyImage: {fileID: 0}
@@ -422,8 +423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -69.3313, y: -110.89695}
-  m_SizeDelta: {x: 30.6642, y: 26.7581}
+  m_AnchoredPosition: {x: -69.9, y: -102.5}
+  m_SizeDelta: {x: 26.8404, y: 24.677}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4734633169083955787
 GameObject:
@@ -1059,7 +1060,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3806292050493663249, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_Name
-      value: StatusPrefab
+      value: FirstStatus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806292050493663249, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_Pivot.x
@@ -1087,11 +1092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 19.0832
+      value: 17.657
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 16.5112
+      value: 16.234
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1123,11 +1128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.9651
+      value: 0.000082761
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.5197
+      value: 0.00014883
       objectReference: {fileID: 0}
     - target: {fileID: 8544040228113861961, guid: a440cb2f50b18c6479339a345f22e819, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
