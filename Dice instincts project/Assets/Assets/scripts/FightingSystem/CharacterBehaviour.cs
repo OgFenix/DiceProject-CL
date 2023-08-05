@@ -3,13 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 abstract public class CharacterBehaviour : MonoBehaviour
 {
     [SerializeField]
-    GameObject statusPrefab;
+    public GameObject statusPrefab;
     public List<GeneralStatus> statusesList = new List<GeneralStatus>();
     [SerializeField]
     public GameObject statusContainer;
@@ -64,7 +65,13 @@ abstract public class CharacterBehaviour : MonoBehaviour
             }
         }
     }
-    public void removeStatus(TimedStatuses cStatus)
+    public void RemoveAllStatuses()
+    {
+        statusContainer.transform.GetChild(0).gameObject.SetActive(false);
+        for (int i = 1; i < statusesList.Count; i++)
+            removeStatus(statusesList[i]);
+    }
+    public void removeStatus(GeneralStatus cStatus)
     {
         int ind = statusesList.IndexOf(cStatus);
         Destroy(statusContainer.transform.GetChild(ind).gameObject);

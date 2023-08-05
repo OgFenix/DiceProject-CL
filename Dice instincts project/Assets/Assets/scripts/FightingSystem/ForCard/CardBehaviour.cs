@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class CardBehaviour : MonoBehaviour
 {
+    private GameObject DiscardContainer;
     private PlayerBehaviour Player;
     private OverallGameManager overallGameManager;
     private CardGameManager cardGameManager;
@@ -42,6 +43,7 @@ public class CardBehaviour : MonoBehaviour
     private void MoveToDiscardPile()
     {
         cardGameManager.discardPile.Add(this.gameObject);
+        this.transform.SetParent(DiscardContainer.transform,false);
         cardGameManager.DiscardAmount.text = cardGameManager.discardPile.Count.ToString();
     }
 
@@ -93,6 +95,7 @@ public class CardBehaviour : MonoBehaviour
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
         cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
         Player = cardGameManager.player;
+        DiscardContainer = cardGameManager.DiscardContainer;
         thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;

@@ -12,6 +12,8 @@ public class CardGameManager : MonoBehaviour
     public event GameEvent StartOfTurn;
     public event GameEvent EndOfTurn;
     [SerializeField]
+    public GameObject DiscardContainer;
+    [SerializeField]
     private GameObject cardPrefab;
     [SerializeField]
     private GameObject cardContainer;
@@ -177,6 +179,15 @@ public class CardGameManager : MonoBehaviour
         List<GameObject> Children = new List<GameObject>();
         for (int i = 0; i < hand.transform.childCount; i++)
             Children.Add(hand.transform.GetChild(i).gameObject);
+        for (int i = 0; i < Children.Count; i++)
+        {
+            OrgLocalScale = Children[i].transform.localScale;
+            Children[i].transform.SetParent(gameManager.cardContainer.transform);
+            Children[i].transform.localScale = OrgLocalScale;
+        }
+        Children = new List<GameObject>();
+        for (int i = 0; i < DiscardContainer.transform.childCount; i++)
+            Children.Add(DiscardContainer.transform.GetChild(i).gameObject);
         for (int i = 0; i < Children.Count; i++)
         {
             OrgLocalScale = Children[i].transform.localScale;

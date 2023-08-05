@@ -30,7 +30,7 @@ public class OverallGameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI deckAmount;
     [SerializeField]
-    private GameObject cardContainer;
+    public GameObject cardContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 1, 1, 2, 3, 4, 5};
     [SerializeField]
     public List<GameObject> deck;
@@ -53,6 +53,8 @@ public class OverallGameManager : MonoBehaviour
     }
     public void CombatWon()
     {
+        cardGameManager.player.RemoveAllStatuses();
+        cardGameManager.player.statusesList.Clear();
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
         cardGameManager.CardsFromHandToContainer();

@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      frail_0: -417406439916339321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
