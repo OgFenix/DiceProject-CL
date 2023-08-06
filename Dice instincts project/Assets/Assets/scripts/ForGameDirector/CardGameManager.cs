@@ -17,11 +17,15 @@ public class CardGameManager : MonoBehaviour
     private GameObject cardPrefab;
     [SerializeField]
     private GameObject cardContainer;
+    [SerializeField]
+    public GameObject exhaustContainer;
     
     [SerializeField]
     TextMeshProUGUI deckAmount;
     [SerializeField]
     public TextMeshProUGUI DiscardAmount;
+    [SerializeField]
+    public TextMeshProUGUI exhaustAmount;
 
     [SerializeField]
     private GameObject hand;
@@ -34,6 +38,7 @@ public class CardGameManager : MonoBehaviour
     public List<GameObject> curFightDeck;
 
     public List<GameObject> discardPile = new List<GameObject>();
+    public List<GameObject> exhaustPile = new List<GameObject>();
     OverallGameManager gameManager;
     [SerializeField]
     private StatusDictionary statusDictionary;
@@ -200,6 +205,11 @@ public class CardGameManager : MonoBehaviour
     {
         discardPile.Clear();
         DiscardAmount.text = "0";
+    }
+    public void ClearExhaustPile()
+    {
+        exhaustPile.Clear();
+        exhaustAmount.text = "0";
     }
     
     // Start is called before the first frame update

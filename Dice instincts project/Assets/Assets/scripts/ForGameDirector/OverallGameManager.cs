@@ -12,6 +12,8 @@ public delegate void GameEvent(EffectTiming timing);
 public class OverallGameManager : MonoBehaviour
 {
     [SerializeField]
+    TextMeshProUGUI deckButtonText;
+    [SerializeField]
     private GameObject EnemyContainer;
     [SerializeField]
     private CardGameManager cardGameManager;
@@ -37,6 +39,8 @@ public class OverallGameManager : MonoBehaviour
     public EnemyMovement EnemyInCombat;
     private EnemyBehaviour CurEncounter;
 
+    public GameObject getCardContainer() { return cardContainer; }
+
     public void EnterCombat(EnemyMovement enemyMovement, bool IsFromEnemy = false)
     {
         cardGameManager.player.CurManaToMaxMana();
@@ -57,6 +61,7 @@ public class OverallGameManager : MonoBehaviour
         cardGameManager.player.statusesList.Clear();
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
+        cardGameManager.ClearExhaustPile();
         cardGameManager.CardsFromHandToContainer();
         boardManager.IsInCombat = false;
         boardManager.enemies.Remove(EnemyInCombat);
@@ -100,6 +105,8 @@ public class OverallGameManager : MonoBehaviour
             deck.Add(curCard);
         }
         cardGameManager.curFightDeck = deck;
+        deckButtonText.text = cardGameManager.curFightDeck.Count.ToString();
+        
     }
     
     public void AddCardToDeck(int id)
@@ -111,6 +118,7 @@ public class OverallGameManager : MonoBehaviour
         newCard.name = newCard.GetComponent<CardBehaviour>().cardName;
         newCard.gameObject.SetActive(false);
         deckAmount.text = deck.Count.ToString();
+        deckButtonText.text = (int.Parse(deckButtonText.text) + 1).ToString();
     }
     // Start is called before the first frame update
     void Start()

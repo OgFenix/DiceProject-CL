@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class CardBehaviour : MonoBehaviour
 {
+    private GameObject ExhaustContainer;
     private GameObject DiscardContainer;
     private PlayerBehaviour Player;
     private OverallGameManager overallGameManager;
@@ -45,6 +46,13 @@ public class CardBehaviour : MonoBehaviour
         cardGameManager.discardPile.Add(this.gameObject);
         this.transform.SetParent(DiscardContainer.transform,false);
         cardGameManager.DiscardAmount.text = cardGameManager.discardPile.Count.ToString();
+    }
+    private void MoveToExhaustPile()
+    {
+        cardGameManager.exhaustPile.Add(this.gameObject);
+        this.transform.SetParent(ExhaustContainer.transform,false);
+        cardGameManager.exhaustAmount.text = cardGameManager.exhaustPile.Count.ToString();
+        
     }
 
     
@@ -96,6 +104,7 @@ public class CardBehaviour : MonoBehaviour
         cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
         Player = cardGameManager.player;
         DiscardContainer = cardGameManager.DiscardContainer;
+        ExhaustContainer = cardGameManager.exhaustContainer;
         thisCard = (Card)cardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;
@@ -137,7 +146,10 @@ public class CardBehaviour : MonoBehaviour
         }
         this.gameObject.SetActive(false);
         Player.UpdateCurMana(cost);
-        MoveToDiscardPile();
+        if (this.cardDisc.Contains("Exhaust"))
+            MoveToExhaustPile();
+        else
+            MoveToDiscardPile();
     }
 
     public bool IsCardPlayable(GameObject TargetedEnemy)
