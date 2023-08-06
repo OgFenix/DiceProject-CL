@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Xsl;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -11,6 +12,7 @@ public delegate void GameEvent(EffectTiming timing);
 
 public class OverallGameManager : MonoBehaviour
 {
+    public event GameEvent EnterCombatEvent;
     [SerializeField]
     TextMeshProUGUI deckButtonText;
     [SerializeField]
@@ -43,6 +45,7 @@ public class OverallGameManager : MonoBehaviour
 
     public void EnterCombat(EnemyMovement enemyMovement, bool IsFromEnemy = false)
     {
+        EnterCombatEvent?.Invoke(EffectTiming.EnterCombat);
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
         cardGameManager.CardsFromHandToContainer();
@@ -76,8 +79,13 @@ public class OverallGameManager : MonoBehaviour
     {
 
     }
-    public void ImmidateActivate(object sender, FuncArgs args)
+    public void ActivateEffect(object sender, FuncArgs args)
     {
+        if (args.modnum != 0)
+            if (args.ForEachUpTo != 0)
+                args.EffectNum = math.min((int)math.floor(args.GetEnvelopeNumber() / args.modnum), args.ForEachUpTo);
+            else
+                args.EffectNum = (int)math.floor(args.GetEnvelopeNumber() / args.modnum);
         args.TargetTypeFunc(sender,args);
     }
 
@@ -90,6 +98,9 @@ public class OverallGameManager : MonoBehaviour
                 break;
             case EffectTiming.Endofturn:
                 cardGameManager.EndOfTurn += action;
+                break;
+            case EffectTiming.EnterCombat:
+                EnterCombatEvent += action;
                 break;
         }
     }

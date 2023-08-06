@@ -88,7 +88,7 @@ public class EnemyBehaviour : CharacterBehaviour
     public void EnemyAttack()
     {
         if (CurEffect.Timing == EffectTiming.Immidiate)
-            overallGameManager.ImmidateActivate(this.gameObject, CurEffect);
+            overallGameManager.ActivateEffect(this.gameObject, CurEffect);
         else
             overallGameManager.SubscribeToReleventEvent(CurEffect.Timing, ActivateEffect);
         CurEffect = getAndDeclareEnemyNextEffect(enemiesEffectsList);
@@ -105,7 +105,7 @@ public class EnemyBehaviour : CharacterBehaviour
     {
         foreach (var effect in enemiesEffectsList)
             if (effect.Timing == Timing)
-                effect.TargetTypeFunc(this, effect);
+                overallGameManager.ActivateEffect(this, effect);
     }
 
 

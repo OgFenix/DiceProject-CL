@@ -61,7 +61,7 @@ public class RelicBehaviour : MonoBehaviour
         descriptionText.text = relicDisc;
         foreach (var effect in effects)
             if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(this, effect);
+                overallGameManager.ActivateEffect(this.gameObject, effect);
             else
                 overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         IsRelicInit = true;
@@ -70,7 +70,7 @@ public class RelicBehaviour : MonoBehaviour
     {
         foreach (var effect in effects)
             if (effect.Timing == Timing)
-                effect.TargetTypeFunc(this, effect);
+                overallGameManager.ActivateEffect(this.gameObject, effect);
     }
     // Start is called before the first frame update
     void Start()

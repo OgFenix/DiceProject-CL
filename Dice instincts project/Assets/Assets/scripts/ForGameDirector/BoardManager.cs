@@ -45,6 +45,7 @@ public class BoardManager : MonoBehaviour
     }
     public void TurnIsOver(TileBase endingTile)
     {
+        Dice.IsRollAllowed = true;
         ActivateEndingSquare(endingTile);
         foreach (EnemyMovement enemy in enemies)
         {
@@ -128,6 +129,10 @@ public class BoardManager : MonoBehaviour
                 return true;
             }
         return false;
+    }
+    public int GetCurrentDiceRoll()
+    {
+        return Dice.currentface;
     }
 
     private void Update()

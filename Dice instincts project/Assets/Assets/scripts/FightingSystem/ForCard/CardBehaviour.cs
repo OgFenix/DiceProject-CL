@@ -125,7 +125,7 @@ public class CardBehaviour : MonoBehaviour
     {
         foreach (var effect in effects)
             if (effect.Timing == Timing)
-                effect.TargetTypeFunc(this,effect);
+                overallGameManager.ActivateEffect(this,effect);
     }
 
     public void PlayCard(GameObject TargetedEnemy)
@@ -137,7 +137,7 @@ public class CardBehaviour : MonoBehaviour
             if(TargetedEnemy != null)
                 effect.character = TargetedEnemy.GetComponent<EnemyBehaviour>();
             if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(Player.gameObject, effect);
+                overallGameManager.ActivateEffect(Player.gameObject, effect);
             else
             {
                 hasOvertimeEffect = true;

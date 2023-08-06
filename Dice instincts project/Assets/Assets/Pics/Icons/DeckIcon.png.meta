@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DeckIcon_0: 8613946562746806202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
