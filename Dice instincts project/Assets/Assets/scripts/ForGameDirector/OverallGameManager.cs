@@ -46,7 +46,7 @@ public class OverallGameManager : MonoBehaviour
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
         cardGameManager.CardsFromHandToContainer();
-        cardGameManager.curFightDeck = ListRandomizer<GameObject>.Randomize(deck).ToList();
+        cardGameManager.curFightDeck = ListFunctions<GameObject>.Randomize(deck).ToList();
         boardManager.IsInCombat = true;
         Board.SetActive(false);
         BoardInCanvas.SetActive(false);
@@ -70,6 +70,7 @@ public class OverallGameManager : MonoBehaviour
         Board.SetActive(true);
         BoardInCanvas.SetActive(true);
         CardGame.SetActive(false);
+        deck = ListFunctions<GameObject>.SortListByName(deck).ToList();
     }
     public void CombatLost()
     {

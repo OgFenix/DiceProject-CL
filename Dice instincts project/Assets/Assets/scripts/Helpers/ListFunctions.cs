@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ListRandomizer<T> 
+public static class ListFunctions<T> 
 {
     public static List<T> Randomize(List<T> list)
     {
@@ -18,6 +18,11 @@ public static class ListRandomizer<T>
             list[n] = value;
         }
 
+        return list;
+    }
+    public static List<GameObject> SortListByName(List<GameObject> list)
+    {
+        list.Sort((obj1, obj2) => obj1.name.CompareTo(obj2.name));
         return list;
     }
 }

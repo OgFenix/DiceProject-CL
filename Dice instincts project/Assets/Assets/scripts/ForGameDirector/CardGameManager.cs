@@ -216,7 +216,7 @@ public class CardGameManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
-        curFightDeck = ListRandomizer<GameObject>.Randomize(gameManager.deck).ToList();
+        curFightDeck = ListFunctions<GameObject>.Randomize(gameManager.deck).ToList();
     }
 
     // Update is called once per frame
