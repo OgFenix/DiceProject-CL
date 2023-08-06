@@ -20,7 +20,6 @@ abstract public class CharacterBehaviour : MonoBehaviour
     public int block;
     protected TextMeshProUGUI CurHealthText;
     protected TextMeshProUGUI CurBlockText;
-    public Vector3 lastStatusPos;
 
     public void UpdateHealth(int damage)
     {
@@ -39,36 +38,20 @@ abstract public class CharacterBehaviour : MonoBehaviour
     }
     public void addStatus()
     {
-        if (statusesList.Count > 0)
-        {
-            if (statusesList.Count == 1)
-            {
-                statusContainer.transform.GetChild(0).gameObject.SetActive(true);
-                statusContainer.transform.GetChild(0).GetComponent<Image>().sprite = statusesList[0].statusImg;
-                statusContainer.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[0].count.ToString();
-                lastStatusPos = statusContainer.transform.GetChild(0).position;
-            }
-            else
-            {
-                Vector3 newPos = lastStatusPos;
-                newPos.x += 40;
-                GameObject newStatus;
-                newStatus = Instantiate(statusPrefab);
-                newStatus.transform.localScale = new Vector3(2.3106f, 2.3106f, 2.3106f);
-                newStatus.SetActive(true);
-                newStatus.transform.SetParent(statusContainer.transform);
-                newStatus.transform.position = newPos;
-                newStatus.GetComponent<Image>().sprite = statusesList[statusesList.Count - 1].statusImg;
-                newStatus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[statusesList.Count - 1].count.ToString();
-                lastStatusPos = newPos;
-
-            }
-        }
+        GameObject newStatus;
+        newStatus = Instantiate(statusPrefab);
+        newStatus.transform.SetParent(statusContainer.transform);
+        newStatus.GetComponent<Image>().sprite = statusesList[statusesList.Count - 1].statusImg;
+        newStatus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[statusesList.Count - 1].count.ToString();
+    }
+    private void updateStatuses()
+    {
+        for(int i = 0; i < statusContainer.transform.childCount; i++)
+            statusContainer.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[i].count.ToString();
     }
     public void RemoveAllStatuses()
     {
-        statusContainer.transform.GetChild(0).gameObject.SetActive(false);
-        for (int i = 1; i < statusesList.Count; i++)
+        for (int i = 0; i < statusesList.Count; i++)
             removeStatus(statusesList[i]);
     }
     public void removeStatus(GeneralStatus cStatus)
@@ -78,6 +61,24 @@ abstract public class CharacterBehaviour : MonoBehaviour
         for (int i = ind + 1; i < statusesList.Count; i++)
             statusContainer.transform.GetChild(i).transform.position = new Vector3(statusContainer.transform.GetChild(i).transform.position.x - 2, statusContainer.transform.GetChild(i).transform.position.y, statusContainer.transform.GetChild(i).transform.position.z);
     }
+
+    public void ActivateEndOfTurnStatuses()
+    {
+        foreach(GeneralStatus timedStatus in statusesList)
+        {
+            if (timedStatus.GetType() == typeof(TimedStatuses))
+            {
+                if (timedStatus.status == Status.poison)
+                    UpdateHealth(timedStatus.count);
+                timedStatus.count--;
+                if (timedStatus.count == 0)
+                    removeStatus(timedStatus);
+            }
+        }
+        updateStatuses();
+    }
+
+
 
     // Start is called before the first frame update
     void Start()

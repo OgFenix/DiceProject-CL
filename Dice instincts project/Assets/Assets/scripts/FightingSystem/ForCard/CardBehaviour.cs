@@ -35,6 +35,7 @@ public class CardBehaviour : MonoBehaviour
     public Sprite cardSprite;
     public Classes cardForClass;
     public List<FuncArgs> effects;
+    private bool isExhaust;
 
     public void activateCard()
     {
@@ -118,6 +119,7 @@ public class CardBehaviour : MonoBehaviour
         cardNameText.text = cardName;
         manacostText.text = cost.ToString();
         descriptionText.text = cardDisc;
+        isExhaust = thisCard.isExhaust;
         IsCardInit = true;
     }
 
@@ -146,7 +148,7 @@ public class CardBehaviour : MonoBehaviour
         }
         this.gameObject.SetActive(false);
         Player.UpdateCurMana(cost);
-        if (this.cardDisc.Contains("Exhaust"))
+        if (this.isExhaust)
             MoveToExhaustPile();
         else
             MoveToDiscardPile();

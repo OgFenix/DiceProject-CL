@@ -45,6 +45,12 @@ public class CardGameManager : MonoBehaviour
 
     public void endYourTurn()
     {
+        player.ActivateEndOfTurnStatuses();
+        foreach (EnemyBehaviour enemy in activeenemies)
+            enemy.ActivateEndOfTurnStatuses();
+        //if fight finished dont call enemyturn etc...
+        if (activeenemies.Count > 0 && activeenemies.All(x => x.health < 0))
+            return;
         player.CurManaToMaxMana();
         StartCoroutine(EnemyTurn());
     }
