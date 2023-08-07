@@ -22,10 +22,10 @@ abstract public class FrameworkDictionary : MonoBehaviour
     }
     public int GetRandomID(List<int> PossibleIDs)
     {
-        return PossibleIDs[UnityEngine.Random.Range(0, PossibleIDs.Count - 1)];
+        return PossibleIDs[UnityEngine.Random.Range(0, PossibleIDs.Count)];
     }
     public int GetRandomID()
     {
-        return ListOfObject[UnityEngine.Random.Range(0, ListOfObject.Count - 1)].id;
+        return ListOfObject[UnityEngine.Random.Range(0, ListOfObject.Count)].id;
     }
 }

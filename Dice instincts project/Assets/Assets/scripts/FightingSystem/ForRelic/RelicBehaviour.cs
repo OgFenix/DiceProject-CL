@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Reflection;
 using System;
 
-public class RelicBehaviour : MonoBehaviour
+public class RelicBehaviour : Upgrade
 {
     bool IsRelicInit = false;
     public int id { get; private set; }
@@ -14,7 +14,7 @@ public class RelicBehaviour : MonoBehaviour
     public string relicDisc;
     public Sprite relicSprite;
     public Classes relicForClass;
-    public List<FuncArgs> effects;
+    //public List<FuncArgs> effects;
     private Relic thisRelic;
     private RelicDictionary relicDictionary;
     public TextMeshProUGUI relicNameText;
@@ -22,7 +22,7 @@ public class RelicBehaviour : MonoBehaviour
     public Image relicImage;
     public Component RelicSpesificScript;
     private GameObject RelicDiscContainer;
-    private OverallGameManager overallGameManager; 
+    private OverallGameManager overallGameManager;
     private void GetChildrenComponents()
     {
         RelicDiscContainer = transform.GetChild(0).gameObject;
@@ -41,7 +41,7 @@ public class RelicBehaviour : MonoBehaviour
             }
         }
     }
-    public void CreateRelic (int id)
+    public override void Create(int id)
     {
         relicImage = GetComponent<Image>();
         GetChildrenComponents();
@@ -66,7 +66,7 @@ public class RelicBehaviour : MonoBehaviour
                 overallGameManager.SubscribeToReleventEvent(effect.Timing, ActivateEffect);
         IsRelicInit = true;
     }
-    void ActivateEffect(EffectTiming Timing)
+    public override void ActivateEffect(EffectTiming Timing)
     {
         foreach (var effect in effects)
             if (effect.Timing == Timing)
@@ -77,13 +77,30 @@ public class RelicBehaviour : MonoBehaviour
     {
         if (!IsRelicInit)
         {
-            CreateRelic(0);
+            Create(0);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector2 mousePosition = Input.mousePosition;
+
+        // Convert mouse position to local position within the canvas
+        Vector2 localMousePos;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), mousePosition, null, out localMousePos))
+        {
+            if (GetComponent<RectTransform>().rect.Contains(localMousePos))
+            {
+                //Debug.Log("Mouse is over the specific GameObject: " + this.name);
+                GameObject desc = this.transform.GetChild(0).gameObject;
+                desc.SetActive(true);
+            }
+            else
+            {
+                GameObject desc = this.transform.GetChild(0).gameObject;
+                desc.SetActive(false);
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardBehaviour : MonoBehaviour
+public class CardBehaviour : Upgrade
 {
     private GameObject ExhaustContainer;
     private GameObject DiscardContainer;
@@ -34,7 +34,7 @@ public class CardBehaviour : MonoBehaviour
     public string cardDisc;
     public Sprite cardSprite;
     public Classes cardForClass;
-    public List<FuncArgs> effects;
+    //public List<FuncArgs> effects;
 
     public void activateCard()
     {
@@ -90,11 +90,11 @@ public class CardBehaviour : MonoBehaviour
         if (!IsCardInit)
         {
             id = UnityEngine.Random.Range(0, 3); // make it take from ids in deck later
-            CreateCard(id);
+            Create(id);
         }
     }
 
-    public void CreateCard(int id)
+    public override void Create(int id)
     {
         GetChildrenComponents();
         Player = GameObject.Find("PlayerStats")?.GetComponent<PlayerBehaviour>();
@@ -121,7 +121,7 @@ public class CardBehaviour : MonoBehaviour
         IsCardInit = true;
     }
 
-    void ActivateEffect(EffectTiming Timing)
+    public override void ActivateEffect(EffectTiming Timing)
     {
         foreach (var effect in effects)
             if (effect.Timing == Timing)

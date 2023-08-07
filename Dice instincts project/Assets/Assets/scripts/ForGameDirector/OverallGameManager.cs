@@ -14,6 +14,8 @@ public class OverallGameManager : MonoBehaviour
 {
     public event GameEvent EnterCombatEvent;
     [SerializeField]
+    Board_CameraDrag _board_CameraDrag;
+    [SerializeField]
     TextMeshProUGUI deckButtonText;
     [SerializeField]
     private GameObject EnemyContainer;
@@ -29,12 +31,16 @@ public class OverallGameManager : MonoBehaviour
     private GameObject CardGame;
     [SerializeField]
     private GameObject cardPrefab;
+    [SerializeField]
+    private GameObject relicPrefab;
     [SerializeField] 
     private GameObject EnemyPrefab;
     [SerializeField]
     private TextMeshProUGUI deckAmount;
     [SerializeField]
     public GameObject cardContainer;
+    [SerializeField]
+    public GameObject RelicContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 1, 1, 2, 3, 4, 5};
     [SerializeField]
     public List<GameObject> deck;
@@ -46,6 +52,7 @@ public class OverallGameManager : MonoBehaviour
     public void EnterCombat(EnemyMovement enemyMovement, bool IsFromEnemy = false)
     {
         EnterCombatEvent?.Invoke(EffectTiming.EnterCombat);
+        _board_CameraDrag.isInBoardState = false;
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
         cardGameManager.CardsFromHandToContainer();
@@ -60,6 +67,7 @@ public class OverallGameManager : MonoBehaviour
     }
     public void CombatWon()
     {
+        _board_CameraDrag.isInBoardState = true;
         cardGameManager.player.RemoveAllStatuses();
         cardGameManager.player.statusesList.Clear();
         cardGameManager.player.CurManaToMaxMana();
@@ -104,13 +112,29 @@ public class OverallGameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void UnSubscribeToReleventEvent(EffectTiming trigger, GameEvent action)
+    {
+        switch (trigger)
+        {
+            case EffectTiming.Startofturn:
+                cardGameManager.StartOfTurn -= action;
+                break;
+            case EffectTiming.Endofturn:
+                cardGameManager.EndOfTurn -= action;
+                break;
+            case EffectTiming.EnterCombat:
+                EnterCombatEvent -= action;
+                break;
+        }
+    }
     private void initializeDeck()
     {
         GameObject curCard;
         foreach (var cardID in startingDeckIDs)
         {
             curCard = Instantiate(cardPrefab);
-            curCard.GetComponent<CardBehaviour>().CreateCard(cardID);
+            curCard.GetComponent<CardBehaviour>().Create(cardID);
             curCard.transform.SetParent(cardContainer.transform, false);
             curCard.SetActive(false);
             curCard.name = curCard.GetComponent<CardBehaviour>().cardName;
@@ -124,13 +148,20 @@ public class OverallGameManager : MonoBehaviour
     public void AddCardToDeck(int id)
     {
         CardBehaviour newCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
-        newCard.CreateCard(id);
+        newCard.Create(id);
         newCard.transform.SetParent(cardContainer.transform,false);
         deck.Add(newCard.gameObject);
         newCard.name = newCard.GetComponent<CardBehaviour>().cardName;
         newCard.gameObject.SetActive(false);
         deckAmount.text = deck.Count.ToString();
         deckButtonText.text = (int.Parse(deckButtonText.text) + 1).ToString();
+    }
+
+    public void AddRelic(int id)
+    {
+        RelicBehaviour newRelic = Instantiate(relicPrefab).GetComponent<RelicBehaviour>();
+        newRelic.Create(id);
+        newRelic.transform.SetParent(RelicContainer.transform, false);
     }
     // Start is called before the first frame update
     void Start()

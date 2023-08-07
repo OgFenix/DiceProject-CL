@@ -15,6 +15,6 @@ public class RelicDictionary : FrameworkDictionary
     public override void InitList()
     { //ID,Name,ManaCost,Description,Image,Class,EffectList
         //AddToList(0, "Namaim", "Namaim is the man!", Classes.Warrior, new List<FuncArgs>(){ new FuncArgs(cardGameManager.GainBlock,cardGameManager.EffectOnPlayer, 4, EffectTiming.Startofturn)});
-        AddToList(0, "Spinach", "Gain 1 strength", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.ApplyStatus, cardGameManager.EffectOnSelf,boardManager.GetCurrentDiceRoll,2,0, EffectTiming.EnterCombat,Status.strength) });
+        AddToList(0, "Spinach", "Gain 1 strength for each 2 rolled in your last roll", Classes.Warrior, new List<FuncArgs>() { new FuncArgs(cardGameManager.ApplyStatus, cardGameManager.EffectOnSelf,boardManager.GetCurrentDiceRoll,2,0, EffectTiming.EnterCombat,Status.strength) });
     }
 }
