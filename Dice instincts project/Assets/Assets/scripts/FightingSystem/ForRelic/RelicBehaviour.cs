@@ -41,7 +41,7 @@ public class RelicBehaviour : Upgrade
             }
         }
     }
-    public override void Create(int id)
+    public override void Create(int id, bool IsUpgraded = false)
     {
         relicImage = GetComponent<Image>();
         GetChildrenComponents();

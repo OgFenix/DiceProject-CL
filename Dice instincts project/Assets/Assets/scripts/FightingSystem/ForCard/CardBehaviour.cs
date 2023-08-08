@@ -90,11 +90,11 @@ public class CardBehaviour : Upgrade
         if (!IsCardInit)
         {
             id = UnityEngine.Random.Range(0, 6); // make it take from ids in deck later
-            CreateCard(id, false);
+            Create(id, false);
         }
     }
 
-    public void CreateCard(int id, bool isUpgraded)
+    public override void Create(int id, bool isUpgraded = false)
     {
         GetChildrenComponents();
         Player = GameObject.Find("PlayerStats")?.GetComponent<PlayerBehaviour>();

@@ -227,7 +227,7 @@ public class CardGameManager : MonoBehaviour
     void Update()
     {
         deckAmount.text = curFightDeck.Count.ToString();
-        if (activeenemies.Count >= 0 && activeenemies.All(x => x.health <= 0))
+        if (activeenemies.Count > 0 && activeenemies.All(x => x.health <= 0))
         {
             gameManager.CombatWon();
             activeenemies.Clear();

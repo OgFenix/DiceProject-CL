@@ -134,7 +134,7 @@ public class OverallGameManager : MonoBehaviour
         foreach (var cardID in startingDeckIDs)
         {
             curCard = Instantiate(cardPrefab);
-            curCard.GetComponent<CardBehaviour>().CreateCard(cardID, false);
+            curCard.GetComponent<CardBehaviour>().Create(cardID, false);
             curCard.transform.SetParent(cardContainer.transform, false);
             curCard.SetActive(false);
             curCard.name = curCard.GetComponent<CardBehaviour>().cardName;
@@ -151,7 +151,7 @@ public class OverallGameManager : MonoBehaviour
     public void AddCardToDeck(int id, bool isUpgraded)
     {
         CardBehaviour newCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
-        newCard.CreateCard(id, isUpgraded);
+        newCard.Create(id, isUpgraded);
         newCard.transform.SetParent(cardContainer.transform,false);
         deck.Add(newCard.gameObject);
         newCard.name = newCard.GetComponent<CardBehaviour>().cardName;

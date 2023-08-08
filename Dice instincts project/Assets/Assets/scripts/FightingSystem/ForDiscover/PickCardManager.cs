@@ -14,7 +14,6 @@ public class PickCardManager : MonoBehaviour
         add,
         remove
     }
-
     [SerializeField]
     private OverallGameManager OverallGameManager;
     [SerializeField]
@@ -32,7 +31,6 @@ public class PickCardManager : MonoBehaviour
     public Vector3 handPosition;
     public Vector2 handSize;
     PointerEventData m_PointerEventData;
-    private GameObject CardToPick = null;
     public static PickFor pickFor;
     private GameObject _upgradeToPick = null;
 
@@ -56,14 +54,14 @@ public class PickCardManager : MonoBehaviour
 
     private void AddCard()
     {
-        cardGameManager.AddCardToDeck(CardToPick.GetComponent<CardBehaviour>().id, false);
+        OverallGameManager.AddCardToDeck(_upgradeToPick.GetComponent<CardBehaviour>().id, false);
         DestroyAllCardDiscoverOptions();
     }
     private void UpgradeCard()
     {
-        int id = CardToPick.GetComponent<CardBehaviour>().id;
-        cardGameManager.RemoveCardFromDeck(CardToPick);
-        cardGameManager.AddCardToDeck(id, true);
+        int id = _upgradeToPick.GetComponent<CardBehaviour>().id;
+        OverallGameManager.RemoveCardFromDeck(_upgradeToPick);
+        OverallGameManager.AddCardToDeck(id, true);
 
     }
     private void RemoveCard()
@@ -78,29 +76,30 @@ public class PickCardManager : MonoBehaviour
         foreach (RaycastResult result in results)
             if (result.gameObject == _upgradeToPick)
             {
-                CardToPick = CardToPick.transform.parent.gameObject;
-                switch (pickFor)
-                {
-                    case PickFor.upgrade:
-                        UpgradeCard();
-                        deckScrollMenu.moveDeckToOverallContainer();
-                        scrollContainer.GetComponent<PickCardManager>().enabled = false;
-                        exitDeckMenuBtn.gameObject.SetActive(true);
-                        break;
-                    case PickFor.add:
-                        AddCard();
-                        break;
-                    case PickFor.remove:
-                        RemoveCard();
-                        break;
-                }
                 if (result.gameObject.CompareTag("Card"))
+                {
                     _upgradeToPick = _upgradeToPick.transform.parent.gameObject;
-                if(result.gameObject.CompareTag("Card"))
-                    OverallGameManager.AddCardToDeck(_upgradeToPick.GetComponent<CardBehaviour>().id);
-                if(result.gameObject.CompareTag("Relic"))
+                    switch (pickFor)
+                    {
+                        case PickFor.upgrade:
+                            UpgradeCard();
+                            deckScrollMenu.moveDeckToOverallContainer();
+                            scrollContainer.GetComponent<PickCardManager>().enabled = false;
+                            exitDeckMenuBtn.gameObject.SetActive(true);
+                            break;
+                        case PickFor.add:
+                            AddCard();
+                            break;
+                        case PickFor.remove:
+                            RemoveCard();
+                            break;
+                    }
+                }
+                else if (result.gameObject.CompareTag("Relic"))
+                {
                     OverallGameManager.AddRelic(_upgradeToPick.GetComponent<RelicBehaviour>().id);
-                DestroyAllCardDiscoverOptions();
+                    DestroyAllCardDiscoverOptions();
+                }
                 break;
             }
     }
