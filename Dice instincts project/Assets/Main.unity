@@ -3173,6 +3173,7 @@ MonoBehaviour:
   canvas: {fileID: 143912527}
   deckScrollMenu: {fileID: 0}
   scrollContainer: {fileID: 0}
+  exitDeckMenuBtn: {fileID: 0}
   handPosition: {x: 0, y: 0, z: 0}
   handSize: {x: 0, y: 0}
 --- !u!1 &1021307913
@@ -4186,6 +4187,7 @@ MonoBehaviour:
   canvas: {fileID: 143912527}
   deckScrollMenu: {fileID: 2083618900}
   scrollContainer: {fileID: 1430184795}
+  exitDeckMenuBtn: {fileID: 1979743477}
   handPosition: {x: 0, y: 0, z: 0}
   handSize: {x: 0, y: 0}
 --- !u!1 &1431505659
@@ -5403,6 +5405,7 @@ MonoBehaviour:
   deckContainer: {fileID: 839116817}
   deckScrollMenu: {fileID: 2083618900}
   scrollContainer: {fileID: 1430184795}
+  exitDeckMenuBtn: {fileID: 1979743477}
   enemies:
   - {fileID: 1553145680}
   - {fileID: 101838513}
