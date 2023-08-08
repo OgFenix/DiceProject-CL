@@ -99,7 +99,7 @@ public class OverallGameManager : MonoBehaviour
         foreach (var cardID in startingDeckIDs)
         {
             curCard = Instantiate(cardPrefab);
-            curCard.GetComponent<CardBehaviour>().CreateCard(cardID);
+            curCard.GetComponent<CardBehaviour>().CreateCard(cardID, false);
             curCard.transform.SetParent(cardContainer.transform, false);
             curCard.SetActive(false);
             curCard.name = curCard.GetComponent<CardBehaviour>().cardName;
@@ -109,19 +109,30 @@ public class OverallGameManager : MonoBehaviour
         deckButtonText.text = cardGameManager.curFightDeck.Count.ToString();
         
     }
-    
-    public void AddCardToDeck(int id)
+    private void updateDeckAmount()
+    {
+        deckButtonText.text = deck.Count.ToString();
+    }
+    public void AddCardToDeck(int id, bool isUpgraded)
     {
         CardBehaviour newCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
-        newCard.CreateCard(id);
+        newCard.CreateCard(id, isUpgraded);
         newCard.transform.SetParent(cardContainer.transform,false);
         deck.Add(newCard.gameObject);
         newCard.name = newCard.GetComponent<CardBehaviour>().cardName;
         newCard.gameObject.SetActive(false);
         deckAmount.text = deck.Count.ToString();
-        deckButtonText.text = (int.Parse(deckButtonText.text) + 1).ToString();
+        updateDeckAmount();
     }
     // Start is called before the first frame update
+
+    public void RemoveCardFromDeck(GameObject card)
+    {
+        deck.Remove(card);
+        Destroy(card.gameObject);
+        updateDeckAmount();
+
+    }
     void Start()
     {
         initializeDeck();

@@ -324,6 +324,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56899c0dd01854b4c86b2056336f8646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &108465951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108465952}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &108465952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108465951}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 539.0362, y: 302.2901, z: -4.941592}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &113906491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3140,6 +3171,8 @@ MonoBehaviour:
   CanvasRaycast: {fileID: 143912524}
   eventSystem: {fileID: 942444550}
   canvas: {fileID: 143912527}
+  deckScrollMenu: {fileID: 0}
+  scrollContainer: {fileID: 0}
   handPosition: {x: 0, y: 0, z: 0}
   handSize: {x: 0, y: 0}
 --- !u!1 &1021307913
@@ -3572,7 +3605,9 @@ MonoBehaviour:
   scrollListViewPort: {fileID: 839116817}
   scrollMenuContainer: {fileID: 1430184795}
   overallCardContainer: {fileID: 1703183514}
+  pickCardManager: {fileID: 0}
   deck: []
+  isForUpgrade: 0
 --- !u!1001 &1293652672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4082,6 +4117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1430184796}
   - component: {fileID: 1430184797}
+  - component: {fileID: 1430184798}
   m_Layer: 5
   m_Name: ScrollContainer
   m_TagString: Untagged
@@ -4132,6 +4168,26 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1430184798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430184795}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bff7b8edf2ff9b4f96688e1701878a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 2083618898}
+  CanvasRaycast: {fileID: 143912524}
+  eventSystem: {fileID: 942444550}
+  canvas: {fileID: 143912527}
+  deckScrollMenu: {fileID: 2083618900}
+  scrollContainer: {fileID: 1430184795}
+  handPosition: {x: 0, y: 0, z: 0}
+  handSize: {x: 0, y: 0}
 --- !u!1 &1431505659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5203,9 @@ MonoBehaviour:
   scrollListViewPort: {fileID: 839116817}
   scrollMenuContainer: {fileID: 1430184795}
   overallCardContainer: {fileID: 1703183514}
+  pickCardManager: {fileID: 0}
   deck: []
+  isForUpgrade: 0
 --- !u!114 &1979743480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5258,6 +5316,8 @@ GameObject:
   - component: {fileID: 2083618896}
   - component: {fileID: 2083618897}
   - component: {fileID: 2083618899}
+  - component: {fileID: 2083618900}
+  - component: {fileID: 2083618901}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -5340,6 +5400,9 @@ MonoBehaviour:
   cardGameManager: {fileID: 2083618894}
   overallGameManager: {fileID: 2083618898}
   playerMovement: {fileID: 2103266425}
+  deckContainer: {fileID: 839116817}
+  deckScrollMenu: {fileID: 2083618900}
+  scrollContainer: {fileID: 1430184795}
   enemies:
   - {fileID: 1553145680}
   - {fileID: 101838513}
@@ -5405,6 +5468,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9198f1f8152a774bb183d34686126a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardGameManager: {fileID: 2083618894}
+--- !u!114 &2083618900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083618891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5380e52f26dcc4cae9302db2d5eb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollListViewPort: {fileID: 839116817}
+  scrollMenuContainer: {fileID: 1430184795}
+  overallCardContainer: {fileID: 1703183514}
+  pickCardManager: {fileID: 0}
+  deck: []
+  isForUpgrade: 0
+--- !u!114 &2083618901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083618891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bf45b1432ca15479b16d2373736fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardGameManager: {fileID: 2083618894}
@@ -5866,3 +5960,4 @@ SceneRoots:
   - {fileID: 2083618893}
   - {fileID: 942444548}
   - {fileID: 1703183515}
+  - {fileID: 108465952}

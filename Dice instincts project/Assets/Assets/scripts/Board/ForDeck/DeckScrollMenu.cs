@@ -12,7 +12,10 @@ public class DeckScrollMenu : MonoBehaviour
     GameObject scrollMenuContainer;
     [SerializeField]
     GameObject overallCardContainer;
+    [SerializeField]
+    PickCardManager pickCardManager;
     public List<GameObject> deck;
+    public bool isForUpgrade = false;
     // Start is called before the first frame update
     public void moveDeckToScrollMenu()
     {

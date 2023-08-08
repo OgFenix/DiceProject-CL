@@ -20,6 +20,7 @@ public class CardBehaviour : MonoBehaviour
     private int handIndex;
     private Card thisCard;
     private CardsDictionary cardsDictionary;
+    private UpgradedCardsDictionary upgradeCardsDictionary;
     private bool IsCardInit = false;
 
     public TextMeshProUGUI cardNameText;
@@ -90,23 +91,29 @@ public class CardBehaviour : MonoBehaviour
     {
         if (!IsCardInit)
         {
-            id = UnityEngine.Random.Range(0, 3); // make it take from ids in deck later
-            CreateCard(id);
+            id = UnityEngine.Random.Range(0, 6); // make it take from ids in deck later
+            CreateCard(id, false);
         }
     }
 
-    public void CreateCard(int id)
+    public void CreateCard(int id, bool isUpgraded)
     {
         GetChildrenComponents();
         Player = GameObject.Find("PlayerStats")?.GetComponent<PlayerBehaviour>();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
-        cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
+        if(!isUpgraded)
+            cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
+        else
+            upgradeCardsDictionary = gamedirector.GetComponent<UpgradedCardsDictionary>();
         Player = cardGameManager.player;
         DiscardContainer = cardGameManager.DiscardContainer;
         ExhaustContainer = cardGameManager.exhaustContainer;
-        thisCard = (Card)cardsDictionary.InitializeByID(id);
+        if(!isUpgraded)
+            thisCard = (Card)cardsDictionary.InitializeByID(id);
+        else
+            thisCard = (Card)upgradeCardsDictionary.InitializeByID(id);
         //creating card from thiscard
         this.id = thisCard.id;
         cardName = thisCard.cardName;

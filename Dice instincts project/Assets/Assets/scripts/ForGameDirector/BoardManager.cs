@@ -28,6 +28,14 @@ public class BoardManager : MonoBehaviour
     OverallGameManager overallGameManager;
     [SerializeField]
     PlayerMovement playerMovement;
+    [SerializeField]
+    GameObject deckContainer;
+    [SerializeField]
+    DeckScrollMenu deckScrollMenu;
+    [SerializeField]
+    GameObject scrollContainer;
+    [SerializeField]
+    GameObject exitDeckMenuBtn;
     CardBehaviour NewCard;
     int Money = 0;
     public bool IsInCombat { get; set; } = false;
@@ -57,6 +65,7 @@ public class BoardManager : MonoBehaviour
         switch (endingTile.name[12]) 
         {
             case '0':
+                PickCardManager.pickFor = PickCardManager.PickFor.upgrade;
                 SteppedOnCampfireTile();
                 break;
             case '1':
@@ -66,6 +75,7 @@ public class BoardManager : MonoBehaviour
                 SteppedOnFreeTurnTile();
                 break;
             case '3':
+                PickCardManager.pickFor = PickCardManager.PickFor.add;
                 SteppedOnChestTile();
                 break;
             case '4':
@@ -80,7 +90,9 @@ public class BoardManager : MonoBehaviour
 
     private void SteppedOnCampfireTile()
     {
-
+        scrollContainer.GetComponent<PickCardManager>().enabled = true;
+        exitDeckMenuBtn.SetActive(false);
+        deckScrollMenu.moveDeckToScrollMenu();
     }
     private void SteppedOnCoinTile()
     {
@@ -100,7 +112,7 @@ public class BoardManager : MonoBehaviour
             int newCardInDiscoverId = cardsDictionary.GetRandomID(possibleIDs);
             possibleIDs.Remove(newCardInDiscoverId);
             NewCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
-            NewCard.CreateCard(newCardInDiscoverId);
+            NewCard.CreateCard(newCardInDiscoverId, false);
             NewCard.transform.SetParent(discoverPanel.transform);
             NewCard.transform.localScale = Vector3.Scale(NewCard.transform.localScale, new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1     ));
         }
