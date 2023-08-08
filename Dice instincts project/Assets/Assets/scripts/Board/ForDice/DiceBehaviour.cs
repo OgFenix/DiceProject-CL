@@ -12,7 +12,7 @@ public class DiceBehaviour : MonoBehaviour
     [SerializeField]
     int[] DiceFaces = { 1, 2, 3, 4, 5, 6 };
     bool isRolling = false;
-    int currentface;
+    public int currentface;
     [SerializeField]
     PlayerMovement PlayerMovementManager;
     public bool IsRollAllowed = true;
@@ -40,6 +40,7 @@ public class DiceBehaviour : MonoBehaviour
         {
             if (isRolling)
             {
+                IsRollAllowed = false;
                 PlayerMovementManager.initializePossibleEndingSqures(currentface);
             }
             // Toggle the dice rolling state

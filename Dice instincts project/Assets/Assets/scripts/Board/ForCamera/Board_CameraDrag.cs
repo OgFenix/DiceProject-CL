@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Board_CameraDrag : MonoBehaviour
 {
     [SerializeField]
-    bool isInBoardState = false;
+    public bool isInBoardState = false;
     int Zcoord = -10;
     [SerializeField]
     EventSystem eventSystem;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Xsl;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -11,6 +12,9 @@ public delegate void GameEvent(EffectTiming timing);
 
 public class OverallGameManager : MonoBehaviour
 {
+    public event GameEvent EnterCombatEvent;
+    [SerializeField]
+    Board_CameraDrag _board_CameraDrag;
     [SerializeField]
     TextMeshProUGUI deckButtonText;
     [SerializeField]
@@ -27,12 +31,16 @@ public class OverallGameManager : MonoBehaviour
     private GameObject CardGame;
     [SerializeField]
     private GameObject cardPrefab;
+    [SerializeField]
+    private GameObject relicPrefab;
     [SerializeField] 
     private GameObject EnemyPrefab;
     [SerializeField]
     private TextMeshProUGUI deckAmount;
     [SerializeField]
     public GameObject cardContainer;
+    [SerializeField]
+    public GameObject RelicContainer;
     List<int> startingDeckIDs = new List<int>() { 0, 0, 1, 1, 2, 3, 4, 5};
     [SerializeField]
     public List<GameObject> deck;
@@ -43,6 +51,8 @@ public class OverallGameManager : MonoBehaviour
 
     public void EnterCombat(EnemyMovement enemyMovement, bool IsFromEnemy = false)
     {
+        EnterCombatEvent?.Invoke(EffectTiming.EnterCombat);
+        _board_CameraDrag.isInBoardState = false;
         cardGameManager.player.CurManaToMaxMana();
         cardGameManager.ClearDiscardPile();
         cardGameManager.CardsFromHandToContainer();
@@ -57,6 +67,7 @@ public class OverallGameManager : MonoBehaviour
     }
     public void CombatWon()
     {
+        _board_CameraDrag.isInBoardState = true;
         cardGameManager.player.RemoveAllStatuses();
         cardGameManager.player.statusesList.Clear();
         cardGameManager.player.CurManaToMaxMana();
@@ -76,8 +87,13 @@ public class OverallGameManager : MonoBehaviour
     {
 
     }
-    public void ImmidateActivate(object sender, FuncArgs args)
+    public void ActivateEffect(object sender, FuncArgs args)
     {
+        if (args.modnum != 0)
+            if (args.ForEachUpTo != 0)
+                args.EffectNum = math.min((int)math.floor(args.GetEnvelopeNumber() / args.modnum), args.ForEachUpTo);
+            else
+                args.EffectNum = (int)math.floor(args.GetEnvelopeNumber() / args.modnum);
         args.TargetTypeFunc(sender,args);
     }
 
@@ -90,6 +106,25 @@ public class OverallGameManager : MonoBehaviour
                 break;
             case EffectTiming.Endofturn:
                 cardGameManager.EndOfTurn += action;
+                break;
+            case EffectTiming.EnterCombat:
+                EnterCombatEvent += action;
+                break;
+        }
+    }
+
+    public void UnSubscribeToReleventEvent(EffectTiming trigger, GameEvent action)
+    {
+        switch (trigger)
+        {
+            case EffectTiming.Startofturn:
+                cardGameManager.StartOfTurn -= action;
+                break;
+            case EffectTiming.Endofturn:
+                cardGameManager.EndOfTurn -= action;
+                break;
+            case EffectTiming.EnterCombat:
+                EnterCombatEvent -= action;
                 break;
         }
     }
@@ -123,6 +158,13 @@ public class OverallGameManager : MonoBehaviour
         newCard.gameObject.SetActive(false);
         deckAmount.text = deck.Count.ToString();
         updateDeckAmount();
+    }
+
+    public void AddRelic(int id)
+    {
+        RelicBehaviour newRelic = Instantiate(relicPrefab).GetComponent<RelicBehaviour>();
+        newRelic.Create(id);
+        newRelic.transform.SetParent(RelicContainer.transform, false);
     }
     // Start is called before the first frame update
 

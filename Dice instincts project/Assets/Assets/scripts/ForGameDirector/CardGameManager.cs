@@ -54,7 +54,6 @@ public class CardGameManager : MonoBehaviour
         player.CurManaToMaxMana();
         StartCoroutine(EnemyTurn());
     }
-
     IEnumerator EnemyTurn()
     {
         foreach(var enemy in activeenemies)
@@ -63,7 +62,6 @@ public class CardGameManager : MonoBehaviour
             enemy.EnemyAttack();
         }
     }
-
     public void DrawCard()
     {
         //Debug.Log(UnityEngine.Random.Range(0, deck.Count));
@@ -93,9 +91,10 @@ public class CardGameManager : MonoBehaviour
     {
         GameObject sendergameobject = (GameObject)sender;
         args.character = sendergameobject.GetComponent<CharacterBehaviour>();
+        if (args.character == null)
+            args.character = player;
         args.FuncToRun(sender, args);
     }
-
     public void EffectOnPlayer(object sender, FuncArgs args)
     {
             args.character = player;
@@ -183,7 +182,10 @@ public class CardGameManager : MonoBehaviour
     {
         args.character.ChangeArmor(args.EffectNum);
     }
-    
+    public void ForEach(object sender, FuncArgs args)
+    {
+
+    }
     public void CardsFromHandToContainer()
     {
         Vector3 OrgLocalScale;
@@ -206,7 +208,6 @@ public class CardGameManager : MonoBehaviour
             Children[i].transform.localScale = OrgLocalScale;
         }
     }   
-    
     public void ClearDiscardPile()
     {
         discardPile.Clear();
@@ -217,24 +218,21 @@ public class CardGameManager : MonoBehaviour
         exhaustPile.Clear();
         exhaustAmount.text = "0";
     }
-    
-    // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameDirector").GetComponent<OverallGameManager>();
         curFightDeck = ListFunctions<GameObject>.Randomize(gameManager.deck).ToList();
     }
 
-    // Update is called once per frame
     void Update()
     {
         deckAmount.text = curFightDeck.Count.ToString();
-        if (activeenemies.Count > 0 && activeenemies.All(x => x.health < 0))
+        if (activeenemies.Count >= 0 && activeenemies.All(x => x.health <= 0))
         {
             gameManager.CombatWon();
             activeenemies.Clear();
         }
-        if (player.health < 0)
+        if (player.health <= 0)
             gameManager.CombatLost();
     }
 }

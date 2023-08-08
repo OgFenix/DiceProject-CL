@@ -2,5 +2,7 @@
 {
     Immidiate,
     Startofturn,
-    Endofturn
+    Endofturn,
+    EnterCombat,
+    ExitCombat
 }

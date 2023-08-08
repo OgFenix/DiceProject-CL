@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardBehaviour : MonoBehaviour
+public class CardBehaviour : Upgrade
 {
     private GameObject ExhaustContainer;
     private GameObject DiscardContainer;
@@ -35,9 +35,7 @@ public class CardBehaviour : MonoBehaviour
     public string cardDisc;
     public Sprite cardSprite;
     public Classes cardForClass;
-    public List<FuncArgs> effects;
     private bool isExhaust;
-
     public void activateCard()
     {
         
@@ -130,11 +128,11 @@ public class CardBehaviour : MonoBehaviour
         IsCardInit = true;
     }
 
-    void ActivateEffect(EffectTiming Timing)
+    public override void ActivateEffect(EffectTiming Timing)
     {
         foreach (var effect in effects)
             if (effect.Timing == Timing)
-                effect.TargetTypeFunc(this,effect);
+                overallGameManager.ActivateEffect(this,effect);
     }
 
     public void PlayCard(GameObject TargetedEnemy)
@@ -146,7 +144,7 @@ public class CardBehaviour : MonoBehaviour
             if(TargetedEnemy != null)
                 effect.character = TargetedEnemy.GetComponent<EnemyBehaviour>();
             if (effect.Timing == EffectTiming.Immidiate)
-                overallGameManager.ImmidateActivate(Player.gameObject, effect);
+                overallGameManager.ActivateEffect(Player.gameObject, effect);
             else
             {
                 hasOvertimeEffect = true;

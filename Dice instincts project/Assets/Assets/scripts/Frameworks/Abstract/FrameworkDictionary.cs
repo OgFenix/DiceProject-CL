@@ -7,10 +7,12 @@ abstract public class FrameworkDictionary : MonoBehaviour
 
     public List<FrameworkOfObject> ListOfObject { get; private set; } = new List<FrameworkOfObject>();
     public CardGameManager cardGameManager;
+    public BoardManager boardManager;
     // Start is called before the first frame update
     void Awake()
     {
         cardGameManager = GameObject.Find("GameDirector").GetComponent<CardGameManager>();
+        boardManager = GameObject.Find("GameDirector").GetComponent<BoardManager>();
         InitList();
     }
     public abstract void InitList();
@@ -20,10 +22,10 @@ abstract public class FrameworkDictionary : MonoBehaviour
     }
     public int GetRandomID(List<int> PossibleIDs)
     {
-        return PossibleIDs[UnityEngine.Random.Range(0, PossibleIDs.Count - 1)];
+        return PossibleIDs[UnityEngine.Random.Range(0, PossibleIDs.Count)];
     }
     public int GetRandomID()
     {
-        return ListOfObject[UnityEngine.Random.Range(0, ListOfObject.Count - 1)].id;
+        return ListOfObject[UnityEngine.Random.Range(0, ListOfObject.Count)].id;
     }
 }

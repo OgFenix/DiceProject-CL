@@ -12,6 +12,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     CardsDictionary cardsDictionary;
     [SerializeField]
+    RelicDictionary relicDictionary;
+    [SerializeField]
     GameObject discoverPanel;
     int discover_SizeMultiplayer = 4;
     [SerializeField]
@@ -22,6 +24,8 @@ public class BoardManager : MonoBehaviour
     TextMeshProUGUI CoinText;
     [SerializeField]
     GameObject cardPrefab;
+    [SerializeField]
+    GameObject relicPrefab;
     [SerializeField]
     CardGameManager cardGameManager;
     [SerializeField]
@@ -37,6 +41,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     GameObject exitDeckMenuBtn;
     CardBehaviour NewCard;
+    Upgrade NewUpgrade;
     int Money = 0;
     public bool IsInCombat { get; set; } = false;
     [SerializeField]
@@ -53,6 +58,7 @@ public class BoardManager : MonoBehaviour
     }
     public void TurnIsOver(TileBase endingTile)
     {
+        Dice.IsRollAllowed = true;
         ActivateEndingSquare(endingTile);
         foreach (EnemyMovement enemy in enemies)
         {
@@ -104,17 +110,40 @@ public class BoardManager : MonoBehaviour
     }
     private void SteppedOnChestTile()
     {
-        List<int> possibleIDs = new List<int>();
-        for(int i = 0; i < cardsDictionary.ListOfObject.Count; i++)
-            possibleIDs.Add(i);
+        //List<int> possibleIDs = new List<int>();
+        FrameworkDictionary dictionary;
+        GameObject prefab;
+        int rand;
+        /*for (int i = 0; i < cardsDictionary.ListOfObject.Count; i++)
+            possibleIDs.Add(i); */
         for (int i = 0; i < NumberOfItemsToChooseFromChest; i++)
         {
-            int newCardInDiscoverId = cardsDictionary.GetRandomID(possibleIDs);
-            possibleIDs.Remove(newCardInDiscoverId);
-            NewCard = Instantiate(cardPrefab).GetComponent<CardBehaviour>();
-            NewCard.CreateCard(newCardInDiscoverId, false);
-            NewCard.transform.SetParent(discoverPanel.transform);
-            NewCard.transform.localScale = Vector3.Scale(NewCard.transform.localScale, new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1     ));
+            rand = Random.Range(1, 3);
+            switch (rand)
+            {
+                case 1:
+                    dictionary = cardsDictionary;
+                    prefab = cardPrefab;
+                    break;
+                case 2:
+                    dictionary = relicDictionary;
+                    prefab = relicPrefab;
+                    break;
+                default:
+                    Debug.Log("this means that you are outside of bounds of picking an upgrade for chest, fix it!");
+                    dictionary = cardsDictionary;
+                    prefab = cardPrefab;
+                    break;
+            }
+            int newCardInDiscoverId = dictionary.GetRandomID();
+            //possibleIDs.Remove(newCardInDiscoverId);
+            NewUpgrade = Instantiate(prefab).GetComponent<Upgrade>();
+            NewUpgrade.Create(newCardInDiscoverId);
+            NewUpgrade.transform.SetParent(discoverPanel.transform);
+            if(rand == 1)
+                NewUpgrade.transform.localScale = Vector3.Scale(NewUpgrade.transform.localScale, new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1));
+            if (rand == 2)
+                NewUpgrade.transform.GetChild(0).localScale = Vector3.one;
         }
     }
     private void SteppedOnQuestionMarkTile()
@@ -140,6 +169,10 @@ public class BoardManager : MonoBehaviour
                 return true;
             }
         return false;
+    }
+    public int GetCurrentDiceRoll()
+    {
+        return Dice.currentface;
     }
 
     private void Update()

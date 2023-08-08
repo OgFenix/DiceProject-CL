@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +16,7 @@ public class PickCardManager : MonoBehaviour
     }
 
     [SerializeField]
-    private OverallGameManager cardGameManager;
+    private OverallGameManager OverallGameManager;
     [SerializeField]
     GraphicRaycaster CanvasRaycast;
     [SerializeField]
@@ -33,7 +34,7 @@ public class PickCardManager : MonoBehaviour
     PointerEventData m_PointerEventData;
     private GameObject CardToPick = null;
     public static PickFor pickFor;
-    
+    private GameObject _upgradeToPick = null;
 
     private void OnbeginClick()
     {
@@ -46,9 +47,9 @@ public class PickCardManager : MonoBehaviour
             Debug.Log("Hit " + result.gameObject.name);
         } */
         foreach (RaycastResult result in results)
-            if (result.gameObject.tag == "Card" && (result.gameObject.transform.parent.gameObject == this.gameObject || result.gameObject.transform.parent.parent.gameObject == this.gameObject))
+            if ((result.gameObject.CompareTag("Card") || result.gameObject.CompareTag("Relic")) && (result.gameObject.transform.parent.gameObject == this.gameObject || result.gameObject.transform.parent.parent.gameObject == this.gameObject))
             {
-                CardToPick = result.gameObject;
+                _upgradeToPick = result.gameObject;
                 break;
             }
     }
@@ -75,7 +76,7 @@ public class PickCardManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         CanvasRaycast.Raycast(m_PointerEventData, results);
         foreach (RaycastResult result in results)
-            if (result.gameObject == CardToPick)
+            if (result.gameObject == _upgradeToPick)
             {
                 CardToPick = CardToPick.transform.parent.gameObject;
                 switch (pickFor)
@@ -93,14 +94,24 @@ public class PickCardManager : MonoBehaviour
                         RemoveCard();
                         break;
                 }
+                if (result.gameObject.CompareTag("Card"))
+                    _upgradeToPick = _upgradeToPick.transform.parent.gameObject;
+                if(result.gameObject.CompareTag("Card"))
+                    OverallGameManager.AddCardToDeck(_upgradeToPick.GetComponent<CardBehaviour>().id);
+                if(result.gameObject.CompareTag("Relic"))
+                    OverallGameManager.AddRelic(_upgradeToPick.GetComponent<RelicBehaviour>().id);
+                DestroyAllCardDiscoverOptions();
                 break;
             }
     }
 
     private void DestroyAllCardDiscoverOptions()
     {
-        for (int i = 0;i < transform.childCount;i++)
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Upgrade>().effects.Where(x => x.Timing != EffectTiming.Immidiate).ToList().ForEach(x => OverallGameManager.UnSubscribeToReleventEvent(x.Timing, transform.GetChild(i).GetComponent<Upgrade>().ActivateEffect));
             Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     private void DragManager()
