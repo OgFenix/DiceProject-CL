@@ -40,6 +40,8 @@ public class BoardManager : MonoBehaviour
     GameObject scrollContainer;
     [SerializeField]
     GameObject exitDeckMenuBtn;
+    [SerializeField]
+    GameObject campfirePanel;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
     int Money = 0;
@@ -96,9 +98,7 @@ public class BoardManager : MonoBehaviour
 
     private void SteppedOnCampfireTile()
     {
-        scrollContainer.GetComponent<PickCardManager>().enabled = true;
-        exitDeckMenuBtn.SetActive(false);
-        deckScrollMenu.moveDeckToScrollMenu();
+        campfirePanel.SetActive(true);
     }
     private void SteppedOnCoinTile()
     {

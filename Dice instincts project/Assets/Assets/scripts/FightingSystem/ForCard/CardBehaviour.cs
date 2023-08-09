@@ -36,6 +36,7 @@ public class CardBehaviour : Upgrade
     public Sprite cardSprite;
     public Classes cardForClass;
     private bool isExhaust;
+    public bool isUpgraded;
     public void activateCard()
     {
         
@@ -112,6 +113,7 @@ public class CardBehaviour : Upgrade
             thisCard = (Card)cardsDictionary.InitializeByID(id);
         else
             thisCard = (Card)upgradeCardsDictionary.InitializeByID(id);
+        this.isUpgraded = isUpgraded;
         //creating card from thiscard
         this.id = thisCard.id;
         cardName = thisCard.cardName;
