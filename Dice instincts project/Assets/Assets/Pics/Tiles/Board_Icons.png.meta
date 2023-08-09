@@ -20,6 +20,36 @@ TextureImporter:
   - first:
       213: -3795734780053832360
     second: Board_Icons_5
+  - first:
+      213: 5871308153897085193
+    second: Board_Icons_6
+  - first:
+      213: 8147966319630416809
+    second: Board_Icons_7
+  - first:
+      213: 7837374714180797557
+    second: Board_Icons_8
+  - first:
+      213: 6097758481143484936
+    second: Board_Icons_9
+  - first:
+      213: -7583881914466303109
+    second: Board_Icons_10
+  - first:
+      213: -2153703391139052803
+    second: Board_Icons_11
+  - first:
+      213: 5605935534138695244
+    second: Board_Icons_12
+  - first:
+      213: -5839166702500194523
+    second: Board_Icons_13
+  - first:
+      213: -4334004780774561223
+    second: Board_Icons_14
+  - first:
+      213: 3625956075556405454
+    second: Board_Icons_15
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -117,7 +147,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 652
-        y: 487
+        y: 631
         width: 81
         height: 68
       alignment: 0
@@ -138,7 +168,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 762
-        y: 488
+        y: 632
         width: 80
         height: 68
       alignment: 0
@@ -159,7 +189,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 872
-        y: 491
+        y: 635
         width: 81
         height: 67
       alignment: 0
@@ -179,10 +209,10 @@ TextureImporter:
       name: Board_Icons_3
       rect:
         serializedVersion: 2
-        x: 657
-        y: 403
-        width: 81
-        height: 67
+        x: 965
+        y: 628
+        width: 72
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,10 +230,10 @@ TextureImporter:
       name: Board_Icons_4
       rect:
         serializedVersion: 2
-        x: 761
-        y: 403
-        width: 80
-        height: 67
+        x: 1038
+        y: 633
+        width: 72
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,10 +251,10 @@ TextureImporter:
       name: Board_Icons_5
       rect:
         serializedVersion: 2
-        x: 868
-        y: 404
-        width: 80
-        height: 67
+        x: 1111
+        y: 633
+        width: 72
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,6 +264,216 @@ TextureImporter:
       bones: []
       spriteID: 85dbb450457d25bc0800000000000000
       internalID: -3795734780053832360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_6
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 547
+        width: 81
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 909e3ef88a31b7150800000000000000
+      internalID: 5871308153897085193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_7
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 547
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abfa6ba234631170800000000000000
+      internalID: 8147966319630416809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_8
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 548
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 574006247c2f3cc60800000000000000
+      internalID: 7837374714180797557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_9
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 544
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 802dea208079f9450800000000000000
+      internalID: 6097758481143484936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_10
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 549
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b730ab57493a0c690800000000000000
+      internalID: -7583881914466303109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_11
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 555
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df24a933d228c12e0800000000000000
+      internalID: -2153703391139052803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_12
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 465
+        width: 81
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4e9312baa84ccd40800000000000000
+      internalID: 5605935534138695244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_13
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 464
+        width: 79
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 527df2142dc17fea0800000000000000
+      internalID: -5839166702500194523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_14
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 463
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a661b4d958ad3c0800000000000000
+      internalID: -4334004780774561223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board_Icons_15
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 466
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec085bee6dbf15230800000000000000
+      internalID: 3625956075556405454
       vertices: []
       indices: 
       edges: []
@@ -248,13 +488,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Board_Icons_0: -3175479537820813893
-      Board_Icons_1: -2388356260263744886
-      Board_Icons_2: 3277704585882772929
-      Board_Icons_3: 6254645178136706741
-      Board_Icons_4: 6695164737284691239
-      Board_Icons_5: -3795734780053832360
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

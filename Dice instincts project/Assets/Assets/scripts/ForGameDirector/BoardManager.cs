@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -40,10 +41,13 @@ public class BoardManager : MonoBehaviour
     GameObject scrollContainer;
     [SerializeField]
     GameObject exitDeckMenuBtn;
+    [SerializeField]    
+    private List<TileBase> _regularTiles;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
     int Money = 0;
     public bool IsInCombat { get; set; } = false;
+    public bool StopOnTile = false;
     [SerializeField]
     public List<EnemyMovement> enemies = new List<EnemyMovement>();
     GameObject EnemyInCombat = null;
@@ -68,7 +72,7 @@ public class BoardManager : MonoBehaviour
 
     private void ActivateEndingSquare(TileBase endingTile)
     {
-        switch (endingTile.name[12]) 
+        switch (endingTile.name[12])    
         {
             case '0':
                 PickCardManager.pickFor = PickCardManager.PickFor.upgrade;
@@ -80,14 +84,14 @@ public class BoardManager : MonoBehaviour
             case '2':
                 SteppedOnFreeTurnTile();
                 break;
-            case '3':
+            case '6':
                 PickCardManager.pickFor = PickCardManager.PickFor.add;
                 SteppedOnChestTile();
                 break;
-            case '4':
+            case '7':
                 SteppedOnQuestionMarkTile();
                 break;
-            case '5':
+            case '8':
                 SteppedOnShopTile();
                 break;
 
@@ -118,7 +122,7 @@ public class BoardManager : MonoBehaviour
             possibleIDs.Add(i); */
         for (int i = 0; i < NumberOfItemsToChooseFromChest; i++)
         {
-            rand = Random.Range(1, 3);
+            rand = UnityEngine.Random.Range(1, 3);
             switch (rand)
             {
                 case 1:
@@ -185,6 +189,7 @@ public class BoardManager : MonoBehaviour
     }
     public IEnumerator GoAlongChosenPath(List<Vector3Int> ChosenPath,Tilemap tilemap)
     {
+        TileBase tile;
         Vector3Int cellPlayerPosition = new Vector3Int();
         foreach (var step in ChosenPath)
         {
@@ -193,7 +198,56 @@ public class BoardManager : MonoBehaviour
                     yield return null;
             playerMovement.transform.position = tilemap.GetCellCenterWorld(step);
             cellPlayerPosition = step;
+            tile = tilemap.GetTile(step);
+            if (tile == null)
+            {
+                yield return new WaitForSeconds(0.3f);
+                break;
+            }
+            TileBase TileToTransform;
+            int TileID;
+            if (tile.name.Length == 13)
+                TileID = int.Parse(tile.name.Substring(12, 1).ToString());
+            else //14
+                TileID = int.Parse(tile.name.Substring(12, 2).ToString());
+            switch (TileID)
+            {
+                case 3:
+                    TileToTransform = _regularTiles[0];
+                    PickCardManager.pickFor = PickCardManager.PickFor.upgrade;
+                    SteppedOnCampfireTile();
+                    StopOnTile = true;
+                    break;
+                case 4:
+                    TileToTransform = _regularTiles[1];
+                    SteppedOnCoinTile();
+                    break;
+                case 5:
+                    TileToTransform = _regularTiles[2];
+                    SteppedOnFreeTurnTile();
+                    break;
+                case 9:
+                    TileToTransform = _regularTiles[3];
+                    PickCardManager.pickFor = PickCardManager.PickFor.add;
+                    SteppedOnChestTile();
+                    StopOnTile = true;
+                    break;
+                case 10:
+                    TileToTransform = _regularTiles[4];
+                    SteppedOnQuestionMarkTile();
+                    break;
+                case 11:
+                    TileToTransform = _regularTiles[5];
+                    SteppedOnShopTile();
+                    break;
+                default:
+                    TileToTransform = tile;
+                    break;
+            }
+            while(StopOnTile)
+                yield return null;
             yield return new WaitForSeconds(0.3f);
+            tilemap.SetTile(step, TileToTransform);
         }
         playerMovement.UpdatedPos();
         TurnIsOver(tilemap.GetTile(cellPlayerPosition));

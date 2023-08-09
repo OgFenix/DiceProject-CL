@@ -21,7 +21,7 @@ public class Board_CameraDrag : MonoBehaviour
     private void ZoomCam()
     {
         float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
-        this.GetComponent<Camera>().orthographicSize = this.GetComponent<Camera>().orthographicSize + scrollWheelInput * zoomSpeed;
+        this.GetComponent<Camera>().orthographicSize = this.GetComponent<Camera>().orthographicSize - scrollWheelInput * zoomSpeed;
     }
 
     private void OnBeginDrag()
@@ -47,17 +47,17 @@ public class Board_CameraDrag : MonoBehaviour
     {
         m_PointerEventData.position = MousePositionCalc.GetMousePositionInWorldBasedOnOldCameraPosition(startingCameraPosition);
         //Debug.Log($"The position in world is: {MousePositionCalc.GetMousePositionInWorld()}");
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             OnBeginDrag(); //checking to pickup card
             return;
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             Drag(); //dragging card
             return;
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             OnEndDrag(); //finish Dragging
         }

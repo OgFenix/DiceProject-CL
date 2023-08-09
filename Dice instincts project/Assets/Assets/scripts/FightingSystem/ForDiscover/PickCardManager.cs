@@ -15,6 +15,8 @@ public class PickCardManager : MonoBehaviour
         remove
     }
     [SerializeField]
+    private BoardManager boardManager;
+    [SerializeField]
     private OverallGameManager OverallGameManager;
     [SerializeField]
     GraphicRaycaster CanvasRaycast;
@@ -100,6 +102,7 @@ public class PickCardManager : MonoBehaviour
                     OverallGameManager.AddRelic(_upgradeToPick.GetComponent<RelicBehaviour>().id);
                     DestroyAllCardDiscoverOptions();
                 }
+                boardManager.StopOnTile = false;
                 break;
             }
     }

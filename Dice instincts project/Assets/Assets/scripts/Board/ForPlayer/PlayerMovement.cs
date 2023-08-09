@@ -66,7 +66,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 PathFound = true;
                 NewNonViableDirInds.Add(3 - i); // 3-i is the by design the opposite direction
-                GetAllPossibleEndingSqures(ToMove - 1, PosToCheck, NewNonViableDirInds, Path, depth);
+                int TileID;
+                if (tile.name.Length == 13)
+                    TileID = int.Parse(tile.name.Substring(12, 1).ToString());
+                else //14
+                    TileID = int.Parse(tile.name.Substring(12, 2).ToString());
+                if ((3 <= TileID & TileID <= 5) || (9 <= TileID & TileID <= 11))
+                    GetAllPossibleEndingSqures(ToMove, PosToCheck, NewNonViableDirInds, Path, depth);
+                else
+                    GetAllPossibleEndingSqures(ToMove - 1, PosToCheck, NewNonViableDirInds, Path, depth);
                 Path = Path.Take(depth).ToList();
                 NewNonViableDirInds.Clear();
             }
@@ -82,7 +90,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     PathFound = true;
                     NewNonViableDirInds.Add(3 - i); // 3-i is the by design the opposite direction
-                    GetAllPossibleEndingSqures(ToMove - 1, PosToCheck, NewNonViableDirInds, Path, depth);
+                    int TileID;
+                    if (tile.name.Length == 13)
+                        TileID = int.Parse(tile.name.Substring(12, 1).ToString());
+                    else //14
+                        TileID = int.Parse(tile.name.Substring(12, 2).ToString());
+                    if ((3 <= TileID & TileID <= 5) || (9 <= TileID & TileID <= 11))
+                        GetAllPossibleEndingSqures(ToMove, PosToCheck, NewNonViableDirInds, Path, depth);
+                    else
+                        GetAllPossibleEndingSqures(ToMove - 1, PosToCheck, NewNonViableDirInds, Path, depth);
                     NewNonViableDirInds.Clear();
                 }
                 PosToCheck = PosToCheck - MoveableDirections[i];
