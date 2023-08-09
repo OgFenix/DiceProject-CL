@@ -765,8 +765,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 63574166}
-  - {fileID: 1426506141}
   - {fileID: 1638598027}
+  - {fileID: 1426506141}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4900,7 +4900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000095367, y: 36}
+  m_AnchoredPosition: {x: -0.0000095367, y: 0.0002287837}
   m_SizeDelta: {x: 1049.3, y: 120.4294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1430184798
@@ -6152,10 +6152,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 839116818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 242.54277, y: 83.95783}
-  m_SizeDelta: {x: 64.4545, y: 59.8953}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -42, y: -40.670013}
+  m_SizeDelta: {x: 64.45447, y: 59.895294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979743479
 MonoBehaviour:
@@ -6386,6 +6386,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0376f89a4fe179489e086bedfa525c7, type: 2}
   - {fileID: 11400000, guid: 1432608dda4c053498a59fd01d0ebdca, type: 2}
   - {fileID: 11400000, guid: 2f520b6e6b7943245ac429bfdfa0490c, type: 2}
+  campfirePanel: {fileID: 769912746}
   StopOnTile: 0
   enemies:
   - {fileID: 1553145680}

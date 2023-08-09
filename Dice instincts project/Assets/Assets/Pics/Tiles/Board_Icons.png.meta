@@ -488,7 +488,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Board_Icons_0: -3175479537820813893
+      Board_Icons_1: -2388356260263744886
+      Board_Icons_10: -7583881914466303109
+      Board_Icons_11: -2153703391139052803
+      Board_Icons_12: 5605935534138695244
+      Board_Icons_13: -5839166702500194523
+      Board_Icons_14: -4334004780774561223
+      Board_Icons_15: 3625956075556405454
+      Board_Icons_2: 3277704585882772929
+      Board_Icons_3: 6254645178136706741
+      Board_Icons_4: 6695164737284691239
+      Board_Icons_5: -3795734780053832360
+      Board_Icons_6: 5871308153897085193
+      Board_Icons_7: 8147966319630416809
+      Board_Icons_8: 7837374714180797557
+      Board_Icons_9: 6097758481143484936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
