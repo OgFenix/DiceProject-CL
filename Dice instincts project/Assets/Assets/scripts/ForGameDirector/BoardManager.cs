@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
+    
     [SerializeField]
     CardsDictionary cardsDictionary;
     [SerializeField]
@@ -45,6 +46,10 @@ public class BoardManager : MonoBehaviour
     private List<TileBase> _regularTiles;
     [SerializeField]
     GameObject campfirePanel;
+    [SerializeField]
+    PlayerBehaviour player;
+    [SerializeField]
+    HealthBar healthBar;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
     int Money = 0;
@@ -61,6 +66,8 @@ public class BoardManager : MonoBehaviour
     {
         discoverPanel.GetComponent<CanvasRenderer>().SetAlpha(0f); //make panel invinsible
         CombatButton.SetActive(false);
+        healthBar.SetHealth(player.health);
+
     }
     public void TurnIsOver(TileBase endingTile)
     {

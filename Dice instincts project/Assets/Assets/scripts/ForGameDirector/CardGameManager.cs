@@ -43,6 +43,19 @@ public class CardGameManager : MonoBehaviour
     [SerializeField]
     private StatusDictionary statusDictionary;
 
+    public void TurnStart()
+    {
+        player.CurManaToMaxMana();
+        int curCardsInHand = hand.transform.childCount;
+        for (int i = 0; i < curCardsInHand; i++)
+        {
+            GameObject child = hand.transform.GetChild(0).gameObject;
+            child.transform.SetParent(DiscardContainer.transform, false);
+            child.SetActive(false);
+            discardPile.Add(child);
+        }
+        DrawCards(player, new FuncArgs(DrawCards, EffectOnPlayer, 5, EffectTiming.Immidiate));
+    }
     public void endYourTurn()
     {
         player.ActivateEndOfTurnStatuses();
@@ -53,6 +66,7 @@ public class CardGameManager : MonoBehaviour
             return;
         player.CurManaToMaxMana();
         StartCoroutine(EnemyTurn());
+        TurnStart();
     }
     IEnumerator EnemyTurn()
     {

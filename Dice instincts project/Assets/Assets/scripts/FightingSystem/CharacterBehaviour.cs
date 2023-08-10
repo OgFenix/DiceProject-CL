@@ -58,8 +58,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
     {
         int ind = statusesList.IndexOf(cStatus);
         Destroy(statusContainer.transform.GetChild(ind).gameObject);
-        for (int i = ind + 1; i < statusesList.Count; i++)
-            statusContainer.transform.GetChild(i).transform.position = new Vector3(statusContainer.transform.GetChild(i).transform.position.x - 2, statusContainer.transform.GetChild(i).transform.position.y, statusContainer.transform.GetChild(i).transform.position.z);
+        statusesList.RemoveAt(ind);
     }
 
     public void ActivateEndOfTurnStatuses()

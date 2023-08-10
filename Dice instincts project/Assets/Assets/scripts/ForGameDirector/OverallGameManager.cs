@@ -64,6 +64,7 @@ public class OverallGameManager : MonoBehaviour
         EnemyInCombat = enemyMovement;
         CurEncounter = Instantiate(EnemyPrefab, EnemyContainer.transform).GetComponent<EnemyBehaviour>();
         CurEncounter.CreateEnemy(enemyMovement.EnemyID);
+        cardGameManager.TurnStart();
     }
     public void CombatWon()
     {

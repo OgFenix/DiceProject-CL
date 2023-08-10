@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class PlayerBehaviour : CharacterBehaviour
 {
-
     [SerializeField]
     private TextMeshProUGUI playerMana;
     private int curMana;
-    private int maxMana;
+    private int maxMana = 3;
 
     public bool IsManaSufficent(int cardCost)
     {
@@ -40,7 +39,6 @@ public class PlayerBehaviour : CharacterBehaviour
     {
         CurHealthText = this.transform.Find("HealthPlayer").GetComponent<TextMeshProUGUI>();
         CurBlockText = this.transform.Find("Armor").GetComponent<TextMeshProUGUI>();
-        maxMana = 3;
         curMana = maxMana;
         startingHealth = 50;
         health = startingHealth;
