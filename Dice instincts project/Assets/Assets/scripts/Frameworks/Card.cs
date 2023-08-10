@@ -12,10 +12,11 @@ public class Card : FrameworkOfObject
     public string cardDisc;
     public Sprite cardImage;
     public Classes cardForClass;
+    public int[] shopCostRange;
     public List<FuncArgs> effects;
     public bool isExhaust;
 
-    public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, List<FuncArgs> effects, bool isExhaust)
+    public Card(int id, string cardName, int manaCost, string cardDisc, Sprite cardImage, Classes cardForClass, int[] shopCostRange, List<FuncArgs> effects, bool isExhaust)
     {
         this.id = id;
         this.cardName = cardName;
@@ -23,6 +24,7 @@ public class Card : FrameworkOfObject
         this.cardDisc = cardDisc;
         this.cardImage = cardImage;
         this.cardForClass = cardForClass;
+        this.shopCostRange = shopCostRange;
         this.effects = effects;
         this.isExhaust = isExhaust;
     }

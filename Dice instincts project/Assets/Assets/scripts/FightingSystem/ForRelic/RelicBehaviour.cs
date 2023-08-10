@@ -55,6 +55,7 @@ public class RelicBehaviour : Upgrade
         relicDisc = thisRelic.relicDisc;
         relicSprite = thisRelic.relicImage;
         relicForClass = thisRelic.relicForClass;
+        ShopCostRange = thisRelic.shopCostRange;
         effects = thisRelic.effects;
         relicImage.sprite = relicSprite;
         relicNameText.text = relicName;

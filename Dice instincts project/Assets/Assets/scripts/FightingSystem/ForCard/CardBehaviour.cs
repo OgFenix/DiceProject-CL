@@ -121,6 +121,7 @@ public class CardBehaviour : Upgrade
         cardDisc = thisCard.cardDisc;
         cardSprite = thisCard.cardImage;
         cardForClass = thisCard.cardForClass;
+        ShopCostRange = thisCard.shopCostRange;
         effects = thisCard.effects;
         cardImage.sprite = cardSprite;
         cardNameText.text = cardName;

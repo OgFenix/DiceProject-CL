@@ -50,6 +50,8 @@ public class BoardManager : MonoBehaviour
     PlayerBehaviour player;
     [SerializeField]
     HealthBar healthBar;
+    [SerializeField]
+    GameObject ShopPanel;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
     int Money = 0;
@@ -163,7 +165,8 @@ public class BoardManager : MonoBehaviour
     }
     private void SteppedOnShopTile()
     {
-
+        ShopPanel.SetActive(true);
+        ShopPanel.GetComponent<ShopGenerator>().GenerateShop(3,3);
     }
 
     private void UpdateMoney(int ToAdd)
