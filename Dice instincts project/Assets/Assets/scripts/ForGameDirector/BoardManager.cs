@@ -49,7 +49,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     PlayerBehaviour player;
     [SerializeField]
-    HealthBar healthBar;
+    public HealthBar healthBar;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
     int Money = 0;

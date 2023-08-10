@@ -14,4 +14,8 @@ public class HealthBar : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
     }
+    private void Start()
+    {
+        slider.interactable = false;
+    }
 }

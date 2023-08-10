@@ -18,8 +18,8 @@ abstract public class CharacterBehaviour : MonoBehaviour
     public int startingHealth;
     public int health;
     public int block;
-    protected TextMeshProUGUI CurHealthText;
-    protected TextMeshProUGUI CurBlockText;
+    public TextMeshProUGUI CurHealthText;
+    public TextMeshProUGUI CurBlockText;
 
     public void UpdateHealth(int damage)
     {
@@ -68,7 +68,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
             if (timedStatus.GetType() == typeof(TimedStatuses))
             {
                 if (timedStatus.status == Status.poison)
-                    UpdateHealth(timedStatus.count);
+                        UpdateHealth(timedStatus.count);
                 timedStatus.count--;
                 if (timedStatus.count == 0)
                     removeStatus(timedStatus);

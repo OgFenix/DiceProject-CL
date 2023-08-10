@@ -73,7 +73,7 @@ public class EnemyBehaviour : CharacterBehaviour
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
         cardGameManager.activeenemies.Add(this);
         enemyDictionary = GameObject.Find("GameDirector").GetComponent<EnemyDictionary>();
-        statusPrefab = GameObject.Find("PlayerStats").GetComponent<PlayerBehaviour>().statusPrefab;
+        statusPrefab = GameObject.FindGameObjectWithTag("PlayerBehaviourHolder").GetComponent<PlayerBehaviour>().statusPrefab;
         thisEnemy = (Enemy)enemyDictionary.InitializeByID(id);
         characterName = thisEnemy.enemyName;
         startingHealth = thisEnemy.health;

@@ -58,12 +58,12 @@ public class OverallGameManager : MonoBehaviour
         cardGameManager.CardsFromHandToContainer();
         cardGameManager.curFightDeck = ListFunctions<GameObject>.Randomize(deck).ToList();
         boardManager.IsInCombat = true;
-        Board.SetActive(false);
-        BoardInCanvas.SetActive(false);
         CardGame.SetActive(true);
         EnemyInCombat = enemyMovement;
         CurEncounter = Instantiate(EnemyPrefab, EnemyContainer.transform).GetComponent<EnemyBehaviour>();
         CurEncounter.CreateEnemy(enemyMovement.EnemyID);
+        BoardInCanvas.SetActive(false);
+        Board.SetActive(false);
         cardGameManager.TurnStart();
     }
     public void CombatWon()
@@ -75,6 +75,7 @@ public class OverallGameManager : MonoBehaviour
         cardGameManager.ClearDiscardPile();
         cardGameManager.ClearExhaustPile();
         cardGameManager.CardsFromHandToContainer();
+        cardGameManager.player.boardHealthText.text = cardGameManager.player.CurHealthText.text;
         boardManager.IsInCombat = false;
         boardManager.enemies.Remove(EnemyInCombat);
         Destroy(EnemyInCombat.gameObject);
@@ -83,6 +84,8 @@ public class OverallGameManager : MonoBehaviour
         BoardInCanvas.SetActive(true);
         CardGame.SetActive(false);
         deck = ListFunctions<GameObject>.SortListByName(deck).ToList();
+        boardManager.healthBar.SetHealth(cardGameManager.player.health);
+        
     }
     public void CombatLost()
     {

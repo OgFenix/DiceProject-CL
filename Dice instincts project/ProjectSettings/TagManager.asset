@@ -16,6 +16,12 @@ TagManager:
   - EnemyCurEffect
   - Hand
   - EnemyCurBlock
+  - Relic
+  - PlayerBehaviourHolder
+  - CombatHealth
+  - CombatArmor
+  - HealthPlayer
+  - Armor
   layers:
   - Default
   - TransparentFX

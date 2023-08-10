@@ -9,6 +9,7 @@ public class PlayerBehaviour : CharacterBehaviour
     private TextMeshProUGUI playerMana;
     private int curMana;
     private int maxMana = 3;
+    public TextMeshProUGUI boardHealthText;
 
     public bool IsManaSufficent(int cardCost)
     {
@@ -31,14 +32,18 @@ public class PlayerBehaviour : CharacterBehaviour
     {
         maxMana += additionalMaxMana;
     }
+    public void EnterCombra()
+    {
+        
+    }
 
    
 
     // Start is called before the first frame update
     void Start()
     {
-        CurHealthText = this.transform.Find("HealthPlayer").GetComponent<TextMeshProUGUI>();
-        CurBlockText = this.transform.Find("Armor").GetComponent<TextMeshProUGUI>();
+        
+        boardHealthText = GameObject.FindGameObjectWithTag("HealthPlayer").GetComponent<TextMeshProUGUI>();
         curMana = maxMana;
         startingHealth = 50;
         health = startingHealth;
