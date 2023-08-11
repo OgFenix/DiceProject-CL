@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
         cellPlayerPosition = tilemap.WorldToCell(gameObject.transform.position);
     }
 
+    public Vector3Int GetPlayerPositionInTilemap() => tilemap.WorldToCell(gameObject.transform.position);
+
     public void initializePossibleEndingSqures(int ToMove)
     {
         PossiblePaths.Clear();

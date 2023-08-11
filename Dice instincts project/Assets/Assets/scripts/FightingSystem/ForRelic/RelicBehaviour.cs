@@ -22,7 +22,6 @@ public class RelicBehaviour : Upgrade
     public Image relicImage;
     public Component RelicSpesificScript;
     private GameObject RelicDiscContainer;
-    private OverallGameManager overallGameManager;
     private void GetChildrenComponents()
     {
         RelicDiscContainer = transform.GetChild(0).gameObject;

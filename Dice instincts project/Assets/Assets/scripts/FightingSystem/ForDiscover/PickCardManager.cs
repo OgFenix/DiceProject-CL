@@ -31,6 +31,8 @@ public class PickCardManager : MonoBehaviour
     GameObject scrollContainer;
     [SerializeField]
     GameObject exitDeckMenuBtn;
+    [SerializeField]
+    private ShopHandler ShopHandler;
     public Vector3 handPosition;
     public Vector2 handSize;
     PointerEventData m_PointerEventData;
@@ -65,10 +67,7 @@ public class PickCardManager : MonoBehaviour
         OverallGameManager.AddCardToDeck(id, true);
 
     }
-    private void RemoveCard()
-    {
-
-    }
+    private void RemoveCard() => OverallGameManager.RemoveCardFromDeck(_upgradeToPick);
 
     private void OnEndClick()
     {
@@ -96,6 +95,9 @@ public class PickCardManager : MonoBehaviour
                             break;
                         case PickFor.remove:
                             RemoveCard();
+                            deckScrollMenu.moveDeckToOverallContainer();
+                            ShopHandler.CardRemovalBought();
+                            pickFor = PickFor.buy;
                             break;
                         case PickFor.buy:
                             Upgrade upgrade = _upgradeToPick.GetComponent<Upgrade>();
@@ -103,7 +105,7 @@ public class PickCardManager : MonoBehaviour
                             {
                                 upgrade.BuyThis();
                                 AddCard();
-                                Destroy(_upgradeToPick);
+                                upgrade.SoldTag.SetActive(true);
                             }
                             break;
                     }
@@ -123,7 +125,7 @@ public class PickCardManager : MonoBehaviour
                             {
                                 upgrade.BuyThis();
                                 AddRelic();
-                                Destroy(_upgradeToPick);
+                                upgrade.SoldTag.SetActive(true);
                             }
                             //result.gameObject.GetComponent<Upgrade>().CurrShopPrice;
                             break;

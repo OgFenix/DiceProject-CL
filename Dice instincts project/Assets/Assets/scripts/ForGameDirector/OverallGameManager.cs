@@ -14,6 +14,8 @@ public class OverallGameManager : MonoBehaviour
 {
     public event GameEvent EnterCombatEvent;
     [SerializeField]
+    GameObject scrollContainer;
+    [SerializeField]
     Board_CameraDrag _board_CameraDrag;
     [SerializeField]
     TextMeshProUGUI deckButtonText;
@@ -160,7 +162,6 @@ public class OverallGameManager : MonoBehaviour
         deckAmount.text = deck.Count.ToString();
         updateDeckAmount();
     }
-
     public void AddRelic(int id)
     {
         RelicBehaviour newRelic = Instantiate(relicPrefab).GetComponent<RelicBehaviour>();

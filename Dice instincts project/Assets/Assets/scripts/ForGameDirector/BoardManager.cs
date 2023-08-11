@@ -60,7 +60,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     public List<EnemyMovement> enemies = new List<EnemyMovement>();
     GameObject EnemyInCombat = null;
-    bool didEnemyStartCurrFight = false;
+    //bool didEnemyStartCurrFight = false;
     int NumberOfItemsToChooseFromChest = 3;
     int fixedratefromcointile = 20;
 
@@ -166,7 +166,7 @@ public class BoardManager : MonoBehaviour
     private void SteppedOnShopTile()
     {
         ShopPanel.SetActive(true);
-        ShopPanel.GetComponent<ShopGenerator>().GenerateShop(3,3);
+        ShopPanel.GetComponent<ShopHandler>().OpenShop(3,3);
     }
 
     public void UpdateMoney(int Change)
@@ -248,6 +248,7 @@ public class BoardManager : MonoBehaviour
                     break;
                 case 11:
                     TileToTransform = _regularTiles[5];
+                    StopOnTile = true;
                     SteppedOnShopTile();
                     break;
                 default:
