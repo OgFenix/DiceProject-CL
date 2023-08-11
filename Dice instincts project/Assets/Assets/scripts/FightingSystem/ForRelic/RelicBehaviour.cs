@@ -47,6 +47,8 @@ public class RelicBehaviour : Upgrade
         GetChildrenComponents();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        cardGameManager = gamedirector.GetComponent<CardGameManager>();
+        boardManager = gamedirector.GetComponent<BoardManager>();
         relicDictionary = gamedirector.GetComponent<RelicDictionary>();
         thisRelic = (Relic)relicDictionary.InitializeByID(id);
         //creating relic from thisRelic

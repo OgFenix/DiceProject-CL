@@ -11,6 +11,7 @@ public class ScaleToCanvasSize : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _canvas = GameObject.Find("Canvas");
         lastScreenSize = new Vector2(_canvas.GetComponent<RectTransform>().rect.width, _canvas.GetComponent<RectTransform>().rect.height);
         ChangeGameObjectsDimensions();
     }

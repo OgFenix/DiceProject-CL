@@ -13,8 +13,6 @@ public class CardBehaviour : Upgrade
     private GameObject ExhaustContainer;
     private GameObject DiscardContainer;
     private PlayerBehaviour Player;
-    private OverallGameManager overallGameManager;
-    private CardGameManager cardGameManager;
     private bool hasBeenPlayed;
     private bool hasOvertimeEffect;
     private int handIndex;
@@ -102,6 +100,7 @@ public class CardBehaviour : Upgrade
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
         cardGameManager = gamedirector.GetComponent<CardGameManager>();
+        boardManager = gamedirector.GetComponent<BoardManager>();
         if(!isUpgraded)
             cardsDictionary = gamedirector.GetComponent<CardsDictionary>();
         else

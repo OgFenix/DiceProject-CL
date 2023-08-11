@@ -54,7 +54,7 @@ public class BoardManager : MonoBehaviour
     GameObject ShopPanel;
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
-    int Money = 0;
+    public int Money { get;private set; } = 0;
     public bool IsInCombat { get; set; } = false;
     public bool StopOnTile = false;
     [SerializeField]
@@ -169,9 +169,9 @@ public class BoardManager : MonoBehaviour
         ShopPanel.GetComponent<ShopGenerator>().GenerateShop(3,3);
     }
 
-    private void UpdateMoney(int ToAdd)
+    public void UpdateMoney(int Change)
     {
-        Money += ToAdd;
+        Money += Change;
         CoinText.text = Money.ToString();
     }
     public bool IsContainingEnemy(Vector3Int pos)

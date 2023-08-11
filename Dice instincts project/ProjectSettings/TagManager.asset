@@ -16,6 +16,8 @@ TagManager:
   - EnemyCurEffect
   - Hand
   - EnemyCurBlock
+  - Relic
+  - Game Director
   layers:
   - Default
   - TransparentFX
