@@ -26,10 +26,7 @@ public class CampfireButtons : MonoBehaviour
     }
     public void heal()
     {
-        if (player.health >= player.startingHealth / 2)
-            player.health = player.startingHealth;
-        else
-            player.health += player.startingHealth / 2;
+        player.HealHalfHealth();
         campfirePanel.SetActive(false);
         boardManager.StopOnTile = false;
     }

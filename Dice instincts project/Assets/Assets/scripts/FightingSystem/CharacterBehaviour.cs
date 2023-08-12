@@ -21,7 +21,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
     public TextMeshProUGUI CurHealthText;
     public TextMeshProUGUI CurBlockText;
 
-    public void UpdateHealth(int damage)
+    public virtual void UpdateHealth(int damage)
     {
         health -= damage;
         CurHealthText.text = health.ToString();
@@ -57,7 +57,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
     public void removeStatus(GeneralStatus cStatus)
     {
         int ind = statusesList.IndexOf(cStatus);
-        Destroy(statusContainer.transform.GetChild(ind).gameObject);
+        DestroyImmediate(statusContainer.transform.GetChild(ind).gameObject);
         statusesList.RemoveAt(ind);
     }
 

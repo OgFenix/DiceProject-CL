@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerBehaviour : CharacterBehaviour
@@ -31,12 +32,16 @@ public class PlayerBehaviour : CharacterBehaviour
     {
         maxMana += additionalMaxMana;
     }
-    public void EnterCombra()
+    public override void UpdateHealth(int damage)
     {
-        
+        health -= damage;
+        CurHealthText.text = health.ToString();
+        transform.GetChild(0).GetComponent<HealthBar>().SetHealth(health);
     }
 
-   
+    public void HealHalfHealth() => UpdateHealth(-math.min(startingHealth / 2,startingHealth - health));
+
+
 
     // Start is called before the first frame update
     void Start()

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CardGameManager : MonoBehaviour
 {
@@ -70,10 +71,12 @@ public class CardGameManager : MonoBehaviour
     }
     IEnumerator EnemyTurn()
     {
-        foreach(var enemy in activeenemies)
+        for(int i = 0;i < activeenemies.Count;i++)
         {
+            activeenemies[i].EnemyAttack();
+            if (i == activeenemies.Count - 1)
+                break;
             yield return new WaitForSeconds(0.3f);
-            enemy.EnemyAttack();
         }
     }
     public void DrawCard()
@@ -186,7 +189,6 @@ public class CardGameManager : MonoBehaviour
             {
                 args.character.statusesList[i].count += args.EffectNum;
                 args.character.statusContainer.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = args.character.statusesList[i].count.ToString();
-
                 return;
             }
         }
