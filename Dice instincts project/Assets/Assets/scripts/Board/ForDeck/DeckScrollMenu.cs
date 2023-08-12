@@ -41,7 +41,7 @@ public class DeckScrollMenu : MonoBehaviour
             else
                 curChild++;
         }
-        ExpandChildrenToCell.SetChildrenToCellSize(scrollMenuContainer);
+        ExpandChildrenToCell.SetChildrenToCellSize(scrollMenuContainer,1.5f,1.5f);
     }
     public void moveDeckToOverallContainer()
     {

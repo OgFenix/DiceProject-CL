@@ -22,6 +22,7 @@ TagManager:
   - CombatArmor
   - HealthPlayer
   - Armor
+  - Game Director
   layers:
   - Default
   - TransparentFX

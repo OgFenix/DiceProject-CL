@@ -12,7 +12,8 @@ public class PickCardManager : MonoBehaviour
     public enum PickFor{
         upgrade,
         add,
-        remove
+        remove,
+        buy
     }
     [SerializeField]
     private BoardManager boardManager;
@@ -30,6 +31,8 @@ public class PickCardManager : MonoBehaviour
     GameObject scrollContainer;
     [SerializeField]
     GameObject exitDeckMenuBtn;
+    [SerializeField]
+    private ShopHandler ShopHandler;
     public Vector3 handPosition;
     public Vector2 handSize;
     PointerEventData m_PointerEventData;
@@ -54,11 +57,9 @@ public class PickCardManager : MonoBehaviour
             }
     }
 
-    private void AddCard()
-    {
-        OverallGameManager.AddCardToDeck(_upgradeToPick.GetComponent<CardBehaviour>().id, false);
-        DestroyAllCardDiscoverOptions();
-    }
+    private void AddCard() => OverallGameManager.AddCardToDeck(_upgradeToPick.GetComponent<CardBehaviour>().id, false);
+
+    private void AddRelic() => OverallGameManager.AddRelic(_upgradeToPick.GetComponent<RelicBehaviour>().id);
     private void UpgradeCard()
     {
         int id = _upgradeToPick.GetComponent<CardBehaviour>().id;
@@ -66,10 +67,7 @@ public class PickCardManager : MonoBehaviour
         OverallGameManager.AddCardToDeck(id, true);
 
     }
-    private void RemoveCard()
-    {
-
-    }
+    private void RemoveCard() => OverallGameManager.RemoveCardFromDeck(_upgradeToPick);
 
     private void OnEndClick()
     {
@@ -88,25 +86,53 @@ public class PickCardManager : MonoBehaviour
                             deckScrollMenu.moveDeckToOverallContainer();
                             scrollContainer.GetComponent<PickCardManager>().enabled = false;
                             exitDeckMenuBtn.gameObject.SetActive(true);
+                            boardManager.StopOnTile = false;
                             break;
                         case PickFor.add:
                             AddCard();
+                            DestroyAllCardDiscoverOptions();
+                            boardManager.StopOnTile = false;
                             break;
                         case PickFor.remove:
                             RemoveCard();
+                            deckScrollMenu.moveDeckToOverallContainer();
+                            ShopHandler.CardRemovalBought();
+                            pickFor = PickFor.buy;
+                            break;
+                        case PickFor.buy:
+                            Upgrade upgrade = _upgradeToPick.GetComponent<Upgrade>();
+                            if (upgrade.IsBuyable())
+                            {
+                                upgrade.BuyThis();
+                                AddCard();
+                                upgrade.SoldTag.SetActive(true);
+                            }
                             break;
                     }
                 }
                 else if (result.gameObject.CompareTag("Relic"))
                 {
-                    OverallGameManager.AddRelic(_upgradeToPick.GetComponent<RelicBehaviour>().id);
-                    DestroyAllCardDiscoverOptions();
+                    switch (pickFor)
+                    {
+                        case PickFor.add:
+                            AddRelic();
+                            DestroyAllCardDiscoverOptions();
+                            boardManager.StopOnTile = false;
+                            break;
+                        case PickFor.buy:
+                            Upgrade upgrade = _upgradeToPick.GetComponent<Upgrade>();
+                            if (upgrade.IsBuyable())
+                            {
+                                upgrade.BuyThis();
+                                AddRelic();
+                                upgrade.SoldTag.SetActive(true);
+                            }
+                            //result.gameObject.GetComponent<Upgrade>().CurrShopPrice;
+                            break;
+                    }
                 }
-                boardManager.StopOnTile = false;
-                break;
             }
     }
-
     private void DestroyAllCardDiscoverOptions()
     {
         for (int i = 0; i < transform.childCount; i++)

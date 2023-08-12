@@ -706,7 +706,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 141, y: 0}
-  m_SizeDelta: {x: 25, y: 69.195}
+  m_SizeDelta: {x: 75.153, y: 100.172}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6898155593323126554
 CanvasRenderer:
@@ -728,6 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b7cb7fd8c1161479fdb1dc9f9b85ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShopCostRange: 
   cardNameText: {fileID: 0}
   manacostText: {fileID: 0}
   descriptionText: {fileID: 0}
@@ -739,6 +740,7 @@ MonoBehaviour:
   cardDisc: 
   cardSprite: {fileID: 0}
   cardForClass: 0
+  isUpgraded: 0
 --- !u!114 &-3200589116402425300
 MonoBehaviour:
   m_ObjectHideFlags: 0

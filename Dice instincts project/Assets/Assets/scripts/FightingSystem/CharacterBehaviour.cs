@@ -73,7 +73,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
                 if (timedStatus.count == 0)
                     removeStatus(timedStatus);
             }
-        }
+        } 
         updateStatuses();
     }
 

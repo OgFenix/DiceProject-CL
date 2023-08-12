@@ -7,6 +7,8 @@ public class CampfireButtons : MonoBehaviour
     [SerializeField]
     PlayerBehaviour player;
     [SerializeField]
+    BoardManager boardManager;
+    [SerializeField]
     GameObject campfirePanel;
     [SerializeField]
     GameObject scrollContainer;
@@ -29,5 +31,6 @@ public class CampfireButtons : MonoBehaviour
         else
             player.health += player.startingHealth / 2;
         campfirePanel.SetActive(false);
+        boardManager.StopOnTile = false;
     }
 }

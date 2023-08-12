@@ -22,7 +22,6 @@ public class RelicBehaviour : Upgrade
     public Image relicImage;
     public Component RelicSpesificScript;
     private GameObject RelicDiscContainer;
-    private OverallGameManager overallGameManager;
     private void GetChildrenComponents()
     {
         RelicDiscContainer = transform.GetChild(0).gameObject;
@@ -47,6 +46,8 @@ public class RelicBehaviour : Upgrade
         GetChildrenComponents();
         GameObject gamedirector = GameObject.Find("GameDirector");
         overallGameManager = gamedirector.GetComponent<OverallGameManager>();
+        cardGameManager = gamedirector.GetComponent<CardGameManager>();
+        boardManager = gamedirector.GetComponent<BoardManager>();
         relicDictionary = gamedirector.GetComponent<RelicDictionary>();
         thisRelic = (Relic)relicDictionary.InitializeByID(id);
         //creating relic from thisRelic
@@ -55,6 +56,7 @@ public class RelicBehaviour : Upgrade
         relicDisc = thisRelic.relicDisc;
         relicSprite = thisRelic.relicImage;
         relicForClass = thisRelic.relicForClass;
+        ShopCostRange = thisRelic.shopCostRange;
         effects = thisRelic.effects;
         relicImage.sprite = relicSprite;
         relicNameText.text = relicName;
