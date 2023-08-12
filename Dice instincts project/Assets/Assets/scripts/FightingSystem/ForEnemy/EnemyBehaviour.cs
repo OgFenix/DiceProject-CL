@@ -87,7 +87,7 @@ public class EnemyBehaviour : CharacterBehaviour
     }
     public void EnemyAttack()
     {
-        if (gameObject == null)
+        if (this == null)
             return; //if gameobject no longer exists
         if (CurEffect.Timing == EffectTiming.Immidiate)
             overallGameManager.ActivateEffect(this.gameObject, CurEffect);
