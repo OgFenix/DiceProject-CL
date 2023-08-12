@@ -178,6 +178,8 @@ public class CardGameManager : MonoBehaviour
     }
     public void ApplyStatus(object sender, FuncArgs args)
     {
+        if (args.EffectNum == 0)
+            return;
         for (int i = 0; i < args.character.statusesList.Count; i++)
         {
             if (args.character.statusesList[i].status == args.status)
