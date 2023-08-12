@@ -40,8 +40,10 @@ public class ShopHandler : MonoBehaviour
     private GameObject SoldRemovalInThisShop;
     private int RemoveCardCost;
     int ExistingShopIndex;
+    bool IsInShop = false;
     public void OpenShop(int NumOfCards, int NumOfRelics)
     {
+        IsInShop = true;
         PickCardManager.pickFor = PickCardManager.PickFor.buy;
         ExistingShopIndex = ArchiveShopID.IndexOf(Player.GetPlayerPositionInTilemap());//-1 if no related one is found
         if (ExistingShopIndex != -1)
@@ -114,6 +116,7 @@ public class ShopHandler : MonoBehaviour
         boardManager.StopOnTile = false;
         ShopInArchive.GetComponent<ShopArgs>().CardRemovalBoughtInThisShop = SoldRemovalInThisShop.activeSelf;
         SoldRemovalInThisShop.SetActive(false);
+        IsInShop = false;
     }
 
     private void MoveToArchiveShelfs(GameObject ShopInArchive)
@@ -129,16 +132,26 @@ public class ShopHandler : MonoBehaviour
     public void OpenCardRemoval()
     {
         RemoveCardCost = 20;
-        if (boardManager.Money <= RemoveCardCost || SoldRemovalInThisShop.activeSelf == true)
+        if (boardManager.Money < RemoveCardCost || SoldRemovalInThisShop.activeSelf == true)
             return;
         PickCardManager.pickFor = PickCardManager.PickFor.remove;
         scrollContainer.GetComponent<PickCardManager>().enabled = true;
         deckScrollMenu.moveDeckToScrollMenu();
+        this.gameObject.SetActive(false);
     }
     public void CardRemovalBought()
     {
+        this.gameObject.SetActive(true);
         boardManager.UpdateMoney(-RemoveCardCost);
         SoldRemovalInThisShop.SetActive(true);
+    }
+    public void CloseCardRemoval()
+    {
+        if (IsInShop)
+        {
+            this.gameObject.SetActive(true);
+            PickCardManager.pickFor = PickCardManager.PickFor.buy;
+        }
     }
     /*private void moveDeckToScrollMenu()
     {
