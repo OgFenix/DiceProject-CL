@@ -154,9 +154,12 @@ public class BoardManager : MonoBehaviour
             NewUpgrade.Create(newCardInDiscoverId);
             NewUpgrade.transform.SetParent(discoverPanel.transform);
             if(rand == 1)
-                NewUpgrade.transform.localScale = Vector3.Scale(NewUpgrade.transform.localScale, new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1));
+                NewUpgrade.transform.localScale = new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1);
             if (rand == 2)
+            {
+                NewUpgrade.transform.localScale = Vector3.one;
                 NewUpgrade.transform.GetChild(0).localScale = Vector3.one;
+            }
         }
     }
     private void SteppedOnQuestionMarkTile()

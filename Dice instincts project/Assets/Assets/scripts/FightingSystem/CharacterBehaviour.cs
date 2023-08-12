@@ -41,6 +41,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
         GameObject newStatus;
         newStatus = Instantiate(statusPrefab);
         newStatus.transform.SetParent(statusContainer.transform);
+        newStatus.transform.localScale = Vector3.one * 0.5f;
         newStatus.GetComponent<Image>().sprite = statusesList[statusesList.Count - 1].statusImg;
         newStatus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[statusesList.Count - 1].count.ToString();
     }

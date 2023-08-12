@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
 using System;
+using UnityEngine.EventSystems;
+using System.Xml.Linq;
 
 public class RelicBehaviour : Upgrade
 {
@@ -86,7 +88,17 @@ public class RelicBehaviour : Upgrade
     // Update is called once per frame
     void Update()
     {
-        Vector2 mousePosition = Input.mousePosition;
+        if(MouseOverUI.IsMouseOverGameObject(gameObject))
+        {
+            GameObject desc = this.transform.GetChild(0).gameObject;
+            desc.SetActive(true);
+        }
+        else
+        {
+            GameObject desc = this.transform.GetChild(0).gameObject;
+            desc.SetActive(false);
+        }
+        /*Vector2 mousePosition = Input.mousePosition;
 
         // Convert mouse position to local position within the canvas
         Vector2 localMousePos;
@@ -103,6 +115,6 @@ public class RelicBehaviour : Upgrade
                 GameObject desc = this.transform.GetChild(0).gameObject;
                 desc.SetActive(false);
             }
-        }
+        } */
     }
 }

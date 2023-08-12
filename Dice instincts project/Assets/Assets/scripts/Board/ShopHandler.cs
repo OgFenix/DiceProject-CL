@@ -88,11 +88,13 @@ public class ShopHandler : MonoBehaviour
             GameObject ShopCost = Instantiate(CoinSystemCointainerPrefab);
             ShopCost.transform.SetParent(NewItem.transform);
             ShopCost.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            ShopCost.transform.localScale = Vector3.one * 0.3f;
             NewItem.CurrShopPrice = Random.Range(NewItem.ShopCostRange[0], NewItem.ShopCostRange[1] + 1); //get a random num from range
             ShopCost.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NewItem.CurrShopPrice.ToString();
             GameObject SoldTag = Instantiate(SoldPrefab);
             SoldTag.transform.SetParent(NewItem.transform);
             SoldTag.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            SoldTag.transform.localScale = Vector3.one;
             NewItem.SoldTag = SoldTag;
             NewItem.SoldTag.SetActive(false);
         }

@@ -15,6 +15,8 @@ public class CardDragManager : MonoBehaviour
     EventSystem eventSystem;
     [SerializeField]
     RectTransform canvas;
+    [SerializeField]
+    Camera canvasCamera;
     public Vector3 handPosition;
     public Vector2 handSize;
     PointerEventData m_PointerEventData;
@@ -51,8 +53,13 @@ public class CardDragManager : MonoBehaviour
 
     private void Drag()
     {
-        if (CardToDrag != null) 
-            CardToDrag.transform.position = m_PointerEventData.position;
+        if (CardToDrag != null)
+        {
+            Vector2 localMousePos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas, Input.mousePosition, canvasCamera, out localMousePos);
+            CardToDrag.transform.position = canvas.TransformPoint(localMousePos);
+        }
     }
     public bool IsMouseInHand()
     {

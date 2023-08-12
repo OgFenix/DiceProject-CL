@@ -23,23 +23,15 @@ public class HealthBar : MonoBehaviour
     }
     private void Update()
     {
-        Vector2 mousePosition = Input.mousePosition;
-
-        // Convert mouse position to local position within the canvas
-        Vector2 localMousePos;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), mousePosition, null, out localMousePos))
+        if (MouseOverUI.IsMouseOverGameObject(gameObject.transform.GetChild(2).gameObject))
         {
-            if (GetComponent<RectTransform>().rect.Contains(localMousePos))
-            {
-                //Debug.Log("Mouse is over the specific GameObject: " + this.name);
-                GameObject desc = this.transform.GetChild(0).gameObject;
-                desc.SetActive(true);
-            }
-            else
-            {
-                GameObject desc = this.transform.GetChild(0).gameObject;
-                desc.SetActive(false);
-            }
+            GameObject desc = this.transform.GetChild(0).gameObject;
+            desc.SetActive(true);
+        }
+        else
+        {
+            GameObject desc = this.transform.GetChild(0).gameObject;
+            desc.SetActive(false);
         }
     }
 }
