@@ -46,7 +46,7 @@ abstract public class CharacterBehaviour : MonoBehaviour
     }
     private void updateStatuses()
     {
-        for(int i = 0; i < statusContainer.transform.childCount; i++)
+        for(int i = 0; i < statusesList.Count; i++)
             statusContainer.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = statusesList[i].count.ToString();
     }
     public void RemoveAllStatuses()
@@ -63,17 +63,21 @@ abstract public class CharacterBehaviour : MonoBehaviour
 
     public void ActivateEndOfTurnStatuses()
     {
-        foreach(GeneralStatus timedStatus in statusesList)
+        for (int i = 0; i < statusesList.Count; i++)
         {
-            if (timedStatus.GetType() == typeof(TimedStatuses))
+            if (statusesList[i].GetType() == typeof(TimedStatuses))
             {
-                if (timedStatus.status == Status.poison)
-                        UpdateHealth(timedStatus.count);
-                timedStatus.count--;
-                if (timedStatus.count == 0)
-                    removeStatus(timedStatus);
+                if (statusesList[i].status == Status.poison)
+                    UpdateHealth(statusesList[i].count);
+                statusesList[i].count--;
+                if (statusesList[i].count == 0)
+                {
+                    removeStatus(statusesList[i]);
+                    i--;
+                }
+                    
             }
-        } 
+        }
         updateStatuses();
     }
 

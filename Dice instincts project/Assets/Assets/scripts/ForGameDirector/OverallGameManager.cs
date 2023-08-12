@@ -77,7 +77,6 @@ public class OverallGameManager : MonoBehaviour
         cardGameManager.ClearDiscardPile();
         cardGameManager.ClearExhaustPile();
         cardGameManager.CardsFromHandToContainer();
-        cardGameManager.player.boardHealthText.text = cardGameManager.player.CurHealthText.text;
         boardManager.IsInCombat = false;
         boardManager.enemies.Remove(EnemyInCombat);
         Destroy(EnemyInCombat.gameObject);
