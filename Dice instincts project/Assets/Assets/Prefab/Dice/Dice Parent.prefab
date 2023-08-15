@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7790152265994123024}
   m_Layer: 5
   m_Name: Dice
-  m_TagString: Untagged
+  m_TagString: Dice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82aca616f8c902d458bfef8257240209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasCam: {fileID: 0}
+  PlayerMovementManager: {fileID: 0}
+  rotationSpeedUpMin: 750
+  rotationSpeedUpMax: 1250
+  rotationSpeedLeftMin: 750
+  rotationSpeedLeftMax: 1250
+  CurrDiceValue: 0
+  IsRollAllowed: 1
 --- !u!1 &3642468138360106756
 GameObject:
   m_ObjectHideFlags: 0
