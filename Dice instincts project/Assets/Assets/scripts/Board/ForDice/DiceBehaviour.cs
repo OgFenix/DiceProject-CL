@@ -1,42 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class DiceBehaviour : MonoBehaviour
 {
     [SerializeField]
-    Collider2D DiceCollider;
-    [SerializeField]
-    TextMeshProUGUI FaceText;
-    [SerializeField]
-    int[] DiceFaces = { 1, 2, 3, 4, 5, 6 };
-    bool isRolling = false;
-    public int currentface;
+    private Camera _canvasCam;
     [SerializeField]
     PlayerMovement PlayerMovementManager;
+    [SerializeField]
+    private float rotationSpeedUpMin = 1250f;
+    [SerializeField]
+    private float rotationSpeedUpMax = 750f;
+    [SerializeField]
+    private float rotationSpeedLeftMin = 750f;
+    [SerializeField]
+    private float rotationSpeedLeftMax = 1250f;
+    private int[] _faceVaules = new int[6] { 1, 2, 3, 4, 5, 6};
+    private Quaternion[] _faceDirs = new Quaternion[6] {Quaternion.Euler(0, 0, 0),Quaternion.Euler(0, 90, 0),Quaternion.Euler(-90, 0, 0),Quaternion.Euler(90, 0, 0),Quaternion.Euler(0, -90, 0),Quaternion.Euler(0, 180, 0)};
+    public int CurrDiceValue;
     public bool IsRollAllowed = true;
+    private bool _isRolling = false;
     // Start is called before the first frame update
     void Start()
     {
-        currentface = DiceFaces[Random.Range(0, 6)];
-        FaceText.text = $"{currentface}";
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isRolling)
+        Ray ray = _canvasCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo))
         {
-            currentface = DiceFaces[Random.Range(0, 6)];
-            FaceText.text = $"{currentface}";
-            //Debug.Log("Current Face Is: " + currentface);
+            GameObject hitObject = hitInfo.collider.gameObject;
+
+            // Check if the hit object is the GameObject you want to interact with
+            if ((_isRolling == true || IsRollAllowed == true) && hitObject.CompareTag("Dice"))
+            {
+                IsRollAllowed = false;
+                _isRolling = !_isRolling;
+                if (!_isRolling)
+                    StopRolling();
+            }
         }
+        if(_isRolling)
+        {
+            transform.Rotate(Vector3.up * Random.Range(rotationSpeedUpMin, rotationSpeedUpMax + 1) * Time.deltaTime + Vector3.left * Random.Range(rotationSpeedLeftMin, rotationSpeedLeftMax + 1) * Time.deltaTime);
+        }
+    }
+    private void StopRolling()
+    {
+        int FaceID = Random.Range(0, 6);
+        transform.localRotation = _faceDirs[FaceID];
+        CurrDiceValue = _faceVaules[FaceID];
+        transform.localPosition = Vector3.zero;
+        PlayerMovementManager.initializePossibleEndingSqures(CurrDiceValue);
     }
 
     public void startRolling()
     {
-        if (IsRollAllowed)
+        Debug.Log("Button Works!");
+        /*if (IsRollAllowed)
         {
             if (isRolling)
             {
@@ -45,6 +75,6 @@ public class DiceBehaviour : MonoBehaviour
             }
             // Toggle the dice rolling state
             isRolling = !isRolling;
-        }
-    }
+        } */
+    } 
 }

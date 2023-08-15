@@ -189,7 +189,7 @@ public class BoardManager : MonoBehaviour
     }
     public int GetCurrentDiceRoll()
     {
-        return Dice.currentface;
+        return Dice.CurrDiceValue;
     }
 
     private void Update()

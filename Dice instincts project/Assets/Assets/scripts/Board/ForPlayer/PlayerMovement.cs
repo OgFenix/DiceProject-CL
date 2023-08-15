@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject PossibleEndingSquaresList;
     [SerializeField]
-    DiceBehaviour Dice;
+    DiceBehaviour2D Dice;
     [SerializeField]
     Tilemap tilemap;
     [SerializeField]

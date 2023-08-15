@@ -23,6 +23,7 @@ TagManager:
   - HealthPlayer
   - Armor
   - Game Director
+  - Dice
   layers:
   - Default
   - TransparentFX
