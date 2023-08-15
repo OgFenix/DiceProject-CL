@@ -239,6 +239,9 @@ public class CardGameManager : MonoBehaviour
     {
         exhaustPile.Clear();
         exhaustAmount.text = "0";
+        int childCount = exhaustContainer.transform.childCount;
+        for (int i = 0;i < childCount;i++)
+            exhaustContainer.transform.GetChild(0).SetParent(gameManager.cardContainer.transform);
     }
     void Start()
     {

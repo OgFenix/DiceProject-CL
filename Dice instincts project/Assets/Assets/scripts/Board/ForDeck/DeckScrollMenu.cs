@@ -23,6 +23,8 @@ public class DeckScrollMenu : MonoBehaviour
     Vector3 cardScale = new Vector3(0.7f, 0.7f, 1);
     [SerializeField]
     GameObject cameraObject;
+    [SerializeField]
+    BoardManager boardManager;
     // Start is called before the first frame update
     public void moveDeckToScrollMenu()
     {

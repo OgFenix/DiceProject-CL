@@ -87,11 +87,13 @@ public class PickCardManager : MonoBehaviour
                             scrollContainer.GetComponent<PickCardManager>().enabled = false;
                             exitDeckMenuBtn.gameObject.SetActive(true);
                             boardManager.StopOnTile = false;
+                            boardManager.isDuringAction = false;
                             break;
                         case PickFor.add:
                             AddCard();
                             DestroyAllCardDiscoverOptions();
                             boardManager.StopOnTile = false;
+                            boardManager.isDuringAction = false;
                             break;
                         case PickFor.remove:
                             RemoveCard();
@@ -109,6 +111,7 @@ public class PickCardManager : MonoBehaviour
                             }
                             break;
                     }
+                    
                 }
                 else if (result.gameObject.CompareTag("Relic"))
                 {
@@ -118,6 +121,7 @@ public class PickCardManager : MonoBehaviour
                             AddRelic();
                             DestroyAllCardDiscoverOptions();
                             boardManager.StopOnTile = false;
+                            boardManager.isDuringAction = false;
                             break;
                         case PickFor.buy:
                             Upgrade upgrade = _upgradeToPick.GetComponent<Upgrade>();
@@ -131,6 +135,7 @@ public class PickCardManager : MonoBehaviour
                             break;
                     }
                 }
+                
             }
     }
     private void DestroyAllCardDiscoverOptions()

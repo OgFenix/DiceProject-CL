@@ -66,10 +66,6 @@ public class EnemyMovement : MonoBehaviour
         //Debug.Log($"The Rand: {Random.Range(0, AvailableMoves.Count)}");
         EnemyCellPos = MoveableDirections[AvailableMoves[Random.Range(0,AvailableMoves.Count)]] + EnemyCellPos;
         gameObject.transform.position = tilemap.GetCellCenterWorld(EnemyCellPos);
-        if (Player.cellPlayerPosition == EnemyCellPos)
-        {
-            overallGameManager.EnterCombat(this,true);
-        }
     }
 
     private List<int> GetAvailableMovementsInds()

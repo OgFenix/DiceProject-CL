@@ -24,6 +24,7 @@ public class DiceBehaviour : MonoBehaviour
     public int CurrDiceValue;
     public bool IsRollAllowed = true;
     private bool _isRolling = false;
+    private string diceRes;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,13 +57,20 @@ public class DiceBehaviour : MonoBehaviour
     }
     private void StopRolling()
     {
-        int FaceID = Random.Range(0, 6);
-        transform.localRotation = _faceDirs[FaceID];
-        CurrDiceValue = _faceVaules[FaceID];
+        int FaceID = int.Parse(diceRes);
+        //int FaceID = Random.Range(0, 6);
+        //transform.localRotation = _faceDirs[FaceID];
+        //CurrDiceValue = _faceVaules[FaceID];
         transform.localPosition = Vector3.zero;
-        PlayerMovementManager.initializePossibleEndingSqures(CurrDiceValue);
+        PlayerMovementManager.initializePossibleEndingSqures(FaceID);
     }
-
+    //dice cheats
+    public void ReadDiceOutcome(string s)
+    {
+        diceRes = s;
+        Debug.Log(s);
+        Debug.Log(diceRes);
+    }
     public void startRolling()
     {
         Debug.Log("Button Works!");
