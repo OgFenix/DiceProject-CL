@@ -63,6 +63,7 @@ public class BoardManager : MonoBehaviour
     //bool didEnemyStartCurrFight = false;
     int NumberOfItemsToChooseFromChest = 3;
     int fixedratefromcointile = 20;
+    int FatigueCounter = 0;
 
     private void Start()
     {
@@ -74,6 +75,8 @@ public class BoardManager : MonoBehaviour
     public void TurnIsOver(TileBase endingTile)
     {
         Dice.IsRollAllowed = true;
+        player.UpdateHealth(FatigueCounter);
+        FatigueCounter++;
         ActivateEndingSquare(endingTile);
         foreach (EnemyMovement enemy in enemies)
         {

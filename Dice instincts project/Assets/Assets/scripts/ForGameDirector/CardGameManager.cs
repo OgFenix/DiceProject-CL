@@ -61,7 +61,9 @@ public class CardGameManager : MonoBehaviour
     {
         player.ActivateEndOfTurnStatuses();
         foreach (EnemyBehaviour enemy in activeenemies)
+        {
             enemy.ActivateEndOfTurnStatuses();
+        }
         //if fight finished dont call enemyturn etc...
         if (activeenemies.Count > 0 && activeenemies.All(x => x.health < 0))
             return;
@@ -74,10 +76,12 @@ public class CardGameManager : MonoBehaviour
         for(int i = 0;i < activeenemies.Count;i++)
         {
             activeenemies[i].EnemyAttack();
+            activeenemies[i].SetArmor(0);
             if (i == activeenemies.Count - 1)
                 break;
             yield return new WaitForSeconds(0.3f);
         }
+        player.SetArmor(0);
     }
     public void DrawCard()
     {
