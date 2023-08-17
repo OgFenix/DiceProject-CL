@@ -119,6 +119,7 @@ public class ShopHandler : MonoBehaviour
         ShopInArchive.GetComponent<ShopArgs>().CardRemovalBoughtInThisShop = SoldRemovalInThisShop.activeSelf;
         SoldRemovalInThisShop.SetActive(false);
         IsInShop = false;
+        boardManager.isDuringAction = false;
     }
 
     private void MoveToArchiveShelfs(GameObject ShopInArchive)

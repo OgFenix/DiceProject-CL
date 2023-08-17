@@ -85,7 +85,9 @@ public class OverallGameManager : MonoBehaviour
         BoardInCanvas.SetActive(true);
         CardGame.SetActive(false);
         deck = ListFunctions<GameObject>.SortListByName(deck).ToList();
+        ListFunctions<GameObject>.SortChildren(cardContainer);
         boardManager.healthBar.SetHealth(cardGameManager.player.health);
+        
         
     }
     public void CombatLost()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
-    
+
     [SerializeField]
     CardsDictionary cardsDictionary;
     [SerializeField]
@@ -42,7 +43,7 @@ public class BoardManager : MonoBehaviour
     GameObject scrollContainer;
     [SerializeField]
     GameObject exitDeckMenuBtn;
-    [SerializeField]    
+    [SerializeField]
     private List<TileBase> _regularTiles;
     [SerializeField]
     GameObject campfirePanel;
@@ -52,9 +53,18 @@ public class BoardManager : MonoBehaviour
     public HealthBar healthBar;
     [SerializeField]
     GameObject ShopPanel;
+    [SerializeField]
+    public TextMeshProUGUI fatigueText;
+    [SerializeField]
+    Animator fatigueTextAnimator;
+    [SerializeField]
+    private string fadeIn = "fadeIn";
+    [SerializeField]
+    private string fadeOut = "fadeOut";
+
     CardBehaviour NewCard;
     Upgrade NewUpgrade;
-    public int Money { get;private set; } = 0;
+    public int Money { get; private set; } = 0;
     public bool IsInCombat { get; set; } = false;
     public bool StopOnTile = false;
     [SerializeField]
@@ -64,6 +74,7 @@ public class BoardManager : MonoBehaviour
     int NumberOfItemsToChooseFromChest = 3;
     int fixedratefromcointile = 20;
     int FatigueCounter = 0;
+    public bool isDuringAction = false;
 
     private void Start()
     {
@@ -78,15 +89,38 @@ public class BoardManager : MonoBehaviour
         player.UpdateHealth(FatigueCounter);
         FatigueCounter++;
         ActivateEndingSquare(endingTile);
+        StartCoroutine(fatigueAnimation());
+        StartCoroutine(EnemyMoves());
+    }
+    private IEnumerator fatigueAnimation()
+    {
+        while(isDuringAction)
+            yield return null;
+        fatigueTextAnimator.Play(fadeIn, 0, 0.0f);
+        fatigueText.text = FatigueCounter.ToString();
+    }
+    private IEnumerator EnemyMoves()
+    {
+        while (isDuringAction)
+            yield return null;
         foreach (EnemyMovement enemy in enemies)
         {
             enemy.DecideMove();
+        }
+        foreach (EnemyMovement enemy in enemies)
+        {
+            if (playerMovement.cellPlayerPosition == enemy.EnemyCellPos)
+            {
+                overallGameManager.EnterCombat(enemy, true);
+            }
         }
     }
 
     private void ActivateEndingSquare(TileBase endingTile)
     {
-        switch (endingTile.name[12])    
+        isDuringAction = true;
+
+        switch (endingTile.name[12])
         {
             case '0':
                 PickCardManager.pickFor = PickCardManager.PickFor.upgrade;
@@ -94,9 +128,11 @@ public class BoardManager : MonoBehaviour
                 break;
             case '1':
                 SteppedOnCoinTile();
+                isDuringAction = false;
                 break;
             case '2':
                 SteppedOnFreeTurnTile();
+                isDuringAction = false;
                 break;
             case '6':
                 PickCardManager.pickFor = PickCardManager.PickFor.add;
@@ -104,6 +140,7 @@ public class BoardManager : MonoBehaviour
                 break;
             case '7':
                 SteppedOnQuestionMarkTile();
+                isDuringAction = false;
                 break;
             case '8':
                 SteppedOnShopTile();
@@ -156,8 +193,8 @@ public class BoardManager : MonoBehaviour
             NewUpgrade = Instantiate(prefab).GetComponent<Upgrade>();
             NewUpgrade.Create(newCardInDiscoverId);
             NewUpgrade.transform.SetParent(discoverPanel.transform);
-            if(rand == 1)
-                NewUpgrade.transform.localScale = new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer,1);
+            if (rand == 1)
+                NewUpgrade.transform.localScale = new Vector3(discover_SizeMultiplayer, discover_SizeMultiplayer, 1);
             if (rand == 2)
             {
                 NewUpgrade.transform.localScale = Vector3.one;
@@ -172,7 +209,7 @@ public class BoardManager : MonoBehaviour
     private void SteppedOnShopTile()
     {
         ShopPanel.SetActive(true);
-        ShopPanel.GetComponent<ShopHandler>().OpenShop(3,3);
+        ShopPanel.GetComponent<ShopHandler>().OpenShop(3, 3);
     }
 
     public void UpdateMoney(int Change)
@@ -183,7 +220,7 @@ public class BoardManager : MonoBehaviour
     public bool IsContainingEnemy(Vector3Int pos)
     {
         foreach (EnemyMovement enemy in enemies)
-            if(pos == enemy.EnemyCellPos)
+            if (pos == enemy.EnemyCellPos)
             {
                 overallGameManager.EnterCombat(enemy);
                 return true;
@@ -203,13 +240,13 @@ public class BoardManager : MonoBehaviour
     {
         StartCoroutine(GoAlongChosenPath(ChosenPath, tilemap));
     }
-    public IEnumerator GoAlongChosenPath(List<Vector3Int> ChosenPath,Tilemap tilemap)
+    public IEnumerator GoAlongChosenPath(List<Vector3Int> ChosenPath, Tilemap tilemap)
     {
         TileBase tile;
         Vector3Int cellPlayerPosition = new Vector3Int();
         foreach (var step in ChosenPath)
         {
-            if (IsContainingEnemy(step))
+            if (IsContainingEnemy(step) && !isDuringAction)
                 while (IsInCombat)
                     yield return null;
             playerMovement.transform.position = tilemap.GetCellCenterWorld(step);
@@ -261,7 +298,7 @@ public class BoardManager : MonoBehaviour
                     TileToTransform = tile;
                     break;
             }
-            while(StopOnTile)
+            while (StopOnTile)
                 yield return null;
             yield return new WaitForSeconds(0.3f);
             tilemap.SetTile(step, TileToTransform);
@@ -272,12 +309,12 @@ public class BoardManager : MonoBehaviour
 
     public void CombatButtonPressed()
     {
-            if (EnemyInCombat != null)
-            {
-                enemies.Remove(EnemyInCombat.GetComponent<EnemyMovement>());
-                GameObject.Destroy(EnemyInCombat);
-            }
-            CombatButton.SetActive(false);
-            IsInCombat = false;
-    }    
+        if (EnemyInCombat != null)
+        {
+            enemies.Remove(EnemyInCombat.GetComponent<EnemyMovement>());
+            GameObject.Destroy(EnemyInCombat);
+        }
+        CombatButton.SetActive(false);
+        IsInCombat = false;
+    }
 }

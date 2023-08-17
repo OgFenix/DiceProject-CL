@@ -23,11 +23,13 @@ public class CampfireButtons : MonoBehaviour
         exitDeckMenuBtn.SetActive(false);
         deckScrollMenu.moveDeckToScrollMenu();
         campfirePanel.SetActive(false);
+        boardManager.isDuringAction = false;
     }
     public void heal()
     {
         player.HealHalfHealth();
         campfirePanel.SetActive(false);
         boardManager.StopOnTile = false;
+        boardManager.isDuringAction = false;
     }
 }

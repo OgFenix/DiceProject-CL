@@ -25,4 +25,24 @@ public static class ListFunctions<T>
         list.Sort((obj1, obj2) => obj1.name.CompareTo(obj2.name));
         return list;
     }
+    public static void SortChildren(GameObject parentObject)
+    {
+        int childCount = parentObject.transform.childCount;
+        List<Transform> childList = new List<Transform>();
+
+        // Add all children to the list
+        for (int i = 0; i < childCount; i++)
+        {
+            childList.Add(parentObject.transform.GetChild(i));
+        }
+
+        // Sort the list alphabetically based on child names
+        childList.Sort((a, b) => string.Compare(a.name, b.name));
+
+        // Rearrange the children based on the sorted list
+        for (int i = 0; i < childCount; i++)
+        {
+            childList[i].SetSiblingIndex(i);
+        }
+    }
 }
