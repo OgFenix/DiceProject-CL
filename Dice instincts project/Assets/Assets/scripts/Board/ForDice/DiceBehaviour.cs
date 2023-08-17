@@ -57,10 +57,15 @@ public class DiceBehaviour : MonoBehaviour
     }
     private void StopRolling()
     {
-        int FaceID = int.Parse(diceRes);
-        //int FaceID = Random.Range(0, 6);
-        //transform.localRotation = _faceDirs[FaceID];
-        //CurrDiceValue = _faceVaules[FaceID];
+        int FaceID;
+        if (diceRes != null)
+            FaceID = int.Parse(diceRes);
+        else
+        {
+            FaceID = Random.Range(0, 6);
+            transform.localRotation = _faceDirs[FaceID];
+            CurrDiceValue = _faceVaules[FaceID];
+        }
         transform.localPosition = Vector3.zero;
         PlayerMovementManager.initializePossibleEndingSqures(FaceID);
     }

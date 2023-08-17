@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fatigue_0: 4347074383671278454
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
