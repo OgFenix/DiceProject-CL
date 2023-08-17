@@ -317,6 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068537d467c7ba549a9693dd172faf7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0.2
+  canvasCam: {fileID: 0}
+  _isindragmode: 1
 --- !u!1 &3800818316523238255
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +468,7 @@ GameObject:
   - component: {fileID: 1255128642576294545}
   m_Layer: 5
   m_Name: Dice
-  m_TagString: Dice
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
