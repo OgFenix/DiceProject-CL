@@ -60,6 +60,10 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private string fadeIn = "fadeIn";
     [SerializeField]
+    private GameObject _dicePickBackground;
+    [SerializeField]
+    private GameObject _diceFacePrefab;
+    [SerializeField]
     private string fadeOut = "fadeOut";
 
     CardBehaviour NewCard;
@@ -316,5 +320,22 @@ public class BoardManager : MonoBehaviour
         }
         CombatButton.SetActive(false);
         IsInCombat = false;
+    }
+    
+    public void ActivateDiceUpgChoice(object sender, FuncArgs args)
+    {
+        _dicePickBackground.SetActive(true);
+        string VisualizeForSetOrAdd;
+        GameObject NewDiceface;
+        for(int i = 0; i < args.Dicefaces.Count; i++)
+        {
+            if (args.IsToSetTo)
+                VisualizeForSetOrAdd = "";
+            else
+                VisualizeForSetOrAdd = "+";
+            NewDiceface = GameObject.Instantiate(_diceFacePrefab);
+            NewDiceface.transform.SetParent(_dicePickBackground.transform.GetChild(1));
+            NewDiceface.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = VisualizeForSetOrAdd + args.Dicefaces[i].ToString();
+        }
     }
 }

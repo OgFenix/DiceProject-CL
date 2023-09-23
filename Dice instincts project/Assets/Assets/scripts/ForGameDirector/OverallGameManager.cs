@@ -13,6 +13,7 @@ public delegate void GameEvent(EffectTiming timing);
 public class OverallGameManager : MonoBehaviour
 {
     public event GameEvent EnterCombatEvent;
+    public event GameEvent WhenPicked;
     [SerializeField]
     GameObject scrollContainer;
     [SerializeField]

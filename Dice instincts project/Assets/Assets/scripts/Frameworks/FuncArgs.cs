@@ -1,12 +1,16 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class FuncArgs : EventArgs
 {
     
     public EventHandler<FuncArgs> FuncToRun;
     public EventHandler<FuncArgs> TargetTypeFunc;
+    public List<int> Dicefaces;
+    public bool IsToSetTo;
     public int EffectNum;
     public Func<int> GetEnvelopeNumber = null;
     public int modnum = 0;
@@ -39,5 +43,12 @@ public class FuncArgs : EventArgs
         :this(funcToRun,targetTypeFunc, getEnvelopeNumber, modnum,forEachUpTo, timing)
     {
         this.status = status;
+    }
+    public FuncArgs(EventHandler<FuncArgs> funcToRun, List<int> diceFaces,bool isToSetTo, EffectTiming timing)
+    {
+        IsToSetTo = isToSetTo;
+        TargetTypeFunc = funcToRun;
+        Dicefaces = diceFaces;
+        Timing = timing;
     }
 }

@@ -59,7 +59,7 @@ public class DiceBehaviour : MonoBehaviour
     {
         int FaceID;
         if (diceRes != null)
-            FaceID = int.Parse(diceRes);
+            FaceID = int.Parse(diceRes) - 1;
         else
         {
             FaceID = Random.Range(0, 6);
@@ -67,7 +67,7 @@ public class DiceBehaviour : MonoBehaviour
             CurrDiceValue = _faceVaules[FaceID];
         }
         transform.localPosition = Vector3.zero;
-        PlayerMovementManager.initializePossibleEndingSqures(FaceID);
+        PlayerMovementManager.initializePossibleEndingSqures(FaceID + 1);
     }
     //dice cheats
     public void ReadDiceOutcome(string s)

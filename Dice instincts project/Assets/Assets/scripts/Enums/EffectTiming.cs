@@ -4,5 +4,6 @@
     Startofturn,
     Endofturn,
     EnterCombat,
-    ExitCombat
+    ExitCombat,
+    LandingOnCoinTile,
 }
