@@ -24,7 +24,7 @@ public class DiceBehaviour : MonoBehaviour
     public int CurrDiceValue;
     public bool IsRollAllowed = true;
     private bool _isRolling = false;
-    private string diceRes;
+    private string diceRes = "";
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +58,7 @@ public class DiceBehaviour : MonoBehaviour
     private void StopRolling()
     {
         int FaceID;
-        if (diceRes != null)
+        if (diceRes!= "")
             FaceID = int.Parse(diceRes);
         else
         {
